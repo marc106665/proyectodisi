@@ -35,5 +35,8 @@
 	<!-- Fitxer de Propietats JDBC, localització relativa al classpath -->
  	<context:property-placeholder location="classpath:jdbc.properties"/>
  	
+ 	<!-- Recursos -->
+ 
+ 	
 	
 </beans>

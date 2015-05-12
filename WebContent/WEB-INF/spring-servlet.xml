@@ -8,8 +8,8 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<context:component-scan 
-		base-package="es.uji.ei1027.clubesportiu.controller" />
+	<context:component-scan base-package="com.naturadventure.backend.controller" />
+	<context:component-scan base-package="com.naturadventure.frontend.controller" />
 		
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
@@ -19,25 +19,21 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<context:component-scan base-package="es.uji.ei1027.clubesportiu.atleta" />
-	<bean id="atleta" class="es.uji.ei1027.clubesportiu.atleta.AtletaNadador" />
+	<context:component-scan base-package="com.naturadventure.dao" />
+	<bean id="monitorDao" class="com.naturadventure.dao.MonitorDAO" />
+	<bean id="tipoActividadDao" class="com.naturadventure.dao.TipoActividadDAO" />
 	
-	<context:component-scan base-package="es.uji.ei1027.clubesportiu.pais" />
-	<bean id="capitalService" 
-		class="es.uji.ei1027.clubesportiu.pais.CapitalBD">
-	</bean>
-	
+		
 	<!-- Font de dades -->
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	        <property name="driverClassName" value="org.postgresql.Driver"/>
-	        <property name="url" value="jdbc:postgresql://db-aules.uji.es/ei102714agg"/>
-	        <property name="username" value="ei102714agg"/>
-	        <property name="password" value="ei102714agg"/>
-	 </bean>
+	 
+	 <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+ 	</bean>
 	<!-- Fitxer de Propietats JDBC, localització relativa al classpath -->
  	<context:property-placeholder location="classpath:jdbc.properties"/>
  	
- 	<context:component-scan base-package="es.uji.ei1027.clubesportiu.dao" />
-	<bean id="CapitalService" class="es.uji.ei1027.clubesportiu.pais.CapitalBD"/>
 	
 </beans>

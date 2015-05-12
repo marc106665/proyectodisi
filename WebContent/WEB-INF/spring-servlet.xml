@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+ 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:component-scan 
+		base-package="es.uji.ei1027.clubesportiu.controller" />
+		
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<context:component-scan base-package="es.uji.ei1027.clubesportiu.atleta" />
+	<bean id="atleta" class="es.uji.ei1027.clubesportiu.atleta.AtletaNadador" />
+	
+	<context:component-scan base-package="es.uji.ei1027.clubesportiu.pais" />
+	<bean id="capitalService" 
+		class="es.uji.ei1027.clubesportiu.pais.CapitalBD">
+	</bean>
+	
+	<!-- Font de dades -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	        <property name="driverClassName" value="org.postgresql.Driver"/>
+	        <property name="url" value="jdbc:postgresql://db-aules.uji.es/ei102714agg"/>
+	        <property name="username" value="ei102714agg"/>
+	        <property name="password" value="ei102714agg"/>
+	 </bean>
+	<!-- Fitxer de Propietats JDBC, localització relativa al classpath -->
+ 	<context:property-placeholder location="classpath:jdbc.properties"/>
+ 	
+ 	<context:component-scan base-package="es.uji.ei1027.clubesportiu.dao" />
+	<bean id="CapitalService" class="es.uji.ei1027.clubesportiu.pais.CapitalBD"/>
+	
+</beans>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=latin1"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <!--[if IE 9]> <html lang="es" class="ie9"> <![endif]-->
 <!--[if !IE]><!-->
@@ -41,7 +41,82 @@
 		<!-- ================ -->
 		<div class="scrollToTop"><i class="icon-up-open-big"></i></div>
 
-		<%@ include file="WEB-INF/jsp/components/menu.jsp"%>
+		<!-- header start -->
+		<!-- ================ --> 
+		<header class="header fixed clearfix navbar navbar-fixed-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+
+						<!-- header-left start -->
+						<!-- ================ -->
+						<div class="header-left clearfix">
+
+							<!-- logo -->
+							<div class="logo smooth-scroll">
+								<a href="index.html"><img id="logo" src="${pageContext.request.contextPath}/resources/images/logo.png" alt="logo"></a>
+							</div>
+
+							<!-- name-and-slogan -->
+							<div class="site-name-and-slogan smooth-scroll">
+								<div class="site-name"><a href="index.html">NaturAdventure</a></div>
+								<div class="site-slogan">Disfruta la <a>naturaleza</a>. Vive la <a>aventura</a></div>
+							</div>
+
+						</div>
+						<!-- header-left end -->
+
+					</div>
+					<div class="col-md-8">
+
+						<!-- header-right start -->
+						<!-- ================ -->
+						<div class="header-right clearfix">
+
+							<!-- main-navigation start -->
+							<!-- ================ -->
+							<div class="main-navigation animated">
+
+								<!-- navbar start -->
+								<!-- ================ -->
+								<nav class="navbar navbar-default" role="navigation">
+									<div class="container-fluid">
+
+										<!-- Toggle get grouped for better mobile display -->
+										<div class="navbar-header">
+											<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+												<span class="sr-only">Navegación</span>
+												<span class="icon-bar"></span>
+												<span class="icon-bar"></span>
+												<span class="icon-bar"></span>
+											</button>
+										</div>
+
+										<!-- Collect the nav links, forms, and other content for toggling -->
+										<div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
+											<ul class="nav navbar-nav navbar-right">
+												<li class="active"><a href="index.html">Inicio</a></li>
+												<li><a href="#aventuras">Aventuras</a></li>
+												<li><a href="#quienes_somos">Quiénes somos</a></li>
+												<li><a href="#contacta">Contacta</a></li>
+											</ul>
+										</div>
+
+									</div>
+								</nav>
+								<!-- navbar end -->
+
+							</div>
+							<!-- main-navigation end -->
+
+						</div>
+						<!-- header-right end -->
+
+					</div>
+				</div>
+			</div>
+		</header>
+		<!-- header end -->
 
 		<!-- banner start -->
 		<!-- ================ -->
@@ -93,8 +168,8 @@
 
 						<!-- portfolio items start -->
 						<div class="isotope-container row grid-space-20">
-							
-
+				
+				  <c:forEach items="${tiposdeactividades}" var="tactividad"> 
 							<div class="col-sm-6 col-md-3 isotope-item novedades">
 								<div class="well well-sm">
 									<div class="overlay-container">
@@ -104,7 +179,7 @@
 										</a>
 									</div>
 									<div class="overlay-container">
-										<h5>Barranquismo <span class="label label-info pull-right">Nuevo!</span></h5>
+										<h5>${tactividad.tipo} <span class="label label-info pull-right">Nuevo!</span></h5>
 										<a class="btn btn-success btn-block" href="actividad.html?id=2">¡Reservalo ya!</a>
 									</div>
 								</div>
@@ -114,14 +189,14 @@
 										<div class="modal-content">
 											<div class="modal-header">
 												<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-												<h4 class="modal-title" id="project-1-label">Barranquismo</h4>
+												<h4 class="modal-title" id="project-1-label">${tactividad.tipo}</h4>
 											</div>
 											<div class="modal-body">
 												<h3>Barranquismo</h3>
 												<div class="row">
 													<div class="col-md-6">
-														<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque sed, quidem quis praesentium, ut unde. Quae sed, incidunt laudantium nesciunt, optio corporis quod earum pariatur omnis illo saepe numquam suscipit, nemo placeat dignissimos eius mollitia et quas officia doloremque ipsum labore rem deserunt vero! Magnam totam delectus accusantium voluptas et, tempora quos atque, fugiat, obcaecati voluptatibus commodi illo voluptates dolore nemo quo soluta quis.</p>
-														<p>Molestiae sed enim laboriosam atque delectus voluptates rerum nostrum sapiente obcaecati molestias quasi optio exercitationem, voluptate quis consequatur libero incidunt, in, quod. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos nobis officiis, autem earum tenetur quidem. Quae non dicta earum. Ipsum autem eaque cum dolor placeat corporis quisquam dolorum at nesciunt.</p>
+														<p>${tactividad.descripcion}</p>
+														
 													</div>
 													<div class="col-md-6">
 														<img src="${pageContext.request.contextPath}/resources/images/portfolio-1.jpg" alt="">
@@ -136,135 +211,13 @@
 								</div>
 								<!-- Modal end -->
 							</div>
-
-							<div class="col-sm-6 col-md-3 isotope-item ofertas">
-								<div class="well well-sm">
-									<div class="overlay-container">
-										<img src="${pageContext.request.contextPath}/resources/images/portfolio-2.jpg" alt="">
-										<a class="overlay" data-toggle="modal" data-target="#project-1">
-											<span class="btn btn-info">Más información</span>
-										</a>
-									</div>
-									<div class="overlay-container">
-										<h5>Kayak río <span class="label label-warning pull-right">En oferta!</span></h5>
-										<a class="btn btn-success btn-block" href="actividad.html?id=2">¡Reservalo ya!</a>
-									</div>
-									
-								</div>
-								<!-- Modal -->
-								<div class="modal fade" id="project-2" tabindex="-1" role="dialog" aria-labelledby="project-2-label" aria-hidden="true">
-									<div class="modal-dialog modal-lg">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-												<h4 class="modal-title" id="project-2-label">Kayak río</h4>
-											</div>
-											<div class="modal-body">
-												<h3>Kayak río</h3>
-												<div class="row">
-													<div class="col-md-6">
-														<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque sed, quidem quis praesentium, ut unde. Quae sed, incidunt laudantium nesciunt, optio corporis quod earum pariatur omnis illo saepe numquam suscipit, nemo placeat dignissimos eius mollitia et quas officia doloremque ipsum labore rem deserunt vero! Magnam totam delectus accusantium voluptas et, tempora quos atque, fugiat, obcaecati voluptatibus commodi illo voluptates dolore nemo quo soluta quis.</p>
-														<p>Molestiae sed enim laboriosam atque delectus voluptates rerum nostrum sapiente obcaecati molestias quasi optio exercitationem, voluptate quis consequatur libero incidunt, in, quod. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos nobis officiis, autem earum tenetur quidem. Quae non dicta earum. Ipsum autem eaque cum dolor placeat corporis quisquam dolorum at nesciunt.</p>
-													</div>
-													<div class="col-md-6">
-														<img src="${pageContext.request.contextPath}/resources/images/portfolio-2.jpg" alt="">
-													</div>
-												</div>
-											</div>
-											<div class="modal-footer">
-												<a type="button" class="btn btn-sm btn-success" href="actividad.html?id=1">Reservar ahora!</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Modal end -->
-							</div>
+ 			</c:forEach>
 							
-							<div class="col-sm-6 col-md-3 isotope-item novedades">
-								<div class="well well-sm">
-									<div class="overlay-container">
-										<img src="${pageContext.request.contextPath}/resources/images/portfolio-3.jpg" alt="">
-										<a class="overlay" data-toggle="modal" data-target="#project-1">
-											<span class="btn btn-info">Más información</span>
-										</a>
-									</div>
-									<div class="overlay-container">
-										<h5>Rafting <span class="label label-info pull-right">Nuevo!</span></h5>
-										<a class="btn btn-success btn-block" href="reserva.html?id=2">¡Reservalo ya!</a>
-									</div>
-								</div>
-								<!-- Modal -->
-								<div class="modal fade" id="project-3" tabindex="-1" role="dialog" aria-labelledby="project-3-label" aria-hidden="true">
-									<div class="modal-dialog modal-lg">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-												<h4 class="modal-title" id="project-3-label">Rafting</h4>
-											</div>
-											<div class="modal-body">
-												<h3>Rafting</h3>
-												<div class="row">
-													<div class="col-md-6">
-														<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque sed, quidem quis praesentium, ut unde. Quae sed, incidunt laudantium nesciunt, optio corporis quod earum pariatur omnis illo saepe numquam suscipit, nemo placeat dignissimos eius mollitia et quas officia doloremque ipsum labore rem deserunt vero! Magnam totam delectus accusantium voluptas et, tempora quos atque, fugiat, obcaecati voluptatibus commodi illo voluptates dolore nemo quo soluta quis.</p>
-														<p>Molestiae sed enim laboriosam atque delectus voluptates rerum nostrum sapiente obcaecati molestias quasi optio exercitationem, voluptate quis consequatur libero incidunt, in, quod. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos nobis officiis, autem earum tenetur quidem. Quae non dicta earum. Ipsum autem eaque cum dolor placeat corporis quisquam dolorum at nesciunt.</p>
-													</div>
-													<div class="col-md-6">
-														<img src="${pageContext.request.contextPath}/resources/images/portfolio-3.jpg" alt="">
-													</div>
-												</div>
-											</div>
-											<div class="modal-footer">
-												<a type="button" class="btn btn-sm btn-success" href="actividad.html?id=1">Reservar ahora!</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Modal end -->
-							</div>
+							
+														
 							
 							
 							
-							<div class="col-sm-6 col-md-3 isotope-item ofertas">
-								<div class="well well-sm">
-									<div class="overlay-container">
-										<img src="${pageContext.request.contextPath}/resources/images/portfolio-5.jpg" alt="">
-										<a class="overlay" data-toggle="modal" data-target="#project-1">
-											<span class="btn btn-info">Más información</span>
-										</a>
-									</div>
-									<div class="overlay-container">
-										<h5>Parapente <span class="label label-warning pull-right">En oferta!</span></h5>
-										<a class="btn btn-success btn-block" href="reserva.html?id=2">¡Reservalo ya!</a>
-									</div>
-								</div>
-								<!-- Modal -->
-								<div class="modal fade" id="project-5" tabindex="-1" role="dialog" aria-labelledby="project-5-label" aria-hidden="true">
-									<div class="modal-dialog modal-lg">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-												<h4 class="modal-title" id="project-5-label">Parapente</h4>
-											</div>
-											<div class="modal-body">
-												<h3>Parapente</h3>
-												<div class="row">
-													<div class="col-md-6">
-														<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque sed, quidem quis praesentium, ut unde. Quae sed, incidunt laudantium nesciunt, optio corporis quod earum pariatur omnis illo saepe numquam suscipit, nemo placeat dignissimos eius mollitia et quas officia doloremque ipsum labore rem deserunt vero! Magnam totam delectus accusantium voluptas et, tempora quos atque, fugiat, obcaecati voluptatibus commodi illo voluptates dolore nemo quo soluta quis.</p>
-														<p>Molestiae sed enim laboriosam atque delectus voluptates rerum nostrum sapiente obcaecati molestias quasi optio exercitationem, voluptate quis consequatur libero incidunt, in, quod. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos nobis officiis, autem earum tenetur quidem. Quae non dicta earum. Ipsum autem eaque cum dolor placeat corporis quisquam dolorum at nesciunt.</p>
-													</div>
-													<div class="col-md-6">
-														<img src="${pageContext.request.contextPath}/resources/images/portfolio-5.jpg" alt="">
-													</div>
-												</div>
-											</div>
-											<div class="modal-footer">
-												<a type="button" class="btn btn-sm btn-success" href="actividad.html?id=1">Reservar ahora!</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Modal end -->
-							</div>
 
 
 						</div>

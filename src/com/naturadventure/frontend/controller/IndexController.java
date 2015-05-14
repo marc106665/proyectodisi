@@ -28,5 +28,10 @@ public class IndexController {
 	        return "index";
 	    }
 	
+	 @RequestMapping(value="/actividad/{tipo}", method = RequestMethod.GET) 
+	    public String editTActividad(Model model, @PathVariable String tipo) {
+	        model.addAttribute("tipo", tipo);
+	        return "actividad"; 
+	    } 
 	
 }

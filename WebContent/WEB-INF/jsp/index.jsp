@@ -174,7 +174,7 @@
 								<div class="well well-sm">
 									<div class="overlay-container">
 										<img src="${pageContext.request.contextPath}${tactividad.foto}" alt="">
-										<a class="overlay" data-toggle="modal" data-target="#project-1">
+										<a class="overlay" data-toggle="modal" data-target="#${tactividad.tipo}">
 											<span class="btn btn-info">Más información</span>
 										</a>
 									</div>
@@ -184,15 +184,15 @@
 									</div>
 								</div>
 								<!-- Modal -->
-								<div class="modal fade" id="project-1" tabindex="-1" role="dialog" aria-labelledby="project-1-label" aria-hidden="true">
+								<div class="modal fade" id="${tactividad.tipo}" tabindex="-1" role="dialog" aria-labelledby="${tactividad.tipo}-label" aria-hidden="true">
 									<div class="modal-dialog modal-lg">
 										<div class="modal-content">
 											<div class="modal-header">
 												<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-												<h4 class="modal-title" id="project-1-label">${tactividad.tipo}</h4>
+												<h4 class="modal-title" id="${tactividad.tipo}-label">${tactividad.tipo}</h4>
 											</div>
 											<div class="modal-body">
-												<h3>Barranquismo</h3>
+												<%-- <h3>${tactividad.tipo}</h3> --%>
 												<div class="row">
 													<div class="col-md-6">
 														<p>${tactividad.descripcion}</p>

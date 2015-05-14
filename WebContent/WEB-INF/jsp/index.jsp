@@ -95,7 +95,7 @@
 										<!-- Collect the nav links, forms, and other content for toggling -->
 										<div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
 											<ul class="nav navbar-nav navbar-right">
-												<li class="active"><a href="index.html">Inicio</a></li>
+												<li class="active"><a href="#inicio">Inicio</a></li>
 												<li><a href="#aventuras">Aventuras</a></li>
 												<li><a href="#quienes_somos">Quiénes somos</a></li>
 												<li><a href="#contacta">Contacta</a></li>
@@ -120,7 +120,7 @@
 
 		<!-- banner start -->
 		<!-- ================ -->
-		<div class="banner">
+		<div class="banner" id="inicio">
 			<div class="banner-image"></div>
 			<div class="banner-caption">
 				<div class="container">
@@ -173,14 +173,14 @@
 							<div class="col-sm-6 col-md-3 isotope-item novedades">
 								<div class="well well-sm">
 									<div class="overlay-container">
-										<img src="${pageContext.request.contextPath}/resources/images/portfolio-1.jpg" alt="">
+										<img src="${pageContext.request.contextPath}${tactividad.foto}" alt="">
 										<a class="overlay" data-toggle="modal" data-target="#project-1">
 											<span class="btn btn-info">Más información</span>
 										</a>
 									</div>
 									<div class="overlay-container">
 										<h5>${tactividad.tipo} <span class="label label-info pull-right">Nuevo!</span></h5>
-										<a class="btn btn-success btn-block" href="actividad.html?id=2">¡Reservalo ya!</a>
+										<a class="btn btn-success btn-block" href="actividad.html">¡Reservalo ya!</a>
 									</div>
 								</div>
 								<!-- Modal -->
@@ -199,12 +199,12 @@
 														
 													</div>
 													<div class="col-md-6">
-														<img src="${pageContext.request.contextPath}/resources/images/portfolio-1.jpg" alt="">
+														<img src="${pageContext.request.contextPath}${tactividad.foto}" alt="">
 													</div>
 												</div>
 											</div>
 											<div class="modal-footer">
-												<a type="button" class="btn btn-sm btn-success" href="actividad.html?id=1">Reservar ahora!</a>
+												<a type="button" class="btn btn-sm btn-success" href="actividad.html">Reservar ahora!</a>
 											</div>
 										</div>
 									</div>
@@ -325,18 +325,7 @@
 			</div>
 			<!-- .footer end -->
 
-			<!-- section start -->
-			<!-- ================ -->
-			<div class="default-bg space">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-8 col-md-offset-2">
-							<p class="text-center">Copyright © 2015 by AGG - Team.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- section end -->
+		<%@ include file="components/pie.jsp" %>
 
 		</footer>
 		<!-- footer end -->

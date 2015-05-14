@@ -33,10 +33,17 @@
         <property name="password" value="${jdbc.password}"/>
  	</bean>
 	<!-- Fitxer de Propietats JDBC, localització relativa al classpath -->
- 	<context:property-placeholder location="classpath:jdbc.properties"/>
+ 	<context:property-placeholder location="classpath:jdbc.properties"/> 
  	
  	<!-- Recursos -->
- 
+ 	
+ 	<!-- Local host conexion -->
+ 	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/postgres"/>
+        <property name="username" value="postgres"/>
+        <property name="password" value="postgres"/>
+ 	</bean> -->
  	
 	
 </beans>

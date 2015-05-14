@@ -43,7 +43,7 @@
 										<!-- Toggle get grouped for better mobile display -->
 										<div class="navbar-header">
 											<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
-												<span class="sr-only">NavegaciÃ³n</span>
+												<span class="sr-only">Navegación</span>
 												<span class="icon-bar"></span>
 												<span class="icon-bar"></span>
 												<span class="icon-bar"></span>
@@ -53,10 +53,10 @@
 										<!-- Collect the nav links, forms, and other content for toggling -->
 										<div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
 											<ul class="nav navbar-nav navbar-right">
-												<li class="active"><a href="index.html">Inicio</a></li>
-												<li><a href="#aventuras">Aventuras</a></li>
-												<li><a href="#quienes_somos">QuiÃ©nes somos</a></li>
-												<li><a href="#contacta">Contacta</a></li>
+												<li><a href="index.html#inicio">Inicio</a></li>
+												<li><a href="index.html#aventuras">Aventuras</a></li>
+												<li><a href="index.html#quienes_somos">Quiénes somos</a></li>
+												<li><a href="index.html#contacta">Contacta</a></li>
 											</ul>
 										</div>
 

@@ -22,10 +22,10 @@ public class IndexController {
         this.tipoActividadDao = tipoActividadDAO;
     }
 	
-	@RequestMapping("/welcome")
+	@RequestMapping("/index")
 	    public String index(Model model) {
 		 model.addAttribute("tiposdeactividades", tipoActividadDao.getTiposActividad());
-	        return "welcome";
+	        return "index";
 	    }
 	
 	

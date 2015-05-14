@@ -9,32 +9,32 @@
 		<meta name="description" content="web AGG project">
 		<meta name="author" content="AGG team">
 
-		<!-- Mobile Meta -->
+<!-- Mobile Meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="images/favicon.ico">
+		<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico">
 
 		<!-- Web Fonts -->
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,300&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-		<link href='http://fonts.googleapis.com/css?family=Raleway:700,400,300' rel='stylesheet' type='text/css'>
+		<link href='${pageContext.request.contextPath}/resources/css/fonts.css' rel='stylesheet' type='text/css'>
+		<link href='${pageContext.request.contextPath}/resources/css/fonts2.css' rel='stylesheet' type='text/css'>
 
 		<!-- Bootstrap core CSS -->
-		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+		<link href='${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css' rel="stylesheet">
 
 		<!-- Font Awesome CSS -->
-		<link href="fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/resources/fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
 
 		<!-- Plugins -->
-		<link href="css/animations.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/resources/css/animations.css" rel="stylesheet">
 
 		<!-- Worthy core CSS file -->
-		<link href="css/style.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
 
 		<!-- Custom css --> 
-		<link href="css/custom.css" rel="stylesheet">
-		<link rel="stylesheet" href="css/blueimp-gallery.min.css">
-		<link rel="stylesheet" href="css/bootstrap-image-gallery.min.css">
+		<link href="${pageContext.request.contextPath}/css/custom.css" rel="stylesheet">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/blueimp-gallery.min.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-image-gallery.min.css">
 	</head>
 
 	<body class="no-trans">
@@ -446,23 +446,23 @@
 		<!-- JavaScript files placed at the end of the document so the pages load faster
 		================================================== -->
 		<!-- Jquery and Bootstap core js files -->
-		<script type="text/javascript" src="plugins/jquery.min.js"></script>
-		<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 
 		<!-- Modernizr javascript -->
-		<script type="text/javascript" src="plugins/modernizr.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/modernizr.js"></script>
 
 		<!-- Isotope javascript -->
-		<script type="text/javascript" src="plugins/isotope/isotope.pkgd.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/isotope/isotope.pkgd.min.js"></script>
 		
 		<!-- Backstretch javascript -->
-		<script type="text/javascript" src="plugins/jquery.backstretch.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/jquery.backstretch.min.js"></script>
 
 		<!-- Appear javascript -->
-		<script type="text/javascript" src="plugins/jquery.appear.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/jquery.appear.js"></script>
 
 		<!-- Initialization of Plugins -->
-		<script type="text/javascript" src="js/template.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/template.js"></script>
 
 		<!-- Custom Scripts -->
 		<script type="text/javascript" src="js/custom.js"></script>

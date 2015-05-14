@@ -180,7 +180,7 @@
 									</div>
 									<div class="overlay-container">
 										<h5>${tactividad.tipo} <span class="label label-info pull-right">Nuevo!</span></h5>
-										<a class="btn btn-success btn-block" href="actividad.html">¡Reservalo ya!</a>
+										<a class="btn btn-success btn-block" href="actividad/${tactividad.tipo}.html">¡Reservalo ya!</a>
 									</div>
 								</div>
 								<!-- Modal -->
@@ -204,7 +204,7 @@
 												</div>
 											</div>
 											<div class="modal-footer">
-												<a type="button" class="btn btn-sm btn-success" href="actividad.html">Reservar ahora!</a>
+												<a type="button" class="btn btn-sm btn-success" href="actividad/${tactividad.tipo}.html">Reservar ahora!</a>
 											</div>
 										</div>
 									</div>

@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=latin1"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <!--[if IE 9]> <html lang="es" class="ie9"> <![endif]-->
 <!--[if !IE]><!-->
@@ -5,7 +9,7 @@
 <!--<![endif]-->
 	<head>
 		<meta charset="utf-8">
-		<title>Título</title>
+		<title>NaturAdventure</title>
 		<meta name="description" content="web AGG project">
 		<meta name="author" content="AGG team">
 
@@ -16,11 +20,11 @@
 		<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico">
 
 		<!-- Web Fonts -->
-		<link href='${pageContext.request.contextPath}/resources/css/fonts.css' rel='stylesheet' type='text/css'>
-		<link href='${pageContext.request.contextPath}/resources/css/fonts2.css' rel='stylesheet' type='text/css'>
+		<link href="${pageContext.request.contextPath}/resources/css/fonts.css" rel='stylesheet' type='text/css'>
+		<link href="${pageContext.request.contextPath}/resources/css/fonts2.css" rel='stylesheet' type='text/css'>
 
 		<!-- Bootstrap core CSS -->
-		<link href='${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css' rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
 
 		<!-- Font Awesome CSS -->
 		<link href="${pageContext.request.contextPath}/resources/fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -32,9 +36,9 @@
 		<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
 
 		<!-- Custom css --> 
-		<link href="${pageContext.request.contextPath}/css/custom.css" rel="stylesheet">
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/blueimp-gallery.min.css">
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-image-gallery.min.css">
+		<link href="${pageContext.request.contextPath}/resources/css/customPago.css" rel="stylesheet">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/blueimp-gallery.min.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-image-gallery.min.css">
 	</head>
 
 	<body class="no-trans">
@@ -55,7 +59,7 @@
 
 							<!-- logo -->
 							<div class="logo smooth-scroll">
-								<a href="#banner"><img id="logo" src="images/logo.png" alt="logo"></a>
+								<a href="#banner"><img id="logo" src="${pageContext.request.contextPath}/resources/images/logo.png" alt="logo"></a>
 							</div>
 
 							<!-- name-and-slogan -->
@@ -86,7 +90,7 @@
 										<!-- Toggle get grouped for better mobile display -->
 										<div class="navbar-header">
 											<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
-												<span class="sr-only">Navegación</span>
+												<span class="sr-only">NavegaciÃ³n</span>
 												<span class="icon-bar"></span>
 												<span class="icon-bar"></span>
 												<span class="icon-bar"></span>
@@ -130,24 +134,24 @@
 
 		<!-- section start -->
 		<!-- ================ -->
-		<div class="section clearfix object-non-visible" data-animation-effect="fadeIn">
+		<div class="section clearfix object-visible" data-animation-effect="fadeIn">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<h1 class="title text-center"><span>Barranquismo</span></h1>
+						<h1 class="title text-center"><span>${tipo}</span></h1>
 						<div class="space"></div>
 						<div class="row">
 							<div class="col-md-6" id="links">
-							<a href="images/portfolio-1.jpg" title="Banana" data-gallery>
-						        <img src="images/thumbnails/portfolio-1.jpg" alt="Banana">
+							<a href="${pageContext.request.contextPath}images/portfolio-1.jpg" title="Banana" data-gallery>
+						        <img src="${pageContext.request.contextPath}/resources/images/thumbnails/portfolio-1.jpg" alt="Banana">
 						    </a>
-						    <a href="images/portfolio-2.jpg" title="Banana" data-gallery></a>
-						    <a href="images/portfolio-3.jpg" title="Banana" data-gallery></a>
+						    <a href="${pageContext.request.contextPath}images/portfolio-2.jpg" title="Banana" data-gallery></a>
+						    <a href="${pageContext.request.contextPath}images/portfolio-3.jpg" title="Banana" data-gallery></a>
 						    
 								<div class="space"></div>
 							</div>
 							<div class="col-md-6">
-								<p>Descripción resumen    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi adipisci illo, voluptatum ipsam fuga error commodi architecto, laudantium culpa tenetur at id, beatae placeat deserunt iure quas voluptas fugit eveniet.</p>
+								<p>DescripciÃ³n resumen    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi adipisci illo, voluptatum ipsam fuga error commodi architecto, laudantium culpa tenetur at id, beatae placeat deserunt iure quas voluptas fugit eveniet.</p>
 								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo ducimus explicabo quibusdam temporibus deserunt doloremque pariatur ea, animi a. Delectus similique atque eligendi, enim vel reiciendis deleniti neque aliquid, sit?</p>
 								<h5>Requistos:</h5>
 								<ul class="list-unstyled">
@@ -162,7 +166,7 @@
 						
 						<div class="row">
 							<div class="col-md-12">
-								<h2><i class="fa fa-info-circle"></i> Niveles por localización</h2>
+								<h2><i class="fa fa-info-circle"></i> Niveles por localizaciÃ³n</h2>
 								
 								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 									<div class="panel panel-default">
@@ -178,19 +182,19 @@
 												<ul class="list-unstyled">
 													<li><i class="fa fa-caret-right pr-10 text-colored"></i> Descenso Gorgas negras 
 														<ul class="list-unstyled">
-															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> Este descenso cuenta con un par de saltos sin necesidad de cuerda <a href="">¿Donde esta?</a></li>
+															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> Este descenso cuenta con un par de saltos sin necesidad de cuerda <a href="">Â¿Donde esta?</a></li>
 														</ul>
 													</li>
 
 													<li><i class="fa fa-caret-right pr-10 text-colored"></i> Descenso afluente Letepte 
 														<ul class="list-unstyled">
-															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> Este descenso se puede realizar con niños <a href="">¿Donde esta?</a></li>
+															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> Este descenso se puede realizar con niÃ±os <a href="">Â¿Donde esta?</a></li>
 														</ul>
 													</li>
 
 													<li><i class="fa fa-caret-right pr-10 text-colored"></i> Descenso Gorgas altas
 														<ul class="list-unstyled">
-															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> Descenso sin complicación, sin saltos y divertido <a href="">¿Donde esta?</a></li>
+															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> Descenso sin complicaciÃ³n, sin saltos y divertido <a href="">Â¿Donde esta?</a></li>
 														</ul>
 													</li>
 												</ul>
@@ -210,7 +214,7 @@
 												<ul class="list-unstyled">
 													<li><i class="fa fa-caret-right pr-10 text-colored"></i> Descenso Gorgas negras 
 														<ul class="list-unstyled">
-															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> Este descenso cuenta con un par de saltos sin necesidad de cuerda <a href="">¿Donde esta?</a></li>
+															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> Este descenso cuenta con un par de saltos sin necesidad de cuerda <a href="">Â¿Donde esta?</a></li>
 														</ul>
 													</li>
 												</ul>
@@ -230,12 +234,12 @@
 												<ul class="list-unstyled">
 													<li><i class="fa fa-caret-right pr-10 text-colored"></i> Descenso Rio Vero 
 														<ul class="list-unstyled">
-															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> Este descenso cuenta con un par de saltos con necesidad de cuerda <a href="">¿Donde esta?</a></li>
+															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> Este descenso cuenta con un par de saltos con necesidad de cuerda <a href="">Â¿Donde esta?</a></li>
 														</ul>
 													</li>
 													<li><i class="fa fa-caret-right pr-10 text-colored"></i> Descenso Rio Ana 
 														<ul class="list-unstyled">
-															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> Este descenso cuenta con un par de saltos con necesidad de cuerda <a href="">¿Donde esta?</a></li>
+															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> Este descenso cuenta con un par de saltos con necesidad de cuerda <a href="">Â¿Donde esta?</a></li>
 														</ul>
 													</li>
 												</ul>
@@ -255,7 +259,7 @@
 							        <thead>
 							          <tr>
 							            <th>Ruta</th>
-							            <th>€ persona</th>
+							            <th>â¬ persona</th>
 							            <th></th>
 							          </tr>
 							        </thead>
@@ -267,18 +271,18 @@
 							        	</thead>
 							 				<tr>
 									          	<td>Descenso Gorgas negras</td>
-									            <td>10€</td>
-									            <td><a class="btn btn-sm btn-success" href="reserva.html?id=22">¡Reservalo ya!</a></td>
+									            <td>10â¬</td>
+									            <td><a class="btn btn-sm btn-success" href="reserva.html?id=22">Â¡Reservalo ya!</a></td>
 								          	</tr>
 								            <tr>
 								          	  <td>Descenso afluente Letepte</td>
-								              <td>15€</td>
-								              <td><a class="btn btn-sm btn-success" href="reserva.html?id=22">¡Reservalo ya!</a></td>
+								              <td>15â¬</td>
+								              <td><a class="btn btn-sm btn-success" href="reserva.html?id=22">Â¡Reservalo ya!</a></td>
 								            </tr>
 								            <tr>
 								          	  <td>Descenso Gorgas altas</td>
-								              <td>20€</td>
-								              <td><a class="btn btn-sm btn-success" href="reserva.html?id=22">¡Reservalo ya!</a></td>
+								              <td>20â¬</td>
+								              <td><a class="btn btn-sm btn-success" href="reserva.html?id=22">Â¡Reservalo ya!</a></td>
 								            </tr>
 								        </tbody>
 							          	<thead>
@@ -289,8 +293,8 @@
 							        	<tbody>
 							        		<tr>
 									          	<td>Descenso Gorgas negras</td>
-									            <td>20€</td>
-									            <td><a class="btn btn-sm btn-success" href="reserva.html?id=22">¡Reservalo ya!</a></td>
+									            <td>20â¬</td>
+									            <td><a class="btn btn-sm btn-success" href="reserva.html?id=22">Â¡Reservalo ya!</a></td>
 							            	</tr>
 							        	</tbody>
 							          	<thead>
@@ -301,13 +305,13 @@
 							        	<tbody>
 								          	<tr>
 								          		<td>Descenso Rio Vero</td>
-									            <td>20€</td>
+									            <td>20â¬</td>
 									            <td>No disponible</td>
 								          	</tr>
 								          	<tr>
 									          	<td>Descenso Rio Ana</td>
-									            <td>20€</td>
-									            <td><a class="btn btn-sm btn-success" href="reserva.html?id=22">¡Reservalo ya!</a></td>
+									            <td>20â¬</td>
+									            <td><a class="btn btn-sm btn-success" href="reserva.html?id=22">Â¡Reservalo ya!</a></td>
 								         	</tr>
 							        	</tbody>
 							        </tbody>
@@ -334,17 +338,17 @@
 							        		<tbody>
 									        	<tr>
 										          	<td>Descenso Gorgas negras</td>
-										            <td><a href="">Mañana</a></td>
+										            <td><a href="">MaÃ±ana</a></td>
 								            		<td><a href="">Tarde</a></td>
 									          	</tr>
 									            <tr>
 									          	  	<td>Descenso afluente Letepte</td>
-									              	<td><a href="">Mañana</a></td>
+									              	<td><a href="">MaÃ±ana</a></td>
 								            	  	<td><a href="">Tarde</a></td>
 									            </tr>
 									            <tr>
 									          	  	<td>Descenso Gorgas altas</td>
-									              	<td><a href="">Mañana</a></td>
+									              	<td><a href="">MaÃ±ana</a></td>
 								            		<td><a href="">Tarde</a></td>
 									            </tr>
 								        </tbody>
@@ -368,12 +372,12 @@
 							        	<tbody>
 								          	<tr>
 								          		<td>Descenso Rio Vero</td>
-									            <td><a class="btn btn-sm btn-success" href="">Mañana</a></td>
+									            <td><a class="btn btn-sm btn-success" href="">MaÃ±ana</a></td>
 							            		<td><a href="">Tarde</a></td>
 								          	</tr>
 								          	<tr>
 									          	<td>Descenso Rio Ana</td>
-									            <td><a href="">Mañana</a></td>
+									            <td><a href="">MaÃ±ana</a></td>
 							            		<td>--</td>
 								         	</tr>
 							        	</tbody>
@@ -398,7 +402,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2">
-							<p class="text-center">Copyright © 2015 by AGG - Team.</p>
+							<p class="text-center">Copyright Â© 2015 by AGG - Team.</p>
 						</div>
 					</div>
 				</div>
@@ -413,9 +417,9 @@
     <div class="slides"></div>
     <!-- Controls for the borderless lightbox -->
     <h3 class="title"></h3>
-    <a class="prev">‹</a>
-    <a class="next">›</a>
-    <a class="close">×</a>
+    <a class="prev">â¹</a>
+    <a class="next">âº</a>
+    <a class="close">Ã</a>
     <a class="play-pause"></a>
     <ol class="indicator"></ol>
     <!-- The modal dialog, which will be used to wrap the lightbox content -->
@@ -446,29 +450,29 @@
 		<!-- JavaScript files placed at the end of the document so the pages load faster
 		================================================== -->
 		<!-- Jquery and Bootstap core js files -->
-		<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/jquery.min.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources//plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources//bootstrap/js/bootstrap.min.js"></script>
 
 		<!-- Modernizr javascript -->
-		<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/modernizr.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources//plugins/modernizr.js"></script>
 
 		<!-- Isotope javascript -->
-		<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/isotope/isotope.pkgd.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources//plugins/isotope/isotope.pkgd.min.js"></script>
 		
 		<!-- Backstretch javascript -->
-		<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/jquery.backstretch.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources//plugins/jquery.backstretch.min.js"></script>
 
 		<!-- Appear javascript -->
-		<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/jquery.appear.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources//plugins/jquery.appear.js"></script>
 
 		<!-- Initialization of Plugins -->
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/template.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources//js/template.js"></script>
 
 		<!-- Custom Scripts -->
-		<script type="text/javascript" src="js/custom.js"></script>
-<!--<script src="js/bootstrap-image-gallery.js"></script>-->
-		<script src="js/jquery.blueimp-gallery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/customPago.js"></script>
+<!--<script src="${pageContext.request.contextPath}/resources/js/bootstrap-image-gallery.js"></script>-->
+		<script src="${pageContext.request.contextPath}/resources/js/jquery.blueimp-gallery.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 
 	</body>
 </html>

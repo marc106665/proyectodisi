@@ -151,22 +151,18 @@
 								<div class="space"></div>
 							</div>
 							<div class="col-md-6">
-								<p>DescripciÃ³n resumen    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi adipisci illo, voluptatum ipsam fuga error commodi architecto, laudantium culpa tenetur at id, beatae placeat deserunt iure quas voluptas fugit eveniet.</p>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo ducimus explicabo quibusdam temporibus deserunt doloremque pariatur ea, animi a. Delectus similique atque eligendi, enim vel reiciendis deleniti neque aliquid, sit?</p>
+								<p>${tipoactividad.descripcion}</p>
+						
 								<h5>Requistos:</h5>
 								<ul class="list-unstyled">
-									<li><i class="fa fa-caret-right pr-10 text-colored"></i> Lorem ipsum dolor sit amet</li>
-									<li><i class="fa fa-caret-right pr-10 text-colored"></i> Reiciendis deleniti neque aliquid</li>
-									<li><i class="fa fa-caret-right pr-10 text-colored"></i> Ipsam fuga error commodi</li>
-									<li><i class="fa fa-caret-right pr-10 text-colored"></i> Lorem ipsum dolor sit amet</li>
-									<li><i class="fa fa-caret-right pr-10 text-colored"></i> Dignissimos molestiae necessitatibus</li>
+									<li><i class="fa fa-caret-right pr-10 text-colored"></i> ${tipoactividad.requisitos}</li>
 								</ul>
 							</div>
 						</div>
 						
 						<div class="row">
 							<div class="col-md-12">
-								<h2><i class="fa fa-info-circle"></i> Niveles por localizaciÃ³n</h2>
+								<h2><i class="fa fa-info-circle"></i> Niveles por actividades</h2>
 								
 								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 									<div class="panel panel-default">

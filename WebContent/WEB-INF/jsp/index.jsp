@@ -8,7 +8,7 @@
 <!--<![endif]-->
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>NaturAventure</title>
 		<meta name="description" content="web GAGA project">
 		<meta name="author" content="GAGA team">
 

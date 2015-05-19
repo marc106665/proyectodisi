@@ -138,7 +138,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<h1 class="title text-center"><span>${tipo}</span></h1>
+						<h1 class="title text-center"><span>${tipoactividad.tipo} </span></h1>
 						<div class="space"></div>
 						<div class="row">
 							<div class="col-md-6" id="links">
@@ -155,97 +155,98 @@
 						
 								<h5>Requistos:</h5>
 								<ul class="list-unstyled">
-									<li><i class="fa fa-caret-right pr-10 text-colored"></i> ${tipoactividad.requisitos}</li>
+								<c:choose>
+    <c:when test="${not empty tipoactividad.requisitos}">
+        	<li><i class="fa fa-caret-right pr-10 text-colored"></i> ${tipoactividad.requisitos}</li>
+    </c:when>
+    <c:otherwise>
+        	<li><i class="fa fa-caret-right pr-10 text-colored"></i> Sin requisitos previos</li>
+    </c:otherwise>
+</c:choose>
+								
 								</ul>
 							</div>
 						</div>
-						
+		<c:if test="${not empty listaNiveles}">	
 						<div class="row">
 							<div class="col-md-12">
 								<h2><i class="fa fa-info-circle"></i> Niveles por actividades</h2>
 								
 								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+								<c:set var="sum" value="0" />
+								<c:forEach var="nivel" items="${listaNiveles}">
+								
+									<c:choose>
+    									<c:when test="${sum == 0}">
+    									
 									<div class="panel panel-default">
-										<div class="panel-heading" role="tab" id="headingOne">
+										<div class="panel-heading" role="tab" id="heading${nivel}">
 											<h4 class="panel-title">
-												<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-													Nivel 1 
+												<a data-toggle="collapse" data-parent="#accordion" href="#collapse${nivel}" aria-expanded="true" aria-controls="collapse${nivel}">
+												NIVEL ${nivel} 
 												</a>
 											</h4>
 										</div>
-										<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+										<div id="collapse${nivel}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading${nivel}">
 											<div class="panel-body">
 												<ul class="list-unstyled">
-													<li><i class="fa fa-caret-right pr-10 text-colored"></i> Descenso Gorgas negras 
+												<c:set var="listaActividades" value="${mapaListaActividadesPorNiveles[nivel]}" />
+												
+												<c:forEach var="actividad" items="${listaActividades}">
+												
+													<li><i class="fa fa-caret-right pr-10 text-colored"></i> ${actividad.nombre} 
 														<ul class="list-unstyled">
-															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> Este descenso cuenta con un par de saltos sin necesidad de cuerda <a href="">Â¿Donde esta?</a></li>
+															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> ${actividad.descripcion} - Duración de ${actividad.duracionHoras} horas <a href="">Â¿Donde esta?</a></li>
 														</ul>
 													</li>
+												</c:forEach>	
+												
+												</ul>
+											</div>
+										</div>
+									</div> 
+										</c:when>
+    									<c:otherwise>
+    									<div class="panel panel-default">
+										<div class="panel-heading" role="tab" id="heading${nivel}">
+											<h4 class="panel-title">
+												<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse${nivel}" aria-expanded="false" aria-controls="collapse${nivel}">
+													NIVEL ${nivel} 
+												</a>
+											</h4>
+										</div>
+										<div id="collapse${nivel}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading${nivel}">
+											<div class="panel-body">
+												<ul class="list-unstyled">
+												<c:set var="listaActividades" value="${mapaListaActividadesPorNiveles[nivel]}" />
+												
+												<c:forEach var="actividad" items="${listaActividades}">
 
-													<li><i class="fa fa-caret-right pr-10 text-colored"></i> Descenso afluente Letepte 
+													<li><i class="fa fa-caret-right pr-10 text-colored"></i>  ${actividad.nombre} 
 														<ul class="list-unstyled">
-															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> Este descenso se puede realizar con niÃ±os <a href="">Â¿Donde esta?</a></li>
+															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i>  ${actividad.descripcion} - Duración de ${actividad.duracionHoras} horas <a href="">Â¿Donde esta?</a></li>
 														</ul>
 													</li>
-
-													<li><i class="fa fa-caret-right pr-10 text-colored"></i> Descenso Gorgas altas
-														<ul class="list-unstyled">
-															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> Descenso sin complicaciÃ³n, sin saltos y divertido <a href="">Â¿Donde esta?</a></li>
-														</ul>
-													</li>
+													</c:forEach>
+							
 												</ul>
 											</div>
 										</div>
-									</div>
-									<div class="panel panel-default">
-										<div class="panel-heading" role="tab" id="headingTwo">
-											<h4 class="panel-title">
-												<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-													Nivel 2
-												</a>
-											</h4>
-										</div>
-										<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-											<div class="panel-body">
-												<ul class="list-unstyled">
-													<li><i class="fa fa-caret-right pr-10 text-colored"></i> Descenso Gorgas negras 
-														<ul class="list-unstyled">
-															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> Este descenso cuenta con un par de saltos sin necesidad de cuerda <a href="">Â¿Donde esta?</a></li>
-														</ul>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="panel panel-default">
-										<div class="panel-heading" role="tab" id="headingThree">
-											<h4 class="panel-title">
-												<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-													Nivel 3
-												</a>
-											</h4>
-										</div>
-										<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-											<div class="panel-body">
-												<ul class="list-unstyled">
-													<li><i class="fa fa-caret-right pr-10 text-colored"></i> Descenso Rio Vero 
-														<ul class="list-unstyled">
-															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> Este descenso cuenta con un par de saltos con necesidad de cuerda <a href="">Â¿Donde esta?</a></li>
-														</ul>
-													</li>
-													<li><i class="fa fa-caret-right pr-10 text-colored"></i> Descenso Rio Ana 
-														<ul class="list-unstyled">
-															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> Este descenso cuenta con un par de saltos con necesidad de cuerda <a href="">Â¿Donde esta?</a></li>
-														</ul>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
+									</div>		
+										</c:otherwise>
+										</c:choose>										
+												
+													
+											
+   								
+								<c:set var="sum" value="${sum + 1}" />
+								</c:forEach>
+														
 								</div>
 
 							</div>
 						</div>
+					</c:if>	
 						<div class="space"></div>
 						<div class="row">
 							<div class="col-md-12">

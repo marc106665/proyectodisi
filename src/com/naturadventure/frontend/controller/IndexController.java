@@ -23,9 +23,6 @@ import com.naturadventure.obj.Dato;
 @Controller
 public class IndexController {
 
-
-	
-	
 	
  
 	private TipoActividadDAO tipoActividadDao; 
@@ -134,5 +131,16 @@ public class IndexController {
 	        
 	       
 	    } 
+	 
+	 @RequestMapping("/actividad/reserva")
+	    public String reserva() {
+		
+	        return "reserva";
+	    }
 	
+	 @RequestMapping("/actividad/pedido")
+	    public String pedido() {
+		
+	        return "pedido";
+	    }
 }

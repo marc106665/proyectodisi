@@ -2,6 +2,7 @@ package com.naturadventure.dao;
 
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.naturadventure.domain.Actividad;
+import com.naturadventure.domain.NivelActividad;
 
 
 @Repository
@@ -28,6 +30,7 @@ public class ActividadDAO {
 		
 	    public Actividad mapRow(ResultSet rs, int rowNum) throws SQLException { 
 	        Actividad actividad = new Actividad();
+	        actividad.setIdActividad(rs.getInt("idActividad"));
 	        actividad.setNombre(rs.getString("nombre"));
 	        actividad.setTipo(rs.getString("tipo"));
 	        actividad.setDuracionHoras(rs.getInt("duracionHoras"));
@@ -44,24 +47,44 @@ public class ActividadDAO {
 	    }
 	}
 	
+private static final class NivelesMapper implements RowMapper<NivelActividad> { 
+		
+	    public NivelActividad mapRow(ResultSet rs, int rowNum) throws SQLException { 
+	        NivelActividad nivel = new NivelActividad();
+	        nivel.setIdActividad(rs.getInt("idActividad"));
+	        nivel.setNivel(rs.getString("nivel"));
+	        nivel.setPrecioPorPersona(rs.getFloat("precioPorPersona"));
+	
+
+
+	        return nivel;
+	    }
+	}
+	
+	
 	public List<Actividad> getActividades() {
 		 return this.jdbcTemplate.query("select idActividad, nombre, tipo, duracionHoras, descripcion, minParticipantes, maxParticipantes, oferta, nuevo, localizacion, foto from actividad", new ActividadMapper());
 	}
 	
 	public List<Actividad> getActividadesDeTipo(String tipo) {
-		 return this.jdbcTemplate.query("select idActividad, nombre, tipo, duracionHoras, descripcion, minParticipantes, maxParticipantes, oferta, nuevo, localizacion, foto from actividad where tipo= ?", new Object[] {tipo} ,new ActividadMapper());
+		List<Actividad> lista = this.jdbcTemplate.query("select idActividad, nombre, tipo, duracionHoras, descripcion, minParticipantes, maxParticipantes, oferta, nuevo, localizacion, foto from actividad where tipo= ?", new Object[] {tipo} ,new ActividadMapper());
+		if (lista != null){ return lista;}
+		else {return null;}
 	}
 	
 	public Actividad getActividad(int idActividad) {
 		return this.jdbcTemplate.queryForObject("select idActividad, nombre, tipo, duracionHoras, descripcion, minParticipantes, maxParticipantes, oferta, nuevo, localizacion, foto from actividad where idActividad = ? ",  new Object[] {idActividad}, new ActividadMapper());
 	}
 	
-	// el id es autogenerado?? xq entonces no se lo pasamos x aqui
 	public void addActividad(Actividad actividad) {
 		this.jdbcTemplate.update(
 				"insert into Actividad(nombre, tipo, duracionHoras, descripcion, minParticipantes, maxParticipantes, oferta, nuevo, localizacion, foto) values( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", actividad.getNombre() , actividad.getTipo() ,actividad.getDuracionHoras(), actividad.getDescripcion(), actividad.getMinParticipantes(), actividad.getMaxParticipantes(), actividad.getOferta(), actividad.getNuevo(), actividad.getLocalizacion(), actividad.getFoto() );
 	}
 	
+	public List<NivelActividad> getNivelActividad(int idActividad){
+		
+		return this.jdbcTemplate.query("select idActividad, nivel, precioPorPersona from NivelActividad where idActividad=? ",  new Object[] {idActividad} ,new NivelesMapper());
+	}
 	public void updateActividad(Actividad actividad) {
 		this.jdbcTemplate.update(
 				"update actividad set nombre = ?, tipo = ?, duracionHoras = ?, descripcion=?, minParticipantes=?, maxParticipantes=?, oferta=?, nuevo=?, localizacion=?, foto=? where idActividad = ?", actividad.getNombre() , actividad.getTipo() ,actividad.getDuracionHoras(), actividad.getDescripcion(), actividad.getMinParticipantes(), actividad.getMaxParticipantes(), actividad.getOferta(), actividad.getNuevo(), actividad.getLocalizacion(), actividad.getFoto() );
@@ -73,5 +96,13 @@ public class ActividadDAO {
 		        idActividad);
 	}
 	
+	public List<String> getNivelesUnicos(){
+		List<NivelActividad> listaNiveles = this.jdbcTemplate.query("select DISTINCT ON (nivel) idactividad , nivel, precioporpersona from NivelActividad", new NivelesMapper());
+		List<String> lvl = new LinkedList<String>();
+		for(NivelActividad n : listaNiveles ){
+			lvl.add(n.getNivel());
+		}
+		return lvl;
+		}
 	
 }

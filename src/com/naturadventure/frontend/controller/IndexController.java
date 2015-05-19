@@ -18,7 +18,6 @@ import com.naturadventure.dao.ActividadDAO;
 import com.naturadventure.domain.Actividad;
 import com.naturadventure.domain.NivelActividad;
 
-import com.naturadventure.obj.Dato;
 
 @Controller
 public class IndexController {

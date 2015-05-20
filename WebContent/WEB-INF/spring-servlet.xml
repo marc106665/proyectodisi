@@ -8,8 +8,9 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<!-- <context:component-scan base-package="com.naturadventure.backend.controller" /> -->
+	<context:component-scan base-package="com.naturadventure.backend.controller" />
 	<context:component-scan base-package="com.naturadventure.frontend.controller" />
+
 		
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
@@ -23,6 +24,9 @@
 	<bean id="monitorDao" class="com.naturadventure.dao.MonitorDAO" />
 	<bean id="tipoActividadDao" class="com.naturadventure.dao.TipoActividadDAO" />
 	<bean id="actividadDao" class="com.naturadventure.dao.ActividadDAO" />
+		
+	
+	
 		
 	<!-- Font de dades -->
 	 
@@ -45,5 +49,8 @@
         <property name="password" value="postgres"/>
  	</bean> -->
  	
+ 	<context:component-scan base-package="com.naturadventure.domain" />
+	<bean id="UserDetails" class="com.naturadventure.domain.UserDetails" />
+		
 	
 </beans>

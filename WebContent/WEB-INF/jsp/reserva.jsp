@@ -13,26 +13,26 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="images/favicon.ico">
+		<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico">
 
 		<!-- Web Fonts -->
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,300&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Raleway:700,400,300' rel='stylesheet' type='text/css'>
 
 		<!-- Bootstrap core CSS -->
-		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
 
 		<!-- Font Awesome CSS -->
-		<link href="fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/resources/fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
 
 		<!-- Plugins -->
-		<link href="css/animations.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/resources/css/animations.css" rel="stylesheet">
 
 		<!-- Worthy core CSS file -->
-		<link href="css/style.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
 
 		<!-- Custom css --> 
-		<link href="css/customPago.css" rel="stylesheet">
+		<link href="${pageContext.request.contextPath}/resources/css/customPago.css" rel="stylesheet">
 
 	</head>
 
@@ -54,7 +54,7 @@
 
 							<!-- logo -->
 							<div class="logo smooth-scroll">
-								<a href="#banner"><img id="logo" src="images/logo.png" alt="logo"></a>
+								<a href="#banner"><img id="logo" src="${pageContext.request.contextPath}/resources/images/logo.png" alt="logo"></a>
 							</div>
 
 							<!-- name-and-slogan -->
@@ -242,7 +242,7 @@
 								        <div class="col-xs-12 col-md-6 col-md-offset-3">
 								            <div class="panel panel-default">
 								                <div class="panel-heading">
-								                    <h2 class="panel-title"><img class="pull-right" src="images/targetas.png">Detalles de pago</h2>
+								                    <h2 class="panel-title"><img class="pull-right" src="${pageContext.request.contextPath}/resources/images/targetas.png">Detalles de pago</h2>
 								                </div>
 								                <div class="panel-body">
 								                    <form role="form" id="payment-form">
@@ -326,90 +326,35 @@
 		<!-- JavaScript files placed at the end of the document so the pages load faster
 		================================================== -->
 		<!-- Jquery and Bootstap core js files -->
-		<script type="text/javascript" src="plugins/jquery.min.js"></script>
-		<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+		
+			var contexto = "${pageContext.request.contextPath}";
+		
+		</script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 
 		<!-- Modernizr javascript -->
-		<script type="text/javascript" src="plugins/modernizr.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/modernizr.js"></script>
 
 		<!-- Isotope javascript -->
-		<script type="text/javascript" src="plugins/isotope/isotope.pkgd.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/isotope/isotope.pkgd.min.js"></script>
 		
 		<!-- Backstretch javascript -->
-		<script type="text/javascript" src="plugins/jquery.backstretch.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/jquery.backstretch.min.js"></script>
 
 		<!-- Appear javascript -->
-		<script type="text/javascript" src="plugins/jquery.appear.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/jquery.appear.js"></script>
 
 		<script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
 		
 
 		<!-- Initialization of Plugins -->
-		<script type="text/javascript" src="js/template.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/template.js"></script>
 
 		<!-- Custom Scripts -->
-		<script type="text/javascript" src="js/customPago.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/customPago.js"></script>
 
 	</body>
 </html>
 
-
-
-<!--
-
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2 class="panel-title"><img class="pull-right" src="images/targetas.png">Detalles de pago</h2>
-                </div>
-                <div class="panel-body">
-                    <form role="form" id="payment-form">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label for="cardNumber">NÚMERO TARGETA</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="cardNumber" placeholder="Número targeta valido" required autofocus data-stripe="number" />
-                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                                    </div>
-                                </div>                            
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-7 col-md-7">
-                                <div class="form-group">
-                                    <label for="expMonth">FECHA EXPIRACIÓN</label>
-                                    <div class="col-xs-6 col-lg-6 pl-ziro">
-                                        <input type="text" class="form-control" name="expMonth" placeholder="MM" required data-stripe="exp_month" />
-                                    </div>
-                                    <div class="col-xs-6 col-lg-6 pl-ziro">
-                                        <input type="text" class="form-control" name="expYear" placeholder="YY" required data-stripe="exp_year" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-5 col-md-5 pull-right">
-                                <div class="form-group">
-                                    <label for="cvCode">CÓDIGO CV</label>
-                                    <input type="password" class="form-control" name="cvCode" placeholder="CV" required data-stripe="cvc" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <button class="btn btn-success btn-lg btn-block" type="submit">Pago</button>
-                            </div>
-                        </div>
-                        <div class="row" style="display:none;">
-                            <div class="col-xs-12">
-                                <p class="payment-errors"></p>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
--->

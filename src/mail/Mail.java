@@ -1,5 +1,6 @@
 package mail;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -62,6 +63,10 @@ public class Mail {
     	this.recipient.add(recipient);
     }
     
+    public void setRecipient(Collection<String> recipient){
+    	this.recipient.addAll(recipient);
+    }
+    
     public void setUsername(String username){
     	this.from = username;
     }
@@ -106,8 +111,8 @@ public class Mail {
     }
     	
     
-    public void sendEmail(String from, String password, List<String> to, String subject, String body ){
-    	sendFromGMail(from, password, to, subject, body );
+    public void sendEmail(){
+    	sendFromGMail(from, pwd, recipient, subject, body );
     }
     
     

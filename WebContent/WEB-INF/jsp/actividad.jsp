@@ -64,8 +64,8 @@
 
 							<!-- name-and-slogan -->
 							<div class="site-name-and-slogan smooth-scroll">
-								<div class="site-name"><a href="#banner">Adventure</a></div>
-								<div class="site-slogan">Disfruta y vive la <a>aventura</a></div>
+								<div class="site-name"><a href="${pageContext.request.contextPath}/index.html">NaturAdventure</a></div>
+								<div class="site-slogan">Disfruta la <a>naturaleza</a>. Vive la <a>aventura</a></div>
 							</div>
 
 						</div>

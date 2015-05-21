@@ -146,10 +146,14 @@
 						        <img src="${pageContext.request.contextPath}${tipoactividad.foto}" alt="${tipoactividad.tipo}">
 						    </a>
 						    <c:if test="${not empty mapaListaActividadesPorNiveles}">
+						    	
 						    	<c:forEach var="map" items="${mapaListaActividadesPorNiveles}">
 						    	<c:set var="listaActividades" value="${mapaListaActividadesPorNiveles[map.key]}" />
 								<c:forEach var="actividad" items="${listaActividades}">
+									<c:if test="${id != actividad.idActividad}">		 	
 						    		<a href="${pageContext.request.contextPath}${actividad.foto}" title="${actividad.nombre}" data-gallery></a>
+						    		<c:set var="id" value="${actividad.idActividad}" />
+						    		</c:if>
 						    	</c:forEach>
 						    	</c:forEach>
 						    </c:if>
@@ -324,9 +328,9 @@
     <div class="slides"></div>
     <!-- Controls for the borderless lightbox -->
     <h3 class="title"></h3>
-    <a class="prev">â¹</a>
-    <a class="next">âº</a>
-    <a class="close">Ã</a>
+    <a class="prev">&laquo</a>
+    <a class="next">&raquo;</a>
+    <a class="close">Cerrar</a>
     <a class="play-pause"></a>
     <ol class="indicator"></ol>
     <!-- The modal dialog, which will be used to wrap the lightbox content -->

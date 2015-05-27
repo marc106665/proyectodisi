@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.naturadventure.domain.Actividad;
+import com.naturadventure.domain.HorasInicio;
 import com.naturadventure.domain.NivelActividad;
 
 
@@ -47,7 +48,7 @@ public class ActividadDAO {
 	    }
 	}
 	
-private static final class NivelesMapper implements RowMapper<NivelActividad> { 
+	private static final class NivelesMapper implements RowMapper<NivelActividad> { 
 		
 	    public NivelActividad mapRow(ResultSet rs, int rowNum) throws SQLException { 
 	        NivelActividad nivel = new NivelActividad();
@@ -55,12 +56,20 @@ private static final class NivelesMapper implements RowMapper<NivelActividad> {
 	        nivel.setNivel(rs.getString("nivel"));
 	        nivel.setPrecioPorPersona(rs.getFloat("precioPorPersona"));
 	
-
-
 	        return nivel;
 	    }
 	}
 	
+	private static final class HorasMapper implements RowMapper<HorasInicio> { 
+		
+	    public HorasInicio mapRow(ResultSet rs, int rowNum) throws SQLException { 
+	    	HorasInicio horas = new HorasInicio();
+	    	horas.setIdActividad(rs.getInt("idActividad"));
+	    	horas.setHoraInicio(rs.getString("horaInicio"));
+	  
+	        return horas;
+	    }
+	}
 	
 	public List<Actividad> getActividades() {
 		 return this.jdbcTemplate.query("select idActividad, nombre, tipo, duracionHoras, descripcion, minParticipantes, maxParticipantes, oferta, nuevo, localizacion, foto from actividad", new ActividadMapper());
@@ -85,6 +94,17 @@ private static final class NivelesMapper implements RowMapper<NivelActividad> {
 		
 		return this.jdbcTemplate.query("select idActividad, nivel, precioPorPersona from NivelActividad where idActividad=? ",  new Object[] {idActividad} ,new NivelesMapper());
 	}
+	
+	public List<HorasInicio> getHorasActividad(int idActividad){
+		
+		return this.jdbcTemplate.query("select idActividad, horaInicio from HorasInicioActividad where idActividad=? ",  new Object[] {idActividad} ,new HorasMapper());
+	}
+	
+	public NivelActividad getPrecioNivel(int idActividad, String nivel){
+		
+		return this.jdbcTemplate.queryForObject("select idActividad, nivel, precioPorPersona from NivelActividad where idActividad=? and nivel=?",  new Object[] {idActividad,nivel} , new NivelesMapper());
+	}
+	
 	public void updateActividad(Actividad actividad) {
 		this.jdbcTemplate.update(
 				"update actividad set nombre = ?, tipo = ?, duracionHoras = ?, descripcion=?, minParticipantes=?, maxParticipantes=?, oferta=?, nuevo=?, localizacion=?, foto=? where idActividad = ?", actividad.getNombre() , actividad.getTipo() ,actividad.getDuracionHoras(), actividad.getDescripcion(), actividad.getMinParticipantes(), actividad.getMaxParticipantes(), actividad.getOferta(), actividad.getNuevo(), actividad.getLocalizacion(), actividad.getFoto() );

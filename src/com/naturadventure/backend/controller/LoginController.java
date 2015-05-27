@@ -64,31 +64,34 @@ public class LoginController {
 
 	    @RequestMapping(value="/login", method=RequestMethod.POST)
 	    public String checkLogin(@ModelAttribute("user") UserDetails user,  BindingResult bindingResult, HttpSession session) {
-	      //  UserValidator userValidator = new UserValidator(); 
-	     //   userValidator.validate(user, bindingResult); 
+	        UserValidator userValidator = new UserValidator(); 
+	        userValidator.validate(user, bindingResult); 
 	        if (bindingResult.hasErrors()) {
 	            return "admin1234/login";
 	            
 	        }
 	        // Comprova que el login siga correcte 
-	     // intentant carregar les dades de l'usuari 
-	     user = userDao.loadByUsername(user.getUsuario(), user.getContrasenya()); 
+	     // intentant carregar les dades de l'usuari
+	     String nombreUsuario = (user.getUsuario() == null) ? null : user.getUsuario();
+	     String contrasenyaUsuario = (user.getContrasenya() == null) ? null : user.getContrasenya();
+
+	     user = userDao.loadByUsername(nombreUsuario, contrasenyaUsuario); 
 	     if (user == null) {
-	         bindingResult.rejectValue("password", "badpw", "Contrasenya incorrecta"); 
+	         bindingResult.rejectValue("contrasenya", "badpw", "Contrasenya o usuario incorrecto"); 
 	         return "admin1234/login";
 	     }
 	     // Autenticats correctament. 
-	          //Guardem les dades de l'usuari autenticat a la sessioÌ�
+	     //Guardem les dades de l'usuari autenticat a la sessioÌ�
 	     session.setAttribute("user", user); 
 	         
-	     // Torna a la paÌ€gina principal
+	     // Torna a la pagina principal
 	     return "redirect:inicio.html";
 	 }
 
 	 @RequestMapping("/logout") 
 	 public String logout(HttpSession session) {
 	     session.invalidate(); 
-	     return "redirect:index.html";
+	     return "redirect:login.html";
 	 }
 
 	

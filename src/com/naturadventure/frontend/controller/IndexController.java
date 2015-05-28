@@ -1,13 +1,20 @@
 package com.naturadventure.frontend.controller;
 
+import java.sql.Date;
+import java.sql.DataTruncation;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.AbstractPropertyBindingResult;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.naturadventure.dao.TipoActividadDAO;
 import com.naturadventure.dao.ActividadDAO;
+import com.naturadventure.dao.ReservaDAO;
+import com.naturadventure.domain.Reserva;
 import com.naturadventure.domain.Actividad;
+import com.naturadventure.domain.HorasInicio;
 import com.naturadventure.domain.NivelActividad;
 
 
@@ -26,6 +36,7 @@ public class IndexController {
  
 	private TipoActividadDAO tipoActividadDao; 
 	private ActividadDAO actividadDao;
+	private ReservaDAO reservaDao;
 	
 	@Autowired
     public void setTipoActividadDAO(TipoActividadDAO tipoActividadDAO) { 
@@ -37,6 +48,12 @@ public class IndexController {
         this.actividadDao = actividadDAO;
     }
 	
+
+    @Autowired
+    public void setReservaDAO(ReservaDAO reservaDAO) { 
+        this.reservaDao = reservaDAO;
+    }
+
 	@RequestMapping("/index")
 	    public String index(Model model) {
 		 model.addAttribute("tiposdeactividades", tipoActividadDao.getTiposActividad());
@@ -106,16 +123,48 @@ public class IndexController {
 	        
 	       
 	    } 
-	 
-	 @RequestMapping(value="/actividad/reserva/{idActividad}", method = RequestMethod.GET)
-	    public String reserva(Model model, @PathVariable Integer idActividad) {
-		
+	
+	 @RequestMapping(value="/actividad/reserva/{id}/{nivel}", method = RequestMethod.GET)
+	    public String reserva(Model model, @PathVariable Integer id,@PathVariable String nivel) {
+		    Actividad actividad = actividadDao.getActividad(id);
+		 	NivelActividad objNivel =  actividadDao.getPrecioNivel(id,nivel);
+		 	List<HorasInicio> listaHoras = actividadDao.getHorasActividad(id);
+			model.addAttribute("actividad", actividad );
+		 	model.addAttribute("nivel", objNivel );
+		    model.addAttribute("listahoras", listaHoras );
+		    model.addAttribute("reserva", new Reserva());
+		    System.out.println(" lista de horas " + listaHoras.toString());
 	        return "reserva";
 	    }
 	
-	 @RequestMapping("/actividad/pedido")
-	    public String pedido() {
-		
-	        return "pedido";
-	    }
+
+	 @RequestMapping(value="/pedido", method=RequestMethod.POST)
+	 	public String pedido(Model model, @ModelAttribute("reserva") Reserva reserva, BindingResult bindingResult) {
+		 //if (bindingResult.hasErrors()) 
+		 //	System.out.println(" errores  " +bindingResult.toString() );
+		 		
+		 		//return "/actividad/reserva/";
+		 		
+		 	Integer idreserva = reservaDao.addReserva(reserva);
+		 	
+		 	reserva = reservaDao.getReserva(idreserva);
+		 	Actividad actividad = actividadDao.getActividad(reserva.getIdActividad());
+		 	NivelActividad objNivel =  actividadDao.getPrecioNivel(reserva.getIdActividad(),reserva.getNivel());
+		 	model.addAttribute("reserva", reserva);
+		 	System.out.println(" id  " +idreserva + " id reserva --"+reserva.getIdReserva() + "actividad nombre "+ actividad.getNombre());
+		 	model.addAttribute("actividad", actividad);
+		 	model.addAttribute("nivel", objNivel);
+		 	double precioIva = objNivel.getPrecioPorPersona() * reserva.getNumParticipantes() ;
+		 	precioIva = precioIva + (precioIva * 0.21) ;
+		 	model.addAttribute("precioiva", precioIva);
+		 	return "pedido";
+	   	}
+
+	   	@InitBinder
+		protected void initBinder(WebDataBinder binder) {
+    		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
+    		binder.registerCustomEditor(java.sql.Date.class, "fechaActividad",new CustomDateEditor(dateFormat, false));
+		}
+	   	
+	  
 }

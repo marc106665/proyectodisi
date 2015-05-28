@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=latin1"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <!--[if IE 9]> <html lang="es" class="ie9"> <![endif]-->
 <!--[if !IE]><!-->
@@ -5,7 +9,7 @@
 <!--<![endif]-->
 	<head>
 		<meta charset="utf-8">
-		<title>Título</title>
+		<title>NaturAdventure</title>
 		<meta name="description" content="web AGG project">
 		<meta name="author" content="AGG team">
 
@@ -109,10 +113,10 @@
 										<!-- Collect the nav links, forms, and other content for toggling -->
 										<div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
 											<ul class="nav navbar-nav navbar-right">
-												<li class="active"><a href="${pageContext.request.contextPath}/resources/index.html">Inicio</a></li>
-												<li><a href="#aventuras">Aventuras</a></li>
-												<li><a href="#quienes_somos">Quiénes somos</a></li>
-												<li><a href="#contacta">Contacta</a></li>
+												<li class="active"><a href="${pageContext.request.contextPath}/index.html#inicio">Inicio</a></li>
+												<li><a href="${pageContext.request.contextPath}/index.html#aventuras">Aventuras</a></li>
+												<li><a href="${pageContext.request.contextPath}/index.html#quienes_somos">Quiénes somos</a></li>
+												<li><a href="${pageContext.request.contextPath}/index.html#contacta">Contacta</a></li>
 											</ul>
 										</div>
 
@@ -149,7 +153,7 @@
 					<h1 class="title text-center" id="titulo">Reserva realizada con éxito</h1>
 					<div class="space"></div>
 					<div class="row">
-						<div id="info-contacto" class="col-sm-6">
+						<div id="info-contacto" class="col-sm-5">
 							<p class="large">Nuestros empleados comprobarán tu reserva lo antes posible y le enviaremos un correo con más información.</p>
 							<p><i class="fa fa-info-circle"></i>Si tiene alguna duda sobre la reserva, no dude en ponerse en contacto en:</p>
 								<ul class="list-icons">
@@ -157,7 +161,7 @@
 									<li><i class="fa fa-envelope-o pr-10"></i><a href="mailto:naturadventure@email.com"> naturadventure@email.com</a></li>
 								</ul>
 						</div>
-						<div class="col-sm-6">
+						<div class="col-sm-7">
 							
 								
 							
@@ -169,16 +173,19 @@
 					                        <br>
 					                        C/ falsa 123
 					                        <br>
-					                        Huesca, España 90026
+					                        Huesca, Españaa 90026
 					                        <br>
 					                    </address>
 					                </div>
 					                <div class="col-xs-6 col-sm-6 col-md-6 text-right">
 					                    <p>
-					                        <em>Fecha: 10/03/2015</em>
+					                        <em>Fecha reserva: ${reserva.fechaReserva}</em>
 					                    </p>
 					                    <p>
-					                        <em>Recibo nº #2562</em>
+					                        <em>Fecha actividad: ${reserva.fechaActividad}</em>
+					                    </p>
+					                    <p>
+					                        <em>Recibo nº #${reserva.idReserva}</em>
 					                    </p>
 					                </div>
 					            </div>
@@ -186,22 +193,27 @@
 					                <div class="text-center">
 					                    <h1>Recibo</h1>
 					                </div>
-					                </span>
+					                
 					                <table class="table table-hover">
 					                    <thead>
 					                        <tr>
 					                            <th>Reserva</th>
-					                            <th>Cantidad</th>
+					                            <th>Aventureros</th>
 					                            <th class="text-center">Precio</th>
 					                            <th class="text-center">Total</th>
 					                        </tr>
 					                    </thead>
 					                    <tbody>
 					                        <tr>
-					                            <td class="col-md-9"><em>Descenso Gorgas Negras</em></h4></td>
-					                            <td class="col-md-1" style="text-align: center"> 10 </td>
-					                            <td class="col-md-1 text-center">10 €</td>
-					                            <td class="col-md-1 text-center">100 €</td>
+					                        <c:set var="niveluppercase" value="${reserva.nivel}"/>
+											<c:set var="nivellowercase" value="${fn:toLowerCase(niveluppercase)}" />
+											<c:set var="horasluppercase" value="${reserva.horaInicio}"/>
+											<c:set var="horasllowercase" value="${fn:toLowerCase(horasluppercase)}" />
+					                            <td class="col-md-9"><em>${actividad.nombre} de ${horasllowercase} </br> nivel ${nivellowercase}</em></h4></td>
+					                            <td class="col-md-1" style="text-align: center"> ${reserva.numParticipantes} </td>
+					                            <td class="col-md-1 text-center">${nivel.precioPorPersona} &euro;</td>
+					                            <c:set var="precio" value="${reserva.numParticipantes * nivel.precioPorPersona}" />
+					                            <td class="col-md-1 text-center">${precio} &euro;</td>
 					                        </tr>
 					                        <tr>
 					                            <td>   </td>
@@ -215,17 +227,17 @@
 					                            </p></td>
 					                            <td class="text-center">
 					                            <p>
-					                                <strong>100 €</strong>
+					                                <strong>${precio} &euro;</strong>
 					                            </p>
 					                            <p>
-					                                <strong>21 €</strong>
+					                                <strong>21%</strong>
 					                            </p></td>
 					                        </tr>
 					                        <tr>
 					                            <td>   </td>
 					                            <td>   </td>
 					                            <td class="text-right"><h4><strong>Total: </strong></h4></td>
-					                            <td class="text-center text-danger"><h4><strong>121€</strong></h4></td>
+					                            <td class="text-center text-danger"><h4><strong>${precioiva} &euro;</strong></h4></td>
 					                        </tr>
 					                    </tbody>
 					                </table>
@@ -239,7 +251,7 @@
 					</div>
 				</div>
 			</div>
-
+		</div>
 			<!-- footer start -->
 		<!-- ================ -->
 		<footer id="footer">
@@ -250,7 +262,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2">
-							<p class="text-center">Copyright © 2015 by AGG - Team.</p>
+							<p class="text-center">Copyright Â© 2015 by AGG - Team.</p>
 						</div>
 					</div>
 				</div>

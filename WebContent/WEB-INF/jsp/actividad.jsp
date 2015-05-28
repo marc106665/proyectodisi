@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=latin1"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <!--[if IE 9]> <html lang="es" class="ie9"> <![endif]-->
@@ -205,7 +205,7 @@
 												
 													<li><i class="fa fa-caret-right pr-10 text-colored"></i> ${actividad.nombre} 
 														<ul class="list-unstyled">
-															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> ${actividad.descripcion} - Duración de ${actividad.duracionHoras} horas <a href="">Â¿Donde esta?</a></li>
+															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> ${actividad.descripcion} - Duración de ${actividad.duracionHoras} horas <a href="">¿Donde esta?</a></li>
 														</ul>
 													</li>
 												</c:forEach>	
@@ -233,7 +233,7 @@
 
 													<li><i class="fa fa-caret-right pr-10 text-colored"></i>  ${actividad.nombre} 
 														<ul class="list-unstyled">
-															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i>  ${actividad.descripcion} - Duración de ${actividad.duracionHoras} horas <a href="">Â¿Donde esta?</a></li>
+															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i>  ${actividad.descripcion} - Duración de ${actividad.duracionHoras} horas <a href="">¿Donde esta?</a></li>
 														</ul>
 													</li>
 													</c:forEach>
@@ -284,7 +284,7 @@
 									          	<td>${actividad.nombre}</td>
 									          	<c:set var="precio" value="${precioPoridActividad[map.key][actividad.idActividad]}" /> 
 									            <td>${precio} &euro;</td>
-									            <td><a class="btn btn-sm btn-success" href="reserva/${actividad.idActividad}.html">¡Reservalo ya!</a></td>
+									            <td><a class="btn btn-sm btn-success" href="reserva/${actividad.idActividad}/${map.key}.html">¡Reservalo ya!</a></td>
 								          	</tr>
 								          	</c:forEach>										
 								        </tbody>
@@ -313,7 +313,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2">
-							<p class="text-center">Copyright Â© 2015 by AGG - Team.</p>
+							<p class="text-center">Copyright © 2015 by AGG - Team.</p>
 						</div>
 					</div>
 				</div>

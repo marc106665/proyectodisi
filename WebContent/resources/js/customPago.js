@@ -17,7 +17,7 @@ jQuery.validator.addMethod("month", function(value, element) {
 
 jQuery.validator.addMethod("year", function(value, element) {
   return this.optional(element) || /^[0-9]{2}$/.test(value);
-}, "Especifique dos digitos de año correcto");
+}, "Especifique dos digitos de a�o correcto");
 
 validator = $form.validate({
     rules: {
@@ -77,12 +77,16 @@ $(document).ready(function () {
     //Calculo precio total
     var precio = $('#precio').text();
     //console.log(precio);
-    $('select#participantes').on('change',function(){
+    var selec = $('#numParticipantes').val();
+    var total = selec*precio;
+    $("#calculo").html(selec+" x "+precio+" &euro;");
+    $("#total").html(total+" &euro;");
+    $('#numParticipantes').on('change',function(){
         var cant = $(this).val();
         //console.log(cant);
         var total = cant*precio;
-        $("#calculo").html(cant+"x"+precio+"€");
-        $("#total").html(total+"€");
+        $("#calculo").html(cant+" x "+precio+" &euro;");
+        $("#total").html(total+" &euro;");
     });
 
     

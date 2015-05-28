@@ -24,7 +24,7 @@
 	<bean id="monitorDao" class="com.naturadventure.dao.MonitorDAO" />
 	<bean id="tipoActividadDao" class="com.naturadventure.dao.TipoActividadDAO" />
 	<bean id="actividadDao" class="com.naturadventure.dao.ActividadDAO" />
-		
+	<bean id="reservaDao" class="com.naturadventure.dao.ReservaDAO" />	
 	
 	
 		

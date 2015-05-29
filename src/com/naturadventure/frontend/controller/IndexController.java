@@ -150,12 +150,14 @@ public class IndexController {
 		 	Actividad actividad = actividadDao.getActividad(reserva.getIdActividad());
 		 	NivelActividad objNivel =  actividadDao.getPrecioNivel(reserva.getIdActividad(),reserva.getNivel());
 		 	model.addAttribute("reserva", reserva);
-		 	System.out.println(" id  " +idreserva + " id reserva --"+reserva.getIdReserva() + "actividad nombre "+ actividad.getNombre());
+		 	
 		 	model.addAttribute("actividad", actividad);
 		 	model.addAttribute("nivel", objNivel);
 		 	double precioIva = objNivel.getPrecioPorPersona() * reserva.getNumParticipantes() ;
-		 	precioIva = precioIva + (precioIva * 0.21) ;
-		 	model.addAttribute("precioiva", precioIva);
+		 	
+		 	double varPrecioIva = precioIva + (precioIva * 0.21) ;
+		 	model.addAttribute("precioiva", varPrecioIva);
+		 	System.out.println(" precio iva --"+varPrecioIva + "precio sin iva "+ precioIva + " Precio Por Persona "+ objNivel.getPrecioPorPersona());
 		 	return "pedido";
 	   	}
 

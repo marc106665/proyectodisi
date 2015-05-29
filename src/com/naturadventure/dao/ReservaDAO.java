@@ -1,7 +1,7 @@
 package com.naturadventure.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
@@ -48,8 +48,12 @@ public class ReservaDAO {
 	        reserva.setHoraInicio(rs.getString("horaInicio"));
 	        reserva.setEstado(rs.getString("estado"));
 	        reserva.setNumParticipantes(rs.getInt("numParticipantes"));
-	        reserva.setFechaReserva(rs.getDate("fechaReserva"));
-	        reserva.setFechaActividad(rs.getDate("fechaActividad"));
+	        java.sql.Date datesql = rs.getDate("fechaReserva");
+	        java.util.Date dateutil = new java.util.Date(datesql.getTime()); 
+	        reserva.setFechaReserva(dateutil);
+	        datesql = rs.getDate("fechaActividad");
+	        dateutil = new java.util.Date(datesql.getTime());
+	        reserva.setFechaActividad(dateutil);
 	        reserva.setIdActividad(rs.getInt("idActividad"));
 	        reserva.setMonitor(rs.getString("monitor"));
 	        reserva.setNivel(rs.getString("nivel"));
@@ -75,7 +79,8 @@ public class ReservaDAO {
 		final String emailCliente = reserva.getEmailCliente();
 		final String horaInicio = reserva.getHoraInicio();
 		final int numParticipantes = reserva.getNumParticipantes();
-		final Date fechaActividad = reserva.getFechaActividad();
+		Date fechaActividad = reserva.getFechaActividad();
+		final java.sql.Date fechaActividadsql = new java.sql.Date(fechaActividad.getTime()); 
 		final String nivel = reserva.getNivel();
 		final int idActividad = reserva.getIdActividad();
 		
@@ -89,7 +94,7 @@ public class ReservaDAO {
 		            ps.setString(3, emailCliente);
 		            ps.setString(4, horaInicio);
 		            ps.setInt(5, numParticipantes);
-		            ps.setDate(6, fechaActividad);
+		            ps.setDate(6, fechaActividadsql);
 		            ps.setString(7, nivel);
 		            ps.setInt(8, idActividad);
 		            return ps;

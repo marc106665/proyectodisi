@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <!--[if IE 9]> <html lang="es" class="ie9"> <![endif]-->
 <!--[if !IE]><!-->
@@ -179,10 +180,15 @@
 					                </div>
 					                <div class="col-xs-6 col-sm-6 col-md-6 text-right">
 					                    <p>
-					                        <em>Fecha reserva: ${reserva.fechaReserva}</em>
+					                    <c:set var="fechaReserva" value="${reserva.fechaReserva}" />
+					                    
+					                    
+					                        <em>Fecha reserva: <fmt:formatDate type="date" value="${fechaReserva}"  /></em>
 					                    </p>
 					                    <p>
-					                        <em>Fecha actividad: ${reserva.fechaActividad}</em>
+					                    <c:set var="fechaActividad" value="${reserva.fechaActividad}" />
+					                    
+					                        <em>Fecha actividad: <fmt:formatDate type="date" value="${reserva.fechaActividad}"  /></em>
 					                    </p>
 					                    <p>
 					                        <em>Recibo nº #${reserva.idReserva}</em>
@@ -209,11 +215,12 @@
 											<c:set var="nivellowercase" value="${fn:toLowerCase(niveluppercase)}" />
 											<c:set var="horasluppercase" value="${reserva.horaInicio}"/>
 											<c:set var="horasllowercase" value="${fn:toLowerCase(horasluppercase)}" />
-					                            <td class="col-md-9"><em>${actividad.nombre} de ${horasllowercase} </br> nivel ${nivellowercase}</em></h4></td>
+					                            <td class="col-md-7"><em>${actividad.nombre} </br> Horario de ${horasllowercase} </br> Nivel ${nivellowercase}</em></h4></td>
 					                            <td class="col-md-1" style="text-align: center"> ${reserva.numParticipantes} </td>
-					                            <td class="col-md-1 text-center">${nivel.precioPorPersona} &euro;</td>
+					                            <c:set var="preciopersona" value="${nivel.precioPorPersona}" />
+					                      		<td class="col-md-1 text-center"><fmt:formatNumber type="number" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" value="${preciopersona}" /> &euro;</td>
 					                            <c:set var="precio" value="${reserva.numParticipantes * nivel.precioPorPersona}" />
-					                            <td class="col-md-1 text-center">${precio} &euro;</td>
+					                            <td class="col-md-3 text-center"><fmt:formatNumber type="number" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" value="${precio}" /> &euro;</td>
 					                        </tr>
 					                        <tr>
 					                            <td>   </td>
@@ -227,7 +234,7 @@
 					                            </p></td>
 					                            <td class="text-center">
 					                            <p>
-					                                <strong>${precio} &euro;</strong>
+					                                <strong><fmt:formatNumber type="number" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" value="${precio}" /> &euro;</strong>
 					                            </p>
 					                            <p>
 					                                <strong>21%</strong>
@@ -237,7 +244,8 @@
 					                            <td>   </td>
 					                            <td>   </td>
 					                            <td class="text-right"><h4><strong>Total: </strong></h4></td>
-					                            <td class="text-center text-danger"><h4><strong>${precioiva} &euro;</strong></h4></td>
+					                            <c:set var="varprecioiva" value="${precioiva}" /> 
+					                            <td class="text-center text-danger"><h4><strong><fmt:formatNumber type="number" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" value="${varprecioiva}" /> &euro;</strong></h4></td>
 					                        </tr>
 					                    </tbody>
 					                </table>

@@ -1,7 +1,7 @@
 package com.naturadventure.frontend.controller;
 
-import java.sql.Date;
-import java.sql.DataTruncation;
+import java.util.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -32,8 +32,7 @@ import com.naturadventure.domain.NivelActividad;
 @Controller
 public class IndexController {
 
-	
- 
+
 	private TipoActividadDAO tipoActividadDao; 
 	private ActividadDAO actividadDao;
 	private ReservaDAO reservaDao;
@@ -140,8 +139,8 @@ public class IndexController {
 
 	 @RequestMapping(value="/pedido", method=RequestMethod.POST)
 	 	public String pedido(Model model, @ModelAttribute("reserva") Reserva reserva, BindingResult bindingResult) {
-		 //if (bindingResult.hasErrors()) 
-		 //	System.out.println(" errores  " +bindingResult.toString() );
+		 if (bindingResult.hasErrors()) 
+		 System.out.println(" errores  " +bindingResult.toString() );
 		 		
 		 		//return "/actividad/reserva/";
 		 		
@@ -151,20 +150,24 @@ public class IndexController {
 		 	Actividad actividad = actividadDao.getActividad(reserva.getIdActividad());
 		 	NivelActividad objNivel =  actividadDao.getPrecioNivel(reserva.getIdActividad(),reserva.getNivel());
 		 	model.addAttribute("reserva", reserva);
-		 	System.out.println(" id  " +idreserva + " id reserva --"+reserva.getIdReserva() + "actividad nombre "+ actividad.getNombre());
+		 	
 		 	model.addAttribute("actividad", actividad);
 		 	model.addAttribute("nivel", objNivel);
 		 	double precioIva = objNivel.getPrecioPorPersona() * reserva.getNumParticipantes() ;
-		 	precioIva = precioIva + (precioIva * 0.21) ;
-		 	model.addAttribute("precioiva", precioIva);
+		 	
+		 	double varPrecioIva = precioIva + (precioIva * 0.21) ;
+		 	model.addAttribute("precioiva", varPrecioIva);
+		 	System.out.println(" precio iva --"+varPrecioIva + "precio sin iva "+ precioIva + " Precio Por Persona "+ objNivel.getPrecioPorPersona());
 		 	return "pedido";
 	   	}
 
 	   	@InitBinder
 		protected void initBinder(WebDataBinder binder) {
     		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
-    		binder.registerCustomEditor(java.sql.Date.class, "fechaActividad",new CustomDateEditor(dateFormat, false));
+    		dateFormat.setLenient(false);
+    		binder.registerCustomEditor(Date.class, "fechaActividad",new CustomDateEditor(dateFormat, false));
 		}
 	   	
 	  
 }
+

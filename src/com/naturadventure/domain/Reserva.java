@@ -1,6 +1,6 @@
 package com.naturadventure.domain;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Reserva {
 	private int idReserva;
@@ -148,25 +148,29 @@ public Reserva(){
 		return fechaReserva;
 	}
 
+//	public java.util.Date getFechaReserva() {
+//		java.util.Date newDate = new Date(fechaReserva.getTime());
+//		return newDate;
+//	}
 
 
 
 
-
-	public void setFechaReserva(String fechaReserva) {
-		
-		this.fechaReserva = Date.valueOf(fechaReserva);
-	}
+//	public void setFechaReserva(String fechaReserva) {
+//		
+//		this.fechaReserva = Date.valueOf(fechaReserva);
+//	}
 
 	public void setFechaReserva(Date fechaReserva) {
 		
 		this.fechaReserva = fechaReserva;
 	}
 
-
-
-
-
+//	public void setFechaReserva(java.util.Date fechaReserva) {
+//		
+//		this.fechaReserva = new java.sql.Date(fechaReserva.getTime());
+//	}
+		
 	public Date getFechaActividad() {
 		return fechaActividad;
 	}

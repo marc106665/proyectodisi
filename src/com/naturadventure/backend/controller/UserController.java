@@ -2,6 +2,8 @@ package com.naturadventure.backend.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +18,7 @@ import com.naturadventure.dao.ActividadDAO;
 import com.naturadventure.dao.TipoActividadDAO;
 import com.naturadventure.dao.UserDAO;
 import com.naturadventure.domain.Actividad;
+import com.naturadventure.domain.TipoActividad;
 import com.naturadventure.domain.UserDetails;
 
 
@@ -24,13 +27,18 @@ import com.naturadventure.domain.UserDetails;
 public class UserController {
    private UserDAO userDao;
    private ActividadDAO actividadDao;
+   private TipoActividadDAO tipoActividadDao;
 	
    @Autowired
    public void setActividadDAO(ActividadDAO actividadDAO) { 
        this.actividadDao = actividadDAO;
    }
 	
-
+   @Autowired
+   public void setTipoActividadDAO(TipoActividadDAO tipoActividadDAO) { 
+       this.tipoActividadDao = tipoActividadDAO;
+   }
+   
    @Autowired 
    public void setSociDao(UserDAO userDao) {
        this.userDao = userDao;
@@ -85,17 +93,23 @@ public class UserController {
    
    @RequestMapping("/nuevaActividad.html") 
    public String addActividad(HttpSession session, Model model) {
-       if (session.getAttribute("user") == null) 
+	   if (session.getAttribute("user") == null) 
        { 
-          model.addAttribute("user", new UserDetails()); 
-          return "admin1234/login";
+		   model.addAttribute("user", new UserDetails()); 
+           return "admin1234/login";
        } 
        
-       //model.addAttribute("", );
-       
+	   List<TipoActividad>listaTipoActividad = tipoActividadDao.getTiposActividad();
+	   //System.out.println(listaTipoActividad);
+	   model.addAttribute("listaTipoActividad", listaTipoActividad);
+	   model.addAttribute("actividad", new Actividad());
+	   model.addAttribute("fra", new Actividad());
+	   
        return "admin1234/nuevaActividad";
        
    }
+   
+   
    
    
 }

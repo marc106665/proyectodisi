@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=latin1"
+    pageEncoding="UTF-8" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!doctype html>
 <html class="no-js">
   <head>
@@ -89,17 +93,20 @@
                     </div><!-- /.toolbar -->
                   </header>
                   <div id="div-1" class="body">
-                    <form class="form-horizontal" method="POST" action="#">
+                  
+                  
+                    <form:form modelAttribute="actividad" class="form-horizontal" method="POST" action="admin1234/addActividad.html">
 
 
 						<div class="form-group">
 	                        <label class="control-label col-lg-3 col-lg-offset-0 col-sm-2"><p class="text-right">Tipo de actividad</p></label>
 	                        <div class="col-lg-4 col-sm-2">
-	                          <select tabindex="1" data-placeholder="Tipo de actividad" class="form-control chzn-select">
-	                            <option value="Rafting">Rafting</option>
-	                            <option value="Puenting">Puenting</option>
-	                            <option value="Escalada">Escalada</option>
-	                          </select>
+	                      
+	                        <form:select path="tipo" tabindex="1" data-placeholder="Tipo de actividad" class="form-control chzn-select">
+							    <form:options items="${listaTipoActividad}" itemLabel="tipo" itemValue="tipo" />
+							</form:select> 
+							
+							
 	                        </div>
 	                        <div class="col-lg-2 col-lg-offset-1 col-sm-2 col-sm-offset-5">
 	                        	<a class="btn btn-success" href="#">Nuevo tipo de actividad</a>
@@ -109,23 +116,23 @@
 
                       
 	                    <div class="form-group">
-	                        <label for="nombre" class="control-label col-lg-3">Nombre</label>
+	                        <form:label for="nombre" class="control-label col-lg-3" path="nombre">Nombre de la actividad</form:label>
 	                        <div class="col-lg-7">
-	                          <input tabindex="2" type="text" id="nombre" placeholder="Nombre" class="form-control">
+		                        <form:input tabindex="2" type="text" id="nombre" placeholder="Nombre" class="form-control" path="nombre"/>
 	                        </div>
 	                    </div>
 	                    <div class="form-group">
-		                    <label for="horas" class="control-label col-lg-3">Duración en horas</label>
+	                    	<form:label path="duracionHoras" for="horas" class="control-label col-lg-3">Duración en horas</form:label>
 		                    <div class="col-lg-7">
-		                    <input tabindex="3" type="number" id="horas" placeholder="Duración en horas" class="form-control">
+		                    	<form:input path="duracionHoras" tabindex="3" type="number" id="horas" placeholder="Duración en horas" class="form-control"/>
 		                    </div>
 	                    </div><!-- /.form-group -->
 	                    <div class="form-group">
-		                    <label for="lugar" class="control-label col-lg-3">Link al sitio G.Maps</label>
+	                    	<form:label path="localizacion" for="lugar" class="control-label col-lg-3">Link al sitio G.Maps</form:label>
 		                    <div class="col-lg-7">
 		                    <div class="input-group">
 		                        <div class="input-group-addon"><a href="http://maps.google.es/" target="_blanck"><li class="glyphicon glyphicon-map-marker"></li></a></div>
-		                    	<input tabindex="4" type="text" id="lugar" placeholder="Link de Google maps" class="form-control">
+		                        <form:input path="localizacion" tabindex="4" type="text" id="lugar" placeholder="Link de Google maps" class="form-control"/>
 		                    	</div>
 		                    </div>
 	                    </div><!-- /.form-group -->
@@ -135,7 +142,7 @@
 		                    <div class="col-lg-9">
 		                    	<div class="checkbox">
 	                            	<label>
-	                              		<input tabindex="5" class="uniform" type="checkbox" value="manyana"> Mañana
+	                              		
 	                            	</label>
 	                          	</div>
 	                          	<div class="checkbox">
@@ -271,14 +278,11 @@
 						</div>
                       </div>
 
-                      <div class="col-lg-3 col-lg-offset-9 col-sm-2 col-sm-offset-10">
-                      	<a href="#" type="submit" class="btn btn-success" ><i class="fa fa-pencil-square-o"></i>&nbsp;Guardar</a>
-                      </div>-->
-                      <hr>
+                                            <hr>
                       <div class="form-actions no-margin-bottom">
                         <input type="submit" value="Guardar" class="btn btn-primary">
                       </div>
-                    </form>
+                    </form:form>
                   </div>
                 </div>
               </div>

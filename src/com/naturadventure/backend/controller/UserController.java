@@ -18,6 +18,8 @@ import com.naturadventure.dao.ActividadDAO;
 import com.naturadventure.dao.TipoActividadDAO;
 import com.naturadventure.dao.UserDAO;
 import com.naturadventure.domain.Actividad;
+import com.naturadventure.domain.HorasInicio;
+import com.naturadventure.domain.NivelActividad;
 import com.naturadventure.domain.TipoActividad;
 import com.naturadventure.domain.UserDetails;
 
@@ -98,12 +100,14 @@ public class UserController {
 		   model.addAttribute("user", new UserDetails()); 
            return "admin1234/login";
        } 
+	     
        
 	   List<TipoActividad>listaTipoActividad = tipoActividadDao.getTiposActividad();
 	   //System.out.println(listaTipoActividad);
 	   model.addAttribute("listaTipoActividad", listaTipoActividad);
+	   
 	   model.addAttribute("actividad", new Actividad());
-	   model.addAttribute("fra", new Actividad());
+	   model.addAttribute("horasInicio", new HorasInicio());
 	   
        return "admin1234/nuevaActividad";
        

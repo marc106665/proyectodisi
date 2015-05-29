@@ -127,6 +127,18 @@ public Actividad(){
 		this.idActividad = idActividad;
 	}
 
+
+	@Override
+	public String toString() {
+		return "Actividad [idActividad=" + idActividad + ", nombre=" + nombre
+				+ ", tipo=" + tipo + ", duracionHoras=" + duracionHoras
+				+ ", descripcion=" + descripcion + ", minParticipantes="
+				+ minParticipantes + ", maxParticipantes=" + maxParticipantes
+				+ ", oferta=" + oferta + ", nuevo=" + nuevo + ", localizacion="
+				+ localizacion + ", foto=" + foto + "]";
+	}
+
+	
 	
 }
 

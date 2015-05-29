@@ -95,7 +95,7 @@
                   <div id="div-1" class="body">
                   
                   
-                    <form:form modelAttribute="actividad" class="form-horizontal" method="POST" action="admin1234/addActividad.html">
+                    <form:form modelAttribute="actividad" class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/admin1234/addActividad.html">
 
 
 						<div class="form-group">
@@ -128,11 +128,11 @@
 		                    </div>
 	                    </div><!-- /.form-group -->
 	                    <div class="form-group">
-	                    	<form:label path="localizacion" for="lugar" class="control-label col-lg-3">Link al sitio G.Maps</form:label>
+	                    	<form:label path="localizacion" for="localizacion" class="control-label col-lg-3">Link al sitio G.Maps</form:label>
 		                    <div class="col-lg-7">
 		                    <div class="input-group">
 		                        <div class="input-group-addon"><a href="http://maps.google.es/" target="_blanck"><li class="glyphicon glyphicon-map-marker"></li></a></div>
-		                        <form:input path="localizacion" tabindex="4" type="text" id="lugar" placeholder="Link de Google maps" class="form-control"/>
+		                        <form:input path="localizacion" tabindex="4" type="text" id="localizacion" placeholder="Link de Google maps" class="form-control"/>
 		                    	</div>
 		                    </div>
 	                    </div><!-- /.form-group -->
@@ -142,7 +142,9 @@
 		                    <div class="col-lg-9">
 		                    	<div class="checkbox">
 	                            	<label>
-	                              		
+	                              		<label>
+	                              			<input tabindex="5" class="uniform" type="checkbox" value="tarde"> Mañana
+	                            		</label>
 	                            	</label>
 	                          	</div>
 	                          	<div class="checkbox">
@@ -161,8 +163,9 @@
 					  <div class="form-group">
 		                  <label for="descripcion" class="control-label col-lg-3">Descripción</label>
 		                  <div id="descripcion" class="col-lg-7">
-		                    
-		                      <textarea tabindex="8" id="wysihtml5" class="form-control" rows="5"></textarea>
+		                  		
+		                	  <form:textarea path="descripcion" tabindex="8" id="wysihtml5" class="form-control" rows="5"/>
+		                      
 		                      
 		                    
 		                  </div>
@@ -172,6 +175,7 @@
 					<div class="form-group">
                         <label class="control-label col-lg-3 col-sm-3">Precio por persona y nivel</label>
                         <div class="col-lg-2 col-sm-2">
+                        
                           <select tabindex="9" data-placeholder="Nivel" id="nivel" class="form-control chzn-select">
                             <option value="mostrarPrecio1">Nivel 1</option>
                             <option value="mostrarPrecio2">Nivel 2</option>
@@ -226,6 +230,8 @@
 						
 					<div class="col-lg-3"></div>
 					<div class="form-group">
+					
+					<form:input path=""/>
 					      <input type="number" style="display:none;" id="precio1" class="form-control">
 		            <input type="number" style="display:none;" id="precio2" class="form-control">
 		            <input type="number" style="display:none;" id="precio3" class="form-control">
@@ -235,23 +241,27 @@
 
 
 					  <div class="form-group">
-
-					  	<label for="nombre" class="control-label col-lg-3 col-sm-3">nº mínimo de participantes</label>
-                        <div class="col-lg-1 col-sm-2">
-                          <input tabindex="12" type="number" id="minpar" placeholder="4..." class="form-control">
-                        </div>
-
-	                     <label for="nombre" class="control-label col-lg-4 col-lg-offset-1 col-sm-4">nº máximo de participantes</label>
-	                    <div class="col-lg-1 col-sm-2">
-	                      <input tabindex="13" type="number" id="maxpar" placeholder="20..." class="form-control">
-	                    </div>
-	                    <div class="col-lg-5"></div>
+						
+							<form:label path="minParticipantes" for="minParticipantes" class="control-label col-lg-3 col-sm-3">nº mínimo de participantes</form:label>
+						  	
+	                        <div class="col-lg-1 col-sm-2">
+	                        	<form:input path="minParticipantes" tabindex="12" type="number" id="minParticipantes" placeholder="4..." class="form-control"/>
+	                        </div>
+	
+							<form:label path="maxParticipantes" for="maxParticipantes" class="control-label col-lg-4 col-lg-offset-1 col-sm-4">nº máximo de participantes</form:label>
+		                     
+		                    <div class="col-lg-1 col-sm-2">
+		                    	<form:input path="maxParticipantes" tabindex="13" type="number" id="maxParticipantes" placeholder="20..." class="form-control"/>
+		                     
+		                    </div>
+		                    <div class="col-lg-5"></div>
 					  </div>
 
 					  
 					  <div class="form-group">
                         <label class="control-label col-lg-3 col-sm-3">Imagen de la actividad</label>
                         <div class="col-lg-2 col-sm-2">
+                        	
                           <input type="file">
                         </div>
 
@@ -264,12 +274,12 @@
 
 							  	<div class="checkbox">
                     <label>
-                      <input tabindex="14" class="uniform" type="checkbox" value="nuevo"> Nuevo
+						<form:checkbox path="nuevo" tabindex="14" class="uniform" value="0"/> Nuevo
                     </label>
                   </div>
                   <div class="checkbox">
                     <label>
-                      <input tabindex="15" class="uniform" type="checkbox" value="rebajado"> Rebajado
+                    	<form:checkbox path="oferta" tabindex="15" class="uniform" value="rebajado"/> Rebajado
                     </label>
                   </div>
 						      </div>
@@ -278,9 +288,9 @@
 						</div>
                       </div>
 
-                                            <hr>
+                      <hr>
                       <div class="form-actions no-margin-bottom">
-                        <input type="submit" value="Guardar" class="btn btn-primary">
+                          <form:button type="submit" value="Guardar" class="btn btn-primary">Guardar</form:button>
                       </div>
                     </form:form>
                   </div>

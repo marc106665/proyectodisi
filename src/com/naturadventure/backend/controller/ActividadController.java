@@ -33,15 +33,17 @@ public class ActividadController {
 	   if (session.getAttribute("user") == null) 
 	   { 
 	      model.addAttribute("user", new UserDetails()); 
-	      return "redirect:admin1234/actividad.html";
+	      return "redirect:admin1234/login.html";
 	   }
-	   if (bindingResult.hasErrors()) 
-		   return "redirect:admin1234/actividad.html";
+//	   if (bindingResult.hasErrors()){
+//		   System.out.println("error\n"+actividad.toString()+"\n"+bindingResult.toString());
+//		   return "redirect:/admin1234/actividades.html";
+//	   }
 	   
 	   System.out.println(actividad.toString());
 	   
-       //actividadDao.addActividad(actividad);
-       return "redirect:admin1234/actividad.html"; 
+       actividadDao.addActividad(actividad);
+       return "redirect:/admin1234/actividades.html"; 
    }
  
    

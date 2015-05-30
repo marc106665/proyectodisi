@@ -1,11 +1,17 @@
 package com.naturadventure.frontend.controller;
 
 import java.util.Date;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.mail.internet.AddressException;
+import javax.servlet.http.HttpServletRequest;
+
+import mail.Mail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -19,6 +25,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.naturadventure.dao.TipoActividadDAO;
 import com.naturadventure.dao.ActividadDAO;
@@ -56,7 +63,8 @@ public class IndexController {
 	@RequestMapping("/index")
 	    public String index(Model model) {
 		 model.addAttribute("tiposdeactividades", tipoActividadDao.getTiposActividad());
-	        return "index";
+		
+	     return "index";
 	    }
 	
 	 @RequestMapping(value="/actividad/{tipo}", method = RequestMethod.GET) 
@@ -168,6 +176,27 @@ public class IndexController {
     		binder.registerCustomEditor(Date.class, "fechaActividad",new CustomDateEditor(dateFormat, false));
 		}
 	   	
-	  
+	   	@RequestMapping(value = "/ajaxmailcontact", method = RequestMethod.POST)
+	    @ResponseBody
+	     public String sendmail( HttpServletRequest request) throws AddressException {
+	   		
+	        String nombre =request.getParameter("nombre");
+	        String email =request.getParameter("email");
+	        String mensaje =request.getParameter("mensaje");
+	        String result = "Correo enviado con exito";		
+	        Mail mail = new Mail();
+	        mail.setRecipient("agg.naturaventure.info@gmail.com");
+	        mail.setSubject("Contacto");
+	        String body ="Contacto de "+ nombre +"\n Con email:"+email+ "\n Pide información sobre : "+mensaje; 
+	        mail.setBodyText(body);
+	        boolean verificacion= true;
+	        System.out.println(" valor send mail  "+ verificacion);
+	        verificacion = mail.sendEmail();
+	        if (!verificacion) { result="Hay un problema con nuestro servidor de correo, por favor comunique con nosotros por teléfono, perdone las molestias"; } 
+	        System.out.println(" valor send mail  "+ verificacion);
+	        
+	        return result;
+	    }
+	   	
 }
 

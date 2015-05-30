@@ -14,10 +14,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class Mail {
-
-	private final String USER_NAME = "*******";  // GMail user name (just the part before "@gmail.com")
-    private final String PASSWORD = "******"; // GMail password
-    private final String SUBJECT_ACCEPTED = "Confirmación";
+	//Gmail data nacimiento 16 marzo 2000 mujer
+	private final String USER_NAME = "agg.naturaventure.info";  // GMail user name (just the part before "@gmail.com")
+    private final String PASSWORD = "aggteamei1027"; // GMail password
+    private final String SUBJECT_ACCEPTED = "Confirmaciï¿½n";
     private final String SUBJECT_REJECTED = "Reserva rechazada";
     
     private String from;
@@ -111,30 +111,34 @@ public class Mail {
     }
     	
     
-    public void sendEmail(){
-    	sendFromGMail(from, pwd, recipient, subject, body );
+    public boolean sendEmail(){
+    	
+    	return sendFromGMail(this.USER_NAME, this.PASSWORD, recipient, subject, body );
     }
     
     
     
-    private  void sendFromGMail(String from, String pass, List<String> to, String subject, String body) {
-        Properties props = System.getProperties();
+    private  boolean  sendFromGMail(String from, String pass, List<String> to, String subject, String body) {
+        Properties props = System.getProperties();       
         String host = "smtp.gmail.com";
         props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.user", from);
-        props.put("mail.smtp.password", pass);
+         props.put("mail.smtp.host", host);
+         props.put("mail.smtp.user", from);
+         props.put("mail.smtp.password", pass);
         props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.auth", "true");
-
+         props.put("mail.smtp.auth", "true");
+        
+        Boolean resultado=true;
+        
         Session session = Session.getDefaultInstance(props);
         MimeMessage message = new MimeMessage(session);
-
+        
         try {
             message.setFrom(new InternetAddress(from));
+            
             InternetAddress[] toAddress = new InternetAddress[to.size()-1];
-
+            
             // To get the array of addresses
             for( int i = 0; i < to.size()-1; i++ ) {
                 toAddress[i] = new InternetAddress(to.get(i));
@@ -143,7 +147,6 @@ public class Mail {
             for( int i = 0; i < toAddress.length; i++) {
                 message.addRecipient(Message.RecipientType.TO, toAddress[i]);
             }
-
             message.setSubject(subject);
             message.setText(body,"ISO-8859-1","html");
             Transport transport = session.getTransport("smtp");
@@ -151,12 +154,21 @@ public class Mail {
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
         }
+        catch (NullPointerException pex) {
+        	pex.printStackTrace();
+        	
+        }
         catch (AddressException ae) {
-            ae.printStackTrace();
+        	ae.printStackTrace();
+        	
         }
         catch (MessagingException me) {
             me.printStackTrace();
+            
+        } finally {
+        	resultado = false;
         }
+        return resultado;
     }
 	
 }

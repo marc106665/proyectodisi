@@ -44,10 +44,12 @@
               <ul class="nav navbar-nav">
                     <li><a href="reservas.html">Reservas</a></li>
                     <li><a href="actividades.html">Actividades</a></li>
+                    <li><a href="tiposActividades.html">Tipos Actividades</a></li>
                     <li><a href="monitores.html">Monitores</a></li>
                   <ul class="dropdown-menu">
                     <li><a href="reservas.html">Reservas</a></li>
                     <li><a href="actividades.html">Actividades</a></li>
+                    <li><a href="tiposActividades.html">Tipos Actividades</a></li>
                     <li><a href="monitores.html">Monitores</a></li>
                   </ul>
                 </li>

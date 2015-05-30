@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=latin1"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <!--[if IE 9]> <html lang="es" class="ie9"> <![endif]-->
 <!--[if !IE]><!-->
@@ -239,24 +240,9 @@
 					<div class="col-sm-12">
 						<div class="media">
 							<div class="media-body text-left">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-								consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-								cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-								proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-								consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-								cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-								proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-								consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-								cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-								proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+								<p>L’empresa NaturAdventure es dedica a la realització d’activitats d’aventura de diferents nivells adaptades a la demanda dels clients. Les activitats són la realització d’una pràctica de diversos tipus d’aventura, com ara el submarinisme, l’escalada o la baixada d’aigües braves en canoa, que s’ofereixen sota la supervisió d’un monitor qualificat en el tipus d’activitat a un grup de persones i en una data prefixada durant unes hores determinades.
+
+Els clients contacten amb l’empresa (actualment per telèfon o e-mail) , demanen la realització d’una activitat de les que ofereix l’empresa, per a una data en particular i per a un nombre de persones determinat; és a dir fan una reserva. El gerent revisa la disponibilitat de monitors i dates i assigna la reserva del client a un monitor dels que te contractats que poden supervisar el tipus d’activitat sol·licitada.
 							</div>
 						</div>
 					</div>
@@ -300,7 +286,8 @@
 						</div>
 						<div class="col-sm-6">
 							<div class="footer-content">
-								<form role="form" id="footer-form">
+								<form:form method="post" role="form"  id="footer-form">	
+								
 									<div class="form-group has-feedback">
 										<label class="sr-only" for="name2">Nombre</label>
 										<input type="text" class="form-control" id="name2" placeholder="Nombre" name="nombre" required>
@@ -316,8 +303,9 @@
 										<textarea class="form-control" rows="8" id="message2" placeholder="Mensaje, pregunta..." name="mensaje" required></textarea>
 										<i class="fa fa-pencil form-control-feedback"></i>
 									</div>
-									<input type="submit" value="¡Enviar!" class="btn btn-default">
-								</form>
+									<input type="submit" value="¡Enviar!" onclick="doAjax()" class="btn btn-default">
+									<span id="result"></span>
+								</form:form>
 							</div>
 						</div>
 					</div>
@@ -356,5 +344,23 @@
 		<!-- Initialization of Plugins -->
 		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/template.js"></script>
 
+<script type="text/javascript">
+$( "#footer-form" ).submit(function( event ) {
+	event.preventDefault();
+	var $form = $( this ),
+	    nombre = $form.find( "input[name='nombre']" ).val(),
+	    email = $form.find( "input[name='email']" ).val(),
+	    mensaje = $form.find( "input[name='mensaje']" ).val();
+	var posting = $.post( "ajaxmailcontact.html", {nombre: nombre, email: email, mensaje: mensaje});
+	posting.done(function( data ) {
+    	$( "#result" ).empty().append( data );
+    	  $( "#result" )
+    	  	.slideUp( 300 ).delay( 800 ).fadeIn( 400 );
+  	});
+});
+</script>
+
 	</body>
+	
+
 </html>

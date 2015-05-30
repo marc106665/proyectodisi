@@ -114,6 +114,43 @@ public class UserController {
    }
    
    
+
+   @RequestMapping("/tiposActividades.html") 
+   public String tipoActividades(HttpSession session, Model model) {
+       if (session.getAttribute("user") == null) 
+       { 
+          model.addAttribute("user", new UserDetails()); 
+          return "admin1234/login";
+       } 
+       
+       List<TipoActividad> aux = null;
+       //System.out.println(actividadDao.getActividades());
+       aux = tipoActividadDao.getTiposActividad();
+       
+       if(aux != null)
+    	   model.addAttribute("listaTipoActividades", aux);
+       
+       return "admin1234/tiposActividades";
+       
+   }
    
+   
+   @RequestMapping("/nuevoTipoActividad.html") 
+   public String addTipoActividad(HttpSession session, Model model) {
+	   if (session.getAttribute("user") == null) 
+       { 
+		   model.addAttribute("user", new UserDetails()); 
+           return "admin1234/login";
+       } 
+       
+	   List<TipoActividad>listaTipoActividad = tipoActividadDao.getTiposActividad();
+	   //System.out.println(listaTipoActividad);
+	   model.addAttribute("listaTipoActividades", listaTipoActividad);
+	   model.addAttribute("tipoActividad", new TipoActividad());
+	   model.addAttribute("fra", new TipoActividad());
+	   
+       return "admin1234/nuevoTipoActividad";
+       
+   }
    
 }

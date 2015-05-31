@@ -34,7 +34,7 @@ public class ActividadController {
    }
    
    @RequestMapping(value="/addActividad.html", method=RequestMethod.POST) 
-   public String processAddSubmit(HttpSession session, Model model, @ModelAttribute("actividad") Actividad actividad, BindingResult bindingResult) 
+   public String processAddSubmit(HttpSession session, Model model, @ModelAttribute("actividad") Actividad actividad,  @ModelAttribute("horasinicio") HorasInicio horasInicio, /*@ModelAttribute("listaniveles") List<NivelActividad> listaNiveles,*/ BindingResult bindingResult) 
    {
 	   if (session.getAttribute("user") == null) 
 	   { 
@@ -48,7 +48,28 @@ public class ActividadController {
 	   
 	   System.out.println(actividad.toString());
 	   
-       actividadDao.addActividad(actividad);
+       int id = actividadDao.addActividad(actividad);
+
+       System.out.println("id"+id+":"+actividad.toString());
+       
+//       for (int i = 0; i < listaNiveles.size(); i++) {
+//    	   NivelActividad nivel = new NivelActividad();
+//    	   nivel.setIdActividad(id);
+//           
+//           nivel.setNivel(listaNiveles.get(i).getNivel());
+//           nivel.setPrecioPorPersona(listaNiveles.get(i).getPrecioPorPersona());
+//           
+//           System.out.println("id devuelto es:"+id+"-"+nivel.toString());
+//           //actividadDao.addNivel(nivel);
+//           
+//       }
+       
+     //actividadDao.addNivel(nivel);
+       
+       
+       
+       
+       
        return "redirect:/admin1234/actividades.html"; 
    }
  
@@ -60,10 +81,14 @@ public class ActividadController {
 	      model.addAttribute("user", new UserDetails()); 
 	      return "redirect:admin1234/login.html";
 	   }
+	   
 	    Actividad actividad = actividadDao.getActividad(id);
-	 	
-	    System.out.println(" OK " + actividad.toString());
-	    actividadDao.deleteActividad(id);
+	 	if (actividad != null) {
+	 		actividadDao.deleteActividad(id);
+	 		return "redirect:/admin1234/actividades.html";
+		}
+	    //System.out.println(" OK " + actividad.toString());
+	   
        return "redirect:/admin1234/actividades.html";
    }
    

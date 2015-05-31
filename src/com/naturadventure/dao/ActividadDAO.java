@@ -1,5 +1,7 @@
 package com.naturadventure.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.LinkedList;
@@ -9,7 +11,10 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.naturadventure.domain.Actividad;
@@ -85,9 +90,45 @@ public class ActividadDAO {
 		return this.jdbcTemplate.queryForObject("select idActividad, nombre, tipo, duracionHoras, descripcion, minParticipantes, maxParticipantes, oferta, nuevo, localizacion, foto from actividad where idActividad = ? ",  new Object[] {idActividad}, new ActividadMapper());
 	}
 	
-	public void addActividad(Actividad actividad) {
-		this.jdbcTemplate.update(
-				"insert into Actividad(nombre, tipo, duracionHoras, descripcion, minParticipantes, maxParticipantes, oferta, nuevo, localizacion, foto) values( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", actividad.getNombre() , actividad.getTipo() ,actividad.getDuracionHoras(), actividad.getDescripcion(), actividad.getMinParticipantes(), actividad.getMaxParticipantes(), actividad.getOferta(), actividad.getNuevo(), actividad.getLocalizacion(), actividad.getFoto() );
+	public int addActividad(Actividad actividad) {
+		final String INSERT_SQL = "insert into Actividad (nombre, tipo, duracionHoras, descripcion, minParticipantes, maxParticipantes, oferta, nuevo, localizacion, foto) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		// ,  ,, , actividad.getMinParticipantes(), actividad.getMaxParticipantes(), actividad.getOferta(), actividad.getNuevo(), actividad.getLocalizacion(), actividad.getFoto()
+		final String nombre = actividad.getNombre();
+		final String tipo = actividad.getTipo();
+		final int horas = actividad.getDuracionHoras();
+		final String descripcion = actividad.getDescripcion();
+		final int min = actividad.getMinParticipantes();
+		final int max = actividad.getMaxParticipantes();
+		final String oferta = actividad.getOferta();
+		final int nuevo = actividad.getNuevo();
+		final String localizacion = actividad.getLocalizacion();
+		final String foto = actividad.getFoto();
+		
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcTemplate.update(
+		    new PreparedStatementCreator() {
+		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+		            PreparedStatement ps = connection.prepareStatement(INSERT_SQL, new String [] {"idactividad"});
+		            ps.setString(1, nombre);
+		            ps.setString(2, tipo);
+		            ps.setInt(3, horas);
+		            ps.setString(4, descripcion);
+		            ps.setInt(5, min);
+		            ps.setInt(6, max);
+		            ps.setString(7, oferta);
+		            ps.setInt(8, nuevo);
+		            ps.setString(9, localizacion);
+		            ps.setString(10, foto);
+		            
+		            return ps;
+		        }
+		    },
+		    keyHolder);
+		
+		return keyHolder.getKey().intValue();
+		
+		//return this.jdbcTemplate.update(
+		//		"insert into Actividad(nombre, tipo, duracionHoras, descripcion, minParticipantes, maxParticipantes, oferta, nuevo, localizacion, foto) values( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", actividad.getNombre() , actividad.getTipo() ,actividad.getDuracionHoras(), actividad.getDescripcion(), actividad.getMinParticipantes(), actividad.getMaxParticipantes(), actividad.getOferta(), actividad.getNuevo(), actividad.getLocalizacion(), actividad.getFoto() );
 	}
 	
 	public List<NivelActividad> getNivelActividad(int idActividad){

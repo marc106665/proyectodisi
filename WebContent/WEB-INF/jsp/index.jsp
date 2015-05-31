@@ -240,9 +240,9 @@
 					<div class="col-sm-12">
 						<div class="media">
 							<div class="media-body text-left">
-								<p>L’empresa NaturAdventure es dedica a la realització d’activitats d’aventura de diferents nivells adaptades a la demanda dels clients. Les activitats són la realització d’una pràctica de diversos tipus d’aventura, com ara el submarinisme, l’escalada o la baixada d’aigües braves en canoa, que s’ofereixen sota la supervisió d’un monitor qualificat en el tipus d’activitat a un grup de persones i en una data prefixada durant unes hores determinades.
+								<p>NaturAdventure nos dedicamosa la realización de actividades de aventura adaptadas a diferentes niveles de experiencia previa según la demanda de nuestros clientes aventureros. Las aventuras que ofrecemos son de una práctica de tipo específico como pueden ser el submarinismo, la escalada o bajada de aguas bravas en canoas entre muchos otras aventuras. Toda aventura que ofrecemos está supervisada de un monitor cualificado para dicha actividad, el cual se encargará de guiar e instruir a un grupo de aventureros durante la duración de la actividad.
 
-Els clients contacten amb l’empresa (actualment per telèfon o e-mail) , demanen la realització d’una activitat de les que ofereix l’empresa, per a una data en particular i per a un nombre de persones determinat; és a dir fan una reserva. El gerent revisa la disponibilitat de monitors i dates i assigna la reserva del client a un monitor dels que te contractats que poden supervisar el tipus d’activitat sol·licitada.
+Todo aquel que quiera una aventura  con nosotros pude contactar y informarse más detenidamente a través de nuestro telefono o email. Todo aquel que quiera, pude consultar nuestras aventuras y posteriormente programar una reserva de forma rapida y eficaz a traves de nuestra web. Nuestros gerentes se pondrán en contatacto una vez validada la reserva según la disponibilidad de las fechas y monitores de la aventura solicitada.
 							</div>
 						</div>
 					</div>

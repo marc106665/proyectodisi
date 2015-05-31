@@ -1,5 +1,6 @@
 package com.naturadventure.backend.controller;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -34,7 +35,7 @@ public class ActividadController {
    }
    
    @RequestMapping(value="/addActividad.html", method=RequestMethod.POST) 
-   public String processAddSubmit(HttpSession session, Model model, @ModelAttribute("actividad") Actividad actividad,  @ModelAttribute("horasinicio") HorasInicio horasInicio, /*@ModelAttribute("listaniveles") List<NivelActividad> listaNiveles,*/ BindingResult bindingResult) 
+   public String processAddSubmit(HttpSession session, Model model, @ModelAttribute("actividad") Actividad actividad,  @ModelAttribute("horasinicio") HorasInicio horasInicio, @ModelAttribute("listaniveles") LinkedList<NivelActividad> listaNiveles, BindingResult bindingResult) 
    {
 	   if (session.getAttribute("user") == null) 
 	   { 
@@ -50,8 +51,9 @@ public class ActividadController {
 	   
        int id = actividadDao.addActividad(actividad);
 
-       System.out.println("id"+id+":"+actividad.toString());
+       System.out.println("id "+id+":"+actividad.toString());
        
+       System.out.println(listaNiveles.toString());
 //       for (int i = 0; i < listaNiveles.size(); i++) {
 //    	   NivelActividad nivel = new NivelActividad();
 //    	   nivel.setIdActividad(id);

@@ -231,8 +231,11 @@
 					<div class="col-lg-3"></div>
 					<div class="form-group">
 					
-					<form:input path=""/>
-					      <input type="number" style="display:none;" id="precio1" class="form-control">
+					
+
+					
+					
+					<input type="number" style="display:none;" id="precio1" class="form-control">
 		            <input type="number" style="display:none;" id="precio2" class="form-control">
 		            <input type="number" style="display:none;" id="precio3" class="form-control">
 				  	</div>
@@ -241,7 +244,18 @@
 
 
 					  <div class="form-group">
-						
+
+                        
+                        <%-- <form:select path="listaniveles">
+
+                      <form:option value="nivel" label="nivel" />
+
+                      <form:options items="${listaniveles}" />
+
+                       </form:select> --%>
+
+
+
 							<form:label path="minParticipantes" for="minParticipantes" class="control-label col-lg-3 col-sm-3">nº mínimo de participantes</form:label>
 						  	
 	                        <div class="col-lg-1 col-sm-2">

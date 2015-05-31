@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -106,8 +107,19 @@ public class UserController {
 	   //System.out.println(listaTipoActividad);
 	   model.addAttribute("listaTipoActividad", listaTipoActividad);
 	   
-	   model.addAttribute("actividad", new Actividad());
+	   Actividad actividad = new Actividad();
+	   
+	   List<NivelActividad> listaNiveles = new LinkedList<NivelActividad>();
+	   listaNiveles.add(new NivelActividad());
+	   listaNiveles.add(new NivelActividad());
+	   listaNiveles.add(new NivelActividad());
+	   
+	   //actividad.setNiveles(listaNiveles);
+	   
+	   
+	   model.addAttribute("actividad", actividad);
 	   model.addAttribute("horasInicio", new HorasInicio());
+	   //model.addAttribute("listaniveles", actividad.getNiveles());
 	   
        return "admin1234/nuevaActividad";
        

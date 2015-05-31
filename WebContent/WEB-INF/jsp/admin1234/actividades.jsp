@@ -122,10 +122,10 @@
                             <td>${listaActividades.minParticipantes}/${listaActividades.maxParticipantes}</td>
                             
                             <c:if test="${listaActividades.oferta == 'rebajado'}">
-						       <td><li class="fa fa-close"></li></td>
+						       <td><li class="fa fa-check"></li></td>
 						    </c:if>
 						    <c:if test="${listaActividades.oferta == '0'}">
-						       <td><li class="fa fa-check"></li></td>
+						       <td><li class="fa fa-close"></li></td>
 						    </c:if>
 						    <c:if test="${listaActividades.nuevo == 0}">
 						       <td><li class="fa fa-close"></li></td>

@@ -84,9 +84,9 @@ public class ActividadController {
        
 		//Rebajado o nuevo
 		if (request.getParameter("oferta") != null) {
-			actividad.setOferta("1");
+			actividad.setOferta("oferta");
 		}else{
-			actividad.setOferta("0");
+			actividad.setOferta("nooferta");
 		}
 		if (request.getParameter("nuevo") != null) {
 			actividad.setNuevo(1);

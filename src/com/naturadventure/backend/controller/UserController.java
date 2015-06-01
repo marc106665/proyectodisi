@@ -101,11 +101,6 @@ public class UserController {
 		   model.addAttribute("user", new UserDetails()); 
            return "admin1234/login";
        } 
-	     
-       List<HorasInicio> cremalleraHoras = new LinkedList<HorasInicio>();
-       HorasInicio oo = new HorasInicio();
-       oo.setHoraInicio("MANYANA");
-       cremalleraHoras.add(oo);
 
        
 	   List<TipoActividad>listaTipoActividad = tipoActividadDao.getTiposActividad();
@@ -113,16 +108,8 @@ public class UserController {
 	   model.addAttribute("listaTipoActividad", listaTipoActividad);
 	   
 	   Actividad actividad = new Actividad();
-	   
-	   
-	   //actividad.setNiveles(listaNiveles);
-	   
+	   	   
 	   model.addAttribute("actividad", actividad);
-	   model.addAttribute("horasinicio", cremalleraHoras);
-	   model.addAttribute("objhorasinicio", cremalleraHoras.get(0));
-	   
-	   
-	   //model.addAttribute("listaniveles", actividad.getNiveles());
 	   
        return "admin1234/nuevaActividad";
        

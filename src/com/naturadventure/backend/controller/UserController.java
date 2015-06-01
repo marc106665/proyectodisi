@@ -102,6 +102,11 @@ public class UserController {
            return "admin1234/login";
        } 
 	     
+       List<HorasInicio> cremalleraHoras = new LinkedList<HorasInicio>();
+       HorasInicio oo = new HorasInicio();
+       oo.setHoraInicio("MANYANA");
+       cremalleraHoras.add(oo);
+
        
 	   List<TipoActividad>listaTipoActividad = tipoActividadDao.getTiposActividad();
 	   //System.out.println(listaTipoActividad);
@@ -109,17 +114,29 @@ public class UserController {
 	   
 	   Actividad actividad = new Actividad();
 	   
-	   List<NivelActividad> listaNiveles = new LinkedList<NivelActividad>();
-	   listaNiveles.add(new NivelActividad());
-	   listaNiveles.add(new NivelActividad());
-	   listaNiveles.add(new NivelActividad());
 	   
 	   //actividad.setNiveles(listaNiveles);
 	   
-	   
 	   model.addAttribute("actividad", actividad);
-	   model.addAttribute("horasInicio", new HorasInicio());
+	   model.addAttribute("horasinicio", cremalleraHoras);
+	   model.addAttribute("objhorasinicio", cremalleraHoras.get(0));
+	   
+	   
 	   //model.addAttribute("listaniveles", actividad.getNiveles());
+	   
+       return "admin1234/nuevaActividad";
+       
+   }
+   
+   @RequestMapping("/nuevaActividadTest.html") 
+   public String addActividadTest(HttpSession session, Model model) {
+	   if (session.getAttribute("user") == null) 
+       { 
+		   model.addAttribute("user", new UserDetails()); 
+           return "admin1234/login";
+       } 
+	     
+      
 	   
        return "admin1234/nuevaActividad";
        

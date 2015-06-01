@@ -5,34 +5,20 @@ public class HorasInicio {
 	private String horaInicio;
 	
 	
-public HorasInicio(){
+	public HorasInicio(){
 		
 	}
 
 
-	
-
-
-
-
 	@Override
-public String toString() {
-	return "HorasInicio [idActividad=" + idActividad + ", horaInicio="
-			+ horaInicio + "]";
-}
-
-
-
-
-
-
+	public String toString() {
+		return "HorasInicio [idActividad=" + idActividad + ", horaInicio="
+				+ horaInicio + "]";
+	}
 
 	public int getIdActividad() {
 		return idActividad;
 	}
-
-
-
 
 	public void setIdActividad(int idActividad) {
 		this.idActividad = idActividad;
@@ -41,9 +27,6 @@ public String toString() {
 	public String getHoraInicio() {
 		return horaInicio;
 	}
-
-
-
 
 	public void setHoraInicio(String horaInicio) {
 		this.horaInicio = horaInicio;

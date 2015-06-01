@@ -164,6 +164,18 @@ public class ActividadDAO {
 			lvl.add(n.getNivel());
 		}
 		return lvl;
-		}
+	}
+	
+	public void addHoraInicio(HorasInicio horaInicio){
+		this.jdbcTemplate.update(
+						"INSERT INTO horasinicioactividad (idactividad, horainicio) VALUES (?, ?)", horaInicio.getIdActividad(), horaInicio.getHoraInicio());
+
+	}
+	
+	public void addNivelActividad(NivelActividad nivelActividad){
+		this.jdbcTemplate.update(
+						"INSERT INTO nivelactividad (idactividad, nivel, precioporpersona) VALUES (?, ?, ?)", nivelActividad.getIdActividad(), nivelActividad.getNivel(), nivelActividad.getPrecioPorPersona());
+
+	}
 	
 }

@@ -57,8 +57,12 @@ public class LoginController {
 	    private UserDAO userDao;
 	 	
 	    @RequestMapping("/login")
-	    public String login(Model model) {
-	        model.addAttribute("user", new UserDetails());
+	    public String login(HttpSession session, Model model) {
+	    	if (session.getAttribute("user") != null) 
+	        { 
+	           return "admin1234/inicio";
+	        } 
+	    	model.addAttribute("user", new UserDetails());
 	        return "admin1234/login";
 	    }
 

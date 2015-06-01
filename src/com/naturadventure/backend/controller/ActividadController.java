@@ -3,6 +3,7 @@ package com.naturadventure.backend.controller;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import com.naturadventure.domain.Actividad;
 import com.naturadventure.domain.HorasInicio;
 import com.naturadventure.domain.NivelActividad;
 import com.naturadventure.domain.Reserva;
+import com.naturadventure.domain.TipoActividad;
 import com.naturadventure.domain.UserDetails;
 
 
@@ -35,44 +37,88 @@ public class ActividadController {
    }
    
    @RequestMapping(value="/addActividad.html", method=RequestMethod.POST) 
-   public String processAddSubmit(HttpSession session, Model model, @ModelAttribute("actividad") Actividad actividad,  @ModelAttribute("horasinicio") HorasInicio horasInicio, @ModelAttribute("listaniveles") LinkedList<NivelActividad> listaNiveles, BindingResult bindingResult) 
+   public String processAddSubmit(HttpSession session, 
+		   Model model, 
+		   @ModelAttribute("actividad") Actividad actividad,  
+		   @ModelAttribute("listatipoactividad") TipoActividad tipoActividad,  
+		   @ModelAttribute("horasinicio") HorasInicio horasInicio, 
+		   @ModelAttribute("listaniveles") LinkedList<NivelActividad> listaNiveles, 
+		   BindingResult bindingResult,
+		   HttpServletRequest request)
    {
-	   if (session.getAttribute("user") == null) 
-	   { 
-	      model.addAttribute("user", new UserDetails()); 
-	      return "redirect:admin1234/login.html";
-	   }
+	   	if (session.getAttribute("user") == null) 
+	   	{ 
+	   		model.addAttribute("user", new UserDetails()); 
+	   		return "redirect:admin1234/login.html";
+	   	}
 //	   if (bindingResult.hasErrors()){
 //		   System.out.println("error\n"+actividad.toString()+"\n"+bindingResult.toString());
 //		   return "redirect:/admin1234/actividades.html";
 //	   }
 	   
-	   System.out.println(actividad.toString());
+	   	System.out.println(request.getParameter("manyana")+":"+request.getParameter("tarde"));
+	   	System.out.println("tipo de actividad: "+tipoActividad.toString()+"\n"+actividad.toString());
 	   
-       int id = actividadDao.addActividad(actividad);
-
-       System.out.println("id "+id+":"+actividad.toString());
+       	int id = actividadDao.addActividad(actividad);
        
-       System.out.println(listaNiveles.toString());
-//       for (int i = 0; i < listaNiveles.size(); i++) {
-//    	   NivelActividad nivel = new NivelActividad();
-//    	   nivel.setIdActividad(id);
-//           
-//           nivel.setNivel(listaNiveles.get(i).getNivel());
-//           nivel.setPrecioPorPersona(listaNiveles.get(i).getPrecioPorPersona());
-//           
-//           System.out.println("id devuelto es:"+id+"-"+nivel.toString());
-//           //actividadDao.addNivel(nivel);
-//           
-//       }
+       	
+       	//Franja horaria:
+	   	if (request.getParameter("manyana") != null) {
+	   		HorasInicio objHora = new HorasInicio();
+	   		objHora.setIdActividad(id);
+	   		objHora.setHoraInicio(request.getParameter("manyana"));
+	   		actividadDao.addHoraInicio(objHora);
+	   	}
+		if (request.getParameter("tarde") != null) {
+			HorasInicio objHora = new HorasInicio();
+	   		objHora.setIdActividad(id);
+	   		objHora.setHoraInicio(request.getParameter("tarde"));	
+	   		actividadDao.addHoraInicio(objHora);
+		}
+		if (request.getParameter("noche") != null) {
+			HorasInicio objHora = new HorasInicio();
+	   		objHora.setIdActividad(id);
+	   		objHora.setHoraInicio(request.getParameter("noche"));
+	   		actividadDao.addHoraInicio(objHora);
+		}
        
-     //actividadDao.addNivel(nivel);
+		//Rebajado o nuevo
+		if (request.getParameter("oferta") != null) {
+			actividad.setOferta("1");
+		}else{
+			actividad.setOferta("0");
+		}
+		if (request.getParameter("nuevo") != null) {
+			actividad.setNuevo(1);
+		}else{
+			actividad.setNuevo(0);
+		}
+		
+		//Precio por nivel:
+	   	if (request.getParameter("precio1") != null) {
+	   		NivelActividad precio1 = new NivelActividad();
+	   		precio1.setIdActividad(id);
+	   		precio1.setNivel("PRINCIPIANTE");
+	   		precio1.setPrecioPorPersona(Float.valueOf(request.getParameter("precio1")));
+	   		actividadDao.addNivelActividad(precio1);
+	   	}
+		if (request.getParameter("precio2") != null) {
+			NivelActividad precio2 = new NivelActividad();
+			precio2.setIdActividad(id);
+			precio2.setNivel("INTERMEDIO");
+			precio2.setPrecioPorPersona(Float.valueOf(request.getParameter("precio2")));
+	   		actividadDao.addNivelActividad(precio2);
+		}
+		if (request.getParameter("precio3") != null) {
+			NivelActividad precio3 = new NivelActividad();
+			precio3.setIdActividad(id);
+			precio3.setNivel("AVANZADO");
+			precio3.setPrecioPorPersona(Float.valueOf(request.getParameter("precio3")));
+	   		actividadDao.addNivelActividad(precio3);
+		}
+		
        
-       
-       
-       
-       
-       return "redirect:/admin1234/actividades.html"; 
+		return "redirect:/admin1234/actividades.html"; 
    }
  
    

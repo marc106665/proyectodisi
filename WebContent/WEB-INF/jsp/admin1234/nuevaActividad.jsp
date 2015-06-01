@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!doctype html>
 <html class="no-js">
   <head>
@@ -137,24 +138,42 @@
 		                    </div>
 	                    </div><!-- /.form-group -->
 
+						<div class="form-group">
+								
+							
+								
+								<%-- 
+								
+								<form:checkbox modelAttribute="objhorasinicio"  path="horasinicio.horaInicio" value="MANYANA"/>Mañana 
+ 								
+ 							<c:forEach items="${horasinicio}" var="horasinicio">
+ 									
+ 									<form:checkbox path="horasinicio.horaInicio" value="MANYANA"/>Mañana 
+ 								
+ 								</c:forEach> --%>
+							  
+							    
+						</div>
+
 	                    <div class="form-group">
 		                    <label for="franjahoraria" class="control-label col-lg-3">Franjas horarias</label>
 		                    <div class="col-lg-9">
 		                    	<div class="checkbox">
+		                    		
 	                            	<label>
 	                              		<label>
-	                              			<input tabindex="5" class="uniform" type="checkbox" value="tarde"> Mañana
+	                              			<input name="manyana" tabindex="5" class="uniform" type="checkbox" value="MANYANA"> Mañana
 	                            		</label>
 	                            	</label>
 	                          	</div>
 	                          	<div class="checkbox">
 	                            	<label>
-	                              		<input tabindex="6" class="uniform" type="checkbox" value="tarde"> Tarde
+	                              		<input name="tarde" tabindex="6" class="uniform" type="checkbox" value="TARDE"> Tarde
 	                            	</label>
 	                          	</div>
 	                          	<div class="checkbox">
 	                            	<label>
-	                              		<input tabindex="7" class="uniform" type="checkbox" value="noche"> Noche
+	                              		<input name="noche" tabindex="7" class="uniform" type="checkbox" value="NOCHE"> Noche
 	                            	</label>
 	                          	</div>	
 		                    </div>
@@ -232,29 +251,15 @@
 					<div class="form-group">
 					
 					
-
-					
-					
-					<input type="number" style="display:none;" id="precio1" class="form-control">
-		            <input type="number" style="display:none;" id="precio2" class="form-control">
-		            <input type="number" style="display:none;" id="precio3" class="form-control">
+					<input type="number" value="0" style="display:none;" id="precio1" name="precio1" class="form-control">
+		            <input type="number" value="0" style="display:none;" id="precio2" name="precio2" class="form-control">
+		            <input type="number" value="0" style="display:none;" id="precio3" name="precio3" class="form-control">
 				  	</div>
 
 				</div>
 
 
 					  <div class="form-group">
-
-                        
-                        <%-- <form:select path="listaniveles">
-
-                      <form:option value="nivel" label="nivel" />
-
-                      <form:options items="${listaniveles}" />
-
-                       </form:select> --%>
-
-
 
 							<form:label path="minParticipantes" for="minParticipantes" class="control-label col-lg-3 col-sm-3">nº mínimo de participantes</form:label>
 						  	
@@ -288,12 +293,12 @@
 
 							  	<div class="checkbox">
                     <label>
-						<form:checkbox path="nuevo" tabindex="14" class="uniform" value="0"/> Nuevo
+                    	<input type="checkbox" tabindex="14" class="uniform" name="nuevo" value="1"> Nuevo
                     </label>
                   </div>
                   <div class="checkbox">
                     <label>
-                    	<form:checkbox path="oferta" tabindex="15" class="uniform" value="rebajado"/> Rebajado
+                    	<input type="checkbox" name="oferta" tabindex="15" class="uniform" value="1"/> Rebajado
                     </label>
                   </div>
 						      </div>
@@ -436,10 +441,18 @@
 	        function anyadeValor (valor) {
 	        	
 	        	if(valor === null){
-	        		$('#'+nivelElegido).text('--- &euro;');
+	        		$('#'+nivelElegido).html("--- <li class='glyphicon glyphicon-euro'></li>");
 	        	}else{
-	        		$("#"+nivelElegido).text(valor + " &euro;");
-	        		
+	        		$("#"+nivelElegido).html(valor + " <li class='glyphicon glyphicon-euro'></li>");
+	        		if(nivelElegido == "mostrarPrecio1"){
+	        			$("#precio1").val(valor);
+	        		}
+					if(nivelElegido == "mostrarPrecio2"){
+						$("#precio2").val(valor); 			
+					}
+					if(nivelElegido == "mostrarPrecio3"){
+						$("#precio3").val(valor);
+					}
 	        		console.log("#"+nivelElegido+nivelElegido);
 	        	}
 			    //console.log($( "#valorPrecio" ).val());

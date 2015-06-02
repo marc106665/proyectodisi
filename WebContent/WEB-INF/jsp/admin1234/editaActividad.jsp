@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <title>Panel administración</title>
 
+
     <!--IE Compatibility modes-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -66,7 +67,7 @@
 
 		<div class="main-bar">
             <h3>
-              <i class="fa fa-dashboard"></i>&nbsp; Nueva actividad</h3>
+              <i class="fa fa-dashboard"></i>&nbsp; Actualizar actividad</h3>
           </div><!-- /.main-bar -->
         </header><!-- /.head -->
       </div><!-- /#top -->
@@ -96,7 +97,7 @@
                   <div id="div-1" class="body">
                   
                   
-                    <form:form modelAttribute="actividad" class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/admin1234/addActividad.html">
+                    <form:form modelAttribute="actividad" class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/admin1234/editaActividad.html">
 
 
 						<div class="form-group">
@@ -117,6 +118,7 @@
 
                       
 	                    <div class="form-group">
+	                    <form:input path="idActividad"/>
 	                        <form:label for="nombre" class="control-label col-lg-3" path="nombre">Nombre de la actividad</form:label>
 	                        <div class="col-lg-7">
 		                        <form:input tabindex="2" type="text" id="nombre" placeholder="Nombre" class="form-control" path="nombre"/>
@@ -125,7 +127,7 @@
 	                    <div class="form-group">
 	                    	<form:label path="duracionHoras" for="horas" class="control-label col-lg-3">Duración en horas</form:label>
 		                    <div class="col-lg-7">
-		                    	<form:input path="duracionHoras" min="1" tabindex="3" type="number" id="horas" placeholder="Duración en horas" class="form-control"/>
+		                    	<form:input path="duracionHoras" tabindex="3" type="number" id="horas" placeholder="Duración en horas" class="form-control"/>
 		                    </div>
 	                    </div><!-- /.form-group -->
 	                    <div class="form-group">
@@ -204,7 +206,7 @@
                         <div class="col-lg-2 col-sm-2">
                         	<div class="input-group">
 		                    	<div class="input-group-addon"><li class="glyphicon glyphicon-euro"></li></div>
-	                          	<input tabindex="10" min="1" type="number" id="valorPrecio" placeholder="Precio..." class="form-control">
+	                          	<input tabindex="10" type="number" id="valorPrecio" placeholder="Precio..." class="form-control">
 	                    	</div>
 	                    </div>
                         <div class="col-lg-2 col-sm-2">
@@ -264,13 +266,13 @@
 							<form:label path="minParticipantes" for="minParticipantes" class="control-label col-lg-3 col-sm-3">nº mínimo de participantes</form:label>
 						  	
 	                        <div class="col-lg-1 col-sm-2">
-	                        	<form:input path="minParticipantes" min="1" tabindex="12" type="number" id="minParticipantes" placeholder="4..." class="form-control"/>
+	                        	<form:input path="minParticipantes" tabindex="12" type="number" id="minParticipantes" placeholder="4..." class="form-control"/>
 	                        </div>
 	
 							<form:label path="maxParticipantes" for="maxParticipantes" class="control-label col-lg-4 col-lg-offset-1 col-sm-4">nº máximo de participantes</form:label>
 		                     
 		                    <div class="col-lg-1 col-sm-2">
-		                    	<form:input path="maxParticipantes" min="1" tabindex="13" type="number" id="maxParticipantes" placeholder="20..." class="form-control"/>
+		                    	<form:input path="maxParticipantes" tabindex="13" type="number" id="maxParticipantes" placeholder="20..." class="form-control"/>
 		                     
 		                    </div>
 		                    <div class="col-lg-5"></div>

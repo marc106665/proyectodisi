@@ -93,43 +93,7 @@ public class UserController {
        return "admin1234/actividades";
        
    }
-   
-   @RequestMapping("/nuevaActividad.html") 
-   public String addActividad(HttpSession session, Model model) {
-	   if (session.getAttribute("user") == null) 
-       { 
-		   model.addAttribute("user", new UserDetails()); 
-           return "admin1234/login";
-       } 
 
-       
-	   List<TipoActividad>listaTipoActividad = tipoActividadDao.getTiposActividad();
-	   //System.out.println(listaTipoActividad);
-	   model.addAttribute("listaTipoActividad", listaTipoActividad);
-	   
-	   Actividad actividad = new Actividad();
-	   	   
-	   model.addAttribute("actividad", actividad);
-	   
-       return "admin1234/nuevaActividad";
-       
-   }
-   
-   @RequestMapping("/nuevaActividadTest.html") 
-   public String addActividadTest(HttpSession session, Model model) {
-	   if (session.getAttribute("user") == null) 
-       { 
-		   model.addAttribute("user", new UserDetails()); 
-           return "admin1234/login";
-       } 
-	     
-      
-	   
-       return "admin1234/nuevaActividad";
-       
-   }
-   
-   
 
    @RequestMapping("/tiposActividades.html") 
    public String tipoActividades(HttpSession session, Model model) {

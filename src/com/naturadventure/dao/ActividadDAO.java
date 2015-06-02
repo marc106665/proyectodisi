@@ -148,7 +148,7 @@ public class ActividadDAO {
 	
 	public void updateActividad(Actividad actividad) {
 		this.jdbcTemplate.update(
-				"update actividad set nombre = ?, tipo = ?, duracionHoras = ?, descripcion=?, minParticipantes=?, maxParticipantes=?, oferta=?, nuevo=?, localizacion=?, foto=? where idActividad = ?", actividad.getNombre() , actividad.getTipo() ,actividad.getDuracionHoras(), actividad.getDescripcion(), actividad.getMinParticipantes(), actividad.getMaxParticipantes(), actividad.getOferta(), actividad.getNuevo(), actividad.getLocalizacion(), actividad.getFoto() );
+				"update actividad set nombre = ?, tipo = ?, duracionHoras = ?, descripcion=?, minParticipantes=?, maxParticipantes=?, oferta=?, nuevo=?, localizacion=?, foto=? where idActividad = ?", actividad.getNombre() , actividad.getTipo() ,actividad.getDuracionHoras(), actividad.getDescripcion(), actividad.getMinParticipantes(), actividad.getMaxParticipantes(), actividad.getOferta(), actividad.getNuevo(), actividad.getLocalizacion(), actividad.getFoto(), actividad.getIdActividad() );
 	}
 	
 	public void deleteActividad(int idActividad) {
@@ -172,9 +172,21 @@ public class ActividadDAO {
 
 	}
 	
+	public void updateHoraInicio(HorasInicio horaInicio){
+		this.jdbcTemplate.update(
+			"UPDATE horasinicioactividad SET idactividad=?, horainicio=? WHERE idactividad = ?", horaInicio.getIdActividad(), horaInicio.getHoraInicio(), horaInicio.getIdActividad());
+
+	}
+	
 	public void addNivelActividad(NivelActividad nivelActividad){
 		this.jdbcTemplate.update(
-						"INSERT INTO nivelactividad (idactividad, nivel, precioporpersona) VALUES (?, ?, ?)", nivelActividad.getIdActividad(), nivelActividad.getNivel(), nivelActividad.getPrecioPorPersona());
+			"INSERT INTO nivelactividad (idactividad, nivel, precioporpersona) VALUES (?, ?, ?)", nivelActividad.getIdActividad(), nivelActividad.getNivel(), nivelActividad.getPrecioPorPersona());
+
+	}
+	
+	public void updateNivelActividad(NivelActividad nivelActividad){
+		this.jdbcTemplate.update(
+			"UPDATE nivelactividad SET precioporpersona = ? WHERE idactividad = ? AND nivel = ?", nivelActividad.getPrecioPorPersona(), nivelActividad.getIdActividad(), nivelActividad.getNivel());
 
 	}
 	

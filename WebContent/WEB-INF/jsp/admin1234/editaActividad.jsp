@@ -118,7 +118,7 @@
 
                       
 	                    <div class="form-group">
-	                    <form:input path="idActividad"/>
+	                    <form:input style="display:none" path="idActividad"/>
 	                        <form:label for="nombre" class="control-label col-lg-3" path="nombre">Nombre de la actividad</form:label>
 	                        <div class="col-lg-7">
 		                        <form:input tabindex="2" type="text" id="nombre" placeholder="Nombre" class="form-control" path="nombre"/>

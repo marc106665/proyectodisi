@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -39,12 +40,24 @@ public class TipoActividadController {
 	   if (bindingResult.hasErrors()) 
 		   return "redirect:admin1234/inicio.html";
 	   
-	   System.out.println("mierda" + tipoActividad.getTipo().toString());
 	   
-       //actividadDao.addActividad(actividad);
+       tipoActividadDao.addTipoActividad(tipoActividad);
        return "redirect:../admin1234/tiposActividades.html"; 
    }
  
+   @RequestMapping(value="/borrarTipoActividad/{tipo}.html")
+   public String processDelete(HttpSession session, Model model, @PathVariable String tipo) {
+	   if (session.getAttribute("user") == null) 
+	   { 
+	      model.addAttribute("user", new UserDetails()); 
+	      return "redirect:admin1234/login.html";
+	   }
+	    TipoActividad tipoActividad = tipoActividadDao.getTipoActividad(tipo);
+	 	
+	    System.out.println(" OK " + tipoActividad.toString());
+	    tipoActividadDao.deleteTipoActividad(tipo);
+       return "redirect:/admin1234/actividades.html";
+   }
    
    
    

@@ -121,10 +121,10 @@
                             <td>${listaActividades.nombre}</td>
                             <td>${listaActividades.minParticipantes}/${listaActividades.maxParticipantes}</td>
                             
-                            <c:if test="${listaActividades.oferta == 'oferta'}">
+                            <c:if test="${listaActividades.oferta == 'oferta' || listaActividades.oferta == '1'}">
 						       <td><li class="fa fa-check"></li></td>
 						    </c:if>
-						    <c:if test="${listaActividades.oferta == 'nooferta'}">
+						    <c:if test="${empty listaActividades.oferta || listaActividades.oferta == 'nooferta' || listaActividades.oferta == '0'}">
 						       <td><li class="fa fa-close"></li></td>
 						    </c:if>
 						    <c:if test="${listaActividades.nuevo == 0}">
@@ -134,7 +134,7 @@
 						       <td><li class="fa fa-check"></li></td>
 						    </c:if>
                             <td>
-                            <a href="#" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
+                            <a href="editaActividad/${listaActividades.idActividad}.html" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
                             <a href="borrarActividad/${listaActividades.idActividad}.html" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
                             </td>
                         </tr>

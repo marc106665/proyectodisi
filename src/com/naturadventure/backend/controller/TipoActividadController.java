@@ -41,8 +41,19 @@ public class TipoActividadController {
 		   return "redirect:admin1234/inicio.html";
 	   
 	   
-       tipoActividadDao.addTipoActividad(tipoActividad);
-       return "redirect:../admin1234/tiposActividades.html"; 
+	   if(!(tipoActividad.getTipo().isEmpty()) || !(tipoActividad == null)){
+
+		   
+		   if(!tipoActividad.getTipo().equals(tipoActividadDao.getTipoActividad(tipoActividad.getTipo()).getTipo())){
+			   tipoActividadDao.addTipoActividad(tipoActividad);
+
+		   }else{
+			   System.out.println("Tipo actividad repetido");
+
+		   }
+	   }
+	   
+	   return "redirect:../admin1234/tiposActividades.html"; 
    }
  
    @RequestMapping(value="/borrarTipoActividad/{tipo}.html")

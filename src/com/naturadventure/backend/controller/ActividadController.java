@@ -1,8 +1,12 @@
 package com.naturadventure.backend.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +18,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import sun.print.resources.serviceui;
 
 import com.naturadventure.dao.ActividadDAO;
 import com.naturadventure.dao.TipoActividadDAO;
@@ -73,7 +81,7 @@ public class ActividadController {
 		   @ModelAttribute("listatipoactividad") TipoActividad tipoActividad,  
 		   @ModelAttribute("horasinicio") HorasInicio horasInicio, 
 		   @ModelAttribute("listaniveles") LinkedList<NivelActividad> listaNiveles, 
-		   BindingResult bindingResult,
+		   @RequestParam("file") MultipartFile file,
 		   HttpServletRequest request)
    {
 	   	if (session.getAttribute("user") == null) 
@@ -85,6 +93,34 @@ public class ActividadController {
 //		   System.out.println("error\n"+actividad.toString()+"\n"+bindingResult.toString());
 //		   return "redirect:/admin1234/actividades.html";
 //	   }
+	   	
+	   	if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+                
+                // Creating the directory to store file
+                ServletContext sc = session.getServletContext();
+                String rootPath = sc.getRealPath( File.separator + "resources" );
+                File dir = new File(rootPath + File.separator + "subidas");
+                if (!dir.exists())
+                    dir.mkdirs();
+ 
+                // Create the file on server
+                File serverFile = new File(dir.getAbsolutePath()
+                        + File.separator + this.MD5(actividad.getNombre()) + "_" + actividad.getNombre() + ".jpg");
+                BufferedOutputStream stream = new BufferedOutputStream(
+                        new FileOutputStream(serverFile));
+                stream.write(bytes);
+                stream.close();
+ 
+                actividad.setFoto( File.separator + this.MD5(actividad.getNombre()) + "_" + actividad.getNombre() + ".jpg" );
+                System.out.println("You successfully uploaded file=");
+            } catch (Exception e) {
+            	System.out.println("You failed to upload => " + e.getMessage());
+            }
+        } else {
+            System.out.println("You failed to upload because the file was empty.");
+        }
 	   
 	   	System.out.println(request.getParameter("manyana")+":"+request.getParameter("tarde"));
 	   	System.out.println("tipo de actividad: "+tipoActividad.toString()+"\n"+actividad.toString());
@@ -284,6 +320,21 @@ public class ActividadController {
 		return "redirect:/admin1234/actividades.html"; 
 	   	
    }
+   
+   public String MD5(String md5) {
+	   try {
+	        java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+	        byte[] array = md.digest(md5.getBytes());
+	        StringBuffer sb = new StringBuffer();
+	        for (int i = 0; i < array.length; ++i) {
+	          sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
+	       }
+	        return sb.toString();
+	    } catch (java.security.NoSuchAlgorithmException e) {
+	    	System.out.println("error creando MD5");
+	    }
+	    return null;
+	}
    
    
 }

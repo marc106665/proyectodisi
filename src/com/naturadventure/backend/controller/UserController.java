@@ -8,6 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,12 +78,23 @@ public class UserController {
    }
    
    @RequestMapping("/actividades.html") 
-   public String actividades(HttpSession session, Model model) {
+   public String actividades(HttpSession session, Model model, HttpServletRequest request) {
        if (session.getAttribute("user") == null) 
        { 
           model.addAttribute("user", new UserDetails()); 
           return "admin1234/login";
        } 
+       
+       String test1 = request.getSession().getServletContext().getRealPath("");
+       String test2 = request.getSession().getServletContext().getRealPath("/");
+
+       String test5 = request.getSession().getServletContext().getRealPath(request.getServletPath());
+       
+       System.out.println(test1);
+       System.out.println(test2);
+
+       System.out.println(test5);
+       
        
        List<Actividad> aux = null;
        //System.out.println(actividadDao.getActividades());

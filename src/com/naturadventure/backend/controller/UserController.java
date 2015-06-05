@@ -109,7 +109,7 @@ public class UserController {
 
 
    @RequestMapping("/tiposActividades.html") 
-   public String tipoActividades(HttpSession session, Model model) {
+   public String tipoActividades(HttpSession session, Model model, HttpServletRequest request) {
        if (session.getAttribute("user") == null) 
        { 
           model.addAttribute("user", new UserDetails()); 
@@ -127,7 +127,7 @@ public class UserController {
        
    }
    
-   
+   /*
    @RequestMapping("/nuevoTipoActividad.html") 
    public String addTipoActividad(HttpSession session, Model model) {
 	   if (session.getAttribute("user") == null) 
@@ -144,6 +144,6 @@ public class UserController {
 	   
        return "admin1234/nuevoTipoActividad";
        
-   }
+   }*/
    
 }

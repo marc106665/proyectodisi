@@ -157,6 +157,13 @@ public class ActividadDAO {
 		        idActividad);
 	}
 	
+	public void deleteHoraInicio(HorasInicio horasInicio){
+		this.jdbcTemplate.update(
+		        "delete from horasinicioactividad where idactividad = ?",
+		        horasInicio.getIdActividad());
+		
+	}
+	
 	public List<String> getNivelesUnicos(){
 		List<NivelActividad> listaNiveles = this.jdbcTemplate.query("select DISTINCT ON (nivel) idactividad , nivel, precioporpersona from NivelActividad", new NivelesMapper());
 		List<String> lvl = new LinkedList<String>();
@@ -172,11 +179,6 @@ public class ActividadDAO {
 
 	}
 	
-	public void updateHoraInicio(HorasInicio horaInicio){
-		this.jdbcTemplate.update(
-			"UPDATE horasinicioactividad SET idactividad=?, horainicio=? WHERE idactividad = ?", horaInicio.getIdActividad(), horaInicio.getHoraInicio(), horaInicio.getIdActividad());
-
-	}
 	
 	public void addNivelActividad(NivelActividad nivelActividad){
 		this.jdbcTemplate.update(
@@ -184,9 +186,9 @@ public class ActividadDAO {
 
 	}
 	
-	public void updateNivelActividad(NivelActividad nivelActividad){
+	public void deleteNivelActividad(NivelActividad nivelActividad){
 		this.jdbcTemplate.update(
-			"UPDATE nivelactividad SET precioporpersona = ? WHERE idactividad = ? AND nivel = ?", nivelActividad.getPrecioPorPersona(), nivelActividad.getIdActividad(), nivelActividad.getNivel());
+			"DELETE FROM nivelactividad WHERE idactividad = ? ", nivelActividad.getIdActividad());
 
 	}
 	

@@ -3,6 +3,7 @@ package com.naturadventure.backend.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -223,11 +224,62 @@ public class ActividadController {
 	   
 	   if (actividad != null) {
 		   List<TipoActividad>listaTipoActividad = tipoActividadDao.getTiposActividad();
-		   System.out.println(listaTipoActividad);
+		   //System.out.println(listaTipoActividad);
+		   
+		   List<HorasInicio> listaHoras = actividadDao.getHorasActividad(actividad.getIdActividad());
 		   
 		   model.addAttribute("listaTipoActividad", listaTipoActividad);
 		   
 	 	   model.addAttribute("actividad", actividad);
+	 	   
+	 	   String tieneManyana = "";
+	 	   String tieneTarde = "";
+	 	   String tieneNoche = "";
+	 	   
+	 	   for (int i = 0; i < listaHoras.size(); i++) {
+	 		  switch (listaHoras.get(i).getHoraInicio()) {
+				case "MANYANA":
+					tieneManyana = "MANYANA";
+				break;
+				case "TARDE":
+					tieneTarde = "TARDE";
+				break;
+				case "NOCHE":
+					tieneNoche = "NOCHE";
+				break;
+				default:
+					break;
+				}
+	 	   }
+	 	   
+		   model.addAttribute("tieneManyana", tieneManyana);
+		   model.addAttribute("tieneTarde", tieneTarde);
+	 	   model.addAttribute("tieneNoche", tieneNoche);
+	 	   
+	 	   List<NivelActividad> listaNiveles = actividadDao.getNivelActividad(actividad.getIdActividad());
+	 	   float precio1=0;
+	 	   float precio2=0;
+	 	   float precio3=0;
+	 	   
+	 	  for (int i = 0; i < listaNiveles.size(); i++) {
+	 		  switch (listaNiveles.get(i).getNivel()) {
+				case "PRINCIPIANTE":
+					precio1 = listaNiveles.get(i).getPrecioPorPersona();
+				break;
+				case "INTERMEDIO":
+					precio2 = listaNiveles.get(i).getPrecioPorPersona();
+				break;
+				case "AVANZADO":
+					precio3 = listaNiveles.get(i).getPrecioPorPersona();
+				break;
+				default:
+					break;
+				}
+	 	   }
+	 	  
+	 	   model.addAttribute("precio1", precio1);
+		   model.addAttribute("precio2", precio2);
+	 	   model.addAttribute("precio3", precio3);
 	 	   
 	 	   return "admin1234/editaActividad";
 	   }
@@ -271,51 +323,85 @@ public class ActividadController {
 		
 		actividadDao.updateActividad(actividad);
        
+		List<HorasInicio> listaHoras = new LinkedList<HorasInicio>();
        	
        	//Franja horaria:
 	   	if (request.getParameter("manyana") != null) {
 	   		HorasInicio objHora = new HorasInicio();
 	   		objHora.setIdActividad(id);
 	   		objHora.setHoraInicio(request.getParameter("manyana"));
-	   		actividadDao.updateHoraInicio(objHora);
+	   		listaHoras.add(objHora);
 	   	}
 		if (request.getParameter("tarde") != null) {
 			HorasInicio objHora = new HorasInicio();
 	   		objHora.setIdActividad(id);
 	   		objHora.setHoraInicio(request.getParameter("tarde"));	
-	   		actividadDao.updateHoraInicio(objHora);
+	   		listaHoras.add(objHora);
 		}
 		if (request.getParameter("noche") != null) {
 			HorasInicio objHora = new HorasInicio();
 	   		objHora.setIdActividad(id);
 	   		objHora.setHoraInicio(request.getParameter("noche"));
-	   		actividadDao.updateHoraInicio(objHora);
+	   		listaHoras.add(objHora);
 		}
-
+		
+		
+		HorasInicio objHora = new HorasInicio();
+		objHora.setIdActividad(id);
+		actividadDao.deleteHoraInicio(objHora);
+		
+		
+		Iterator<HorasInicio> it = listaHoras.iterator();
+		while(it.hasNext()){
+			
+			HorasInicio elem = it.next();	
+			actividadDao.addHoraInicio(elem);
+		}
+			
 		
 		//Precio por nivel:
-	   	if (request.getParameter("precio1") != null) {//Hay que comprobar el tipo
+		
+		List<NivelActividad> listaNiveles = new LinkedList<NivelActividad>();
+		
+	   	if (request.getParameter("precio1") != null ) {//Hay que comprobar el tipo
 	   		NivelActividad precio1 = new NivelActividad();
 	   		precio1.setIdActividad(id);
 	   		precio1.setNivel("PRINCIPIANTE");
-	   		precio1.setPrecioPorPersona(Float.valueOf(request.getParameter("precio1")));
-	   		actividadDao.updateNivelActividad(precio1);
+	   		float precio = Float.valueOf(request.getParameter("precio1"));
+	   		precio1.setPrecioPorPersona(precio);
+	   		if(precio > 0)
+	   			listaNiveles.add(precio1);
 	   	}
 		if (request.getParameter("precio2") != null) {
 			NivelActividad precio2 = new NivelActividad();
 			precio2.setIdActividad(id);
 			precio2.setNivel("INTERMEDIO");
-			precio2.setPrecioPorPersona(Float.valueOf(request.getParameter("precio2")));
-	   		actividadDao.updateNivelActividad(precio2);
+			float precio = Float.valueOf(request.getParameter("precio2"));
+	   		precio2.setPrecioPorPersona(precio);
+	   		if(precio > 0)
+	   			listaNiveles.add(precio2);
 		}
 		if (request.getParameter("precio3") != null) {
 			NivelActividad precio3 = new NivelActividad();
 			precio3.setIdActividad(id);
 			precio3.setNivel("AVANZADO");
-			precio3.setPrecioPorPersona(Float.valueOf(request.getParameter("precio3")));
-	   		actividadDao.updateNivelActividad(precio3);
+			float precio = Float.valueOf(request.getParameter("precio3"));
+	   		precio3.setPrecioPorPersona(precio);
+	   		if(precio > 0)
+	   			listaNiveles.add(precio3);
 		}
 		
+		NivelActividad nivelActividad = new NivelActividad();
+		nivelActividad.setIdActividad(id);
+		actividadDao.deleteNivelActividad(nivelActividad);
+		
+		
+		Iterator<NivelActividad> itHoras = listaNiveles.iterator();
+		while(itHoras.hasNext()){
+			
+			NivelActividad elem = itHoras.next();	
+			actividadDao.addNivelActividad(elem);
+		}
        
 		return "redirect:/admin1234/actividades.html"; 
 	   	

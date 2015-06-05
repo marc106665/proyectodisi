@@ -140,43 +140,58 @@
 		                    </div>
 	                    </div><!-- /.form-group -->
 
-						<div class="form-group">
-								
-							
-								
-								<%-- 
-								
-								<form:checkbox modelAttribute="objhorasinicio"  path="horasinicio.horaInicio" value="MANYANA"/>Mañana 
- 								
- 							<c:forEach items="${horasinicio}" var="horasinicio">
- 									
- 									<form:checkbox path="horasinicio.horaInicio" value="MANYANA"/>Mañana 
- 								
- 								</c:forEach> --%>
-							  
-							    
-						</div>
 
 	                    <div class="form-group">
 		                    <label for="franjahoraria" class="control-label col-lg-3">Franjas horarias</label>
 		                    <div class="col-lg-9">
 		                    	<div class="checkbox">
 		                    		
-	                            	<label>
-	                              		<label>
-	                              			<input name="manyana" tabindex="5" class="uniform" type="checkbox" value="MANYANA"> Mañana
+		                    		<c:if test="${empty tieneManyana}">
+							        	
+                              			<label>
+                            				<input name="manyana" tabindex="5" class="uniform" type="checkbox" value="MANYANA"> Mañana
+                            			</label>
+	                            		
+								    </c:if>
+								    <c:if test="${not empty tieneManyana}">
+							        	<label>
+	                              			<label>
+	                            				<input name="manyana" tabindex="5" class="uniform" type="checkbox" value="MANYANA" checked="checked"> Mañana
+	                            			</label>
 	                            		</label>
-	                            	</label>
+								    </c:if>
+	                          	</div>
+	                          	
+	                          	
+	                          	
+	                          	<div class="checkbox">
+		                          	<c:if test="${empty tieneTarde}">
+		                            	<label>
+		                              		<input name="tarde" tabindex="6" class="uniform" type="checkbox" value="TARDE"> Tarde
+		                            	</label>
+		                            </c:if>
+	                          		<c:if test="${not empty tieneTarde}">
+		                            	<label>
+		                              		<input name="tarde" tabindex="6" class="uniform" type="checkbox" value="TARDE" checked="checked"> Tarde
+		                            	</label>
+		                            </c:if>
+	                          	</div>	
+	                          	
+	                          	
+	                          	
+	                          	<div class="checkbox">
+		                          	<c:if test="${empty tieneNoche}">
+		                            	<label>
+		                              		<input name="noche" tabindex="6" class="uniform" type="checkbox" value="NOCHE"> Noche
+		                            	</label>
+		                            </c:if>
 	                          	</div>
 	                          	<div class="checkbox">
-	                            	<label>
-	                              		<input name="tarde" tabindex="6" class="uniform" type="checkbox" value="TARDE"> Tarde
-	                            	</label>
-	                          	</div>
-	                          	<div class="checkbox">
-	                            	<label>
-	                              		<input name="noche" tabindex="7" class="uniform" type="checkbox" value="NOCHE"> Noche
-	                            	</label>
+	                          		<c:if test="${not empty tieneNoche}">
+		                            	<label>
+		                              		<input name="noche" tabindex="6" class="uniform" type="checkbox" value="NOCHE" checked="checked"> Noche
+		                            	</label>
+		                            </c:if>
 	                          	</div>	
 		                    </div>
 	                    </div><!-- /.form-group -->
@@ -187,12 +202,15 @@
 		                  		
 		                	  <form:textarea path="descripcion" tabindex="8" id="wysihtml5" class="form-control" rows="5"/>
 		                      
-		                      
-		                    
 		                  </div>
 		                  <div class="col-lg-2"></div>
 		              </div>
-
+		              
+		              
+					<div class="form-group">
+					</div>
+					
+					
 					<div class="form-group">
                         <label class="control-label col-lg-3 col-sm-3">Precio por persona y nivel</label>
                         <div class="col-lg-2 col-sm-2">
@@ -202,6 +220,7 @@
                             <option value="mostrarPrecio2">Nivel 2</option>
                             <option value="mostrarPrecio3">Nivel 3</option>
                           </select>
+                          
                         </div>
                         <div class="col-lg-2 col-sm-2">
                         	<div class="input-group">
@@ -222,7 +241,12 @@
 						    Nivel 1
 						  </div>
 						  <div class="panel-body">
-							  	<p class="text text-center"><b id="mostrarPrecio1">--- &nbsp;&euro;</b></p>
+						  		<c:if test="${precio1 == 0}">
+							  		<p class="text text-center"><b id="mostrarPrecio1">--- <span class="glyphicon glyphicon-euro"></span></b></p>
+							  	</c:if>
+							  	<c:if test="${precio1 != 0}">
+							  		<p class="text text-center"><b id="mostrarPrecio1">${precio1}<span class="glyphicon glyphicon-euro"></span></b></p>
+							  	</c:if>
 						  </div>
 						</div>
 					</div>
@@ -233,18 +257,32 @@
 						    Nivel 2
 						  </div>
 						  <div class="panel-body">
-							  	<p class="text text-center"><b id="mostrarPrecio2">--- &nbsp;&euro;</b></p>
+						  
+							  	<c:if test="${precio2 == 0}">
+							  		<p class="text text-center"><b id="mostrarPrecio2">--- <span class="glyphicon glyphicon-euro"></span></b></p>
+							  	</c:if>
+							  	<c:if test="${precio2 != 0}">
+							  		<p class="text text-center"><b id="mostrarPrecio2">${precio2}<span class="glyphicon glyphicon-euro"></span></b></p>
+							  	</c:if>
+							  	
 						  </div>
 						</div>
-					</div>
-
+					</div>				
+					
 					<div class="col-lg-2 col-sm-2">
                         <div class="panel panel-info" id="mostrarPrecio3mostrarPrecio3">
 						  <div class="panel-heading">
 						    Nivel 3
 						  </div>
 						  <div class="panel-body">
-							  	<p class="text text-center"><b id="mostrarPrecio3">--- &nbsp;&euro;</b></p>
+							  	
+							  	<c:if test="${precio3 == 0}">
+							  		<p class="text text-center"><b id="mostrarPrecio3">--- <span class="glyphicon glyphicon-euro"></span></b></p>
+							  	</c:if>
+							  	<c:if test="${precio3 != 0}">
+							  		<p class="text text-center"><b id="mostrarPrecio3">${precio3}<span class="glyphicon glyphicon-euro"></span></b></p>
+							  	</c:if>
+							  	
 						  </div>
 						</div>
 					</div>
@@ -252,10 +290,30 @@
 					<div class="col-lg-3"></div>
 					<div class="form-group">
 					
+					<!-- Precio 1 -->
+					<c:if test="${precio1 == 0}">
+						<input type="number" value="0" style="display:none;" id="precio1" name="precio1" class="form-control">
+					</c:if>
+					<c:if test="${precio1 != 0}">
+						<input type="number" value="${precio1}" style="display:none;" id="precio1" name="precio1" class="form-control">
+					</c:if>
 					
-					<input type="number" value="0" style="display:none;" id="precio1" name="precio1" class="form-control">
-		            <input type="number" value="0" style="display:none;" id="precio2" name="precio2" class="form-control">
-		            <input type="number" value="0" style="display:none;" id="precio3" name="precio3" class="form-control">
+					<!-- Precio 2 -->
+					<c:if test="${precio2 == 0}">
+						<input type="number" value="0" style="display:none;" id="precio2" name="precio2" class="form-control">
+					</c:if>
+					<c:if test="${precio2 != 0}">
+						<input type="number" value="${precio2}" style="display:none;" id="precio2" name="precio2" class="form-control">
+					</c:if>
+					
+					<!-- Precio 3 -->
+					<c:if test="${precio3 == 0}">
+						<input type="number" value="0" style="display:none;" id="precio3" name="precio3" class="form-control">
+					</c:if>
+					<c:if test="${precio3 != 0}">
+						<input type="number" value="${precio3}" style="display:none;" id="precio3" name="precio3" class="form-control">
+					</c:if>
+
 				  	</div>
 
 				</div>

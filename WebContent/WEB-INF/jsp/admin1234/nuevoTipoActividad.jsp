@@ -95,7 +95,7 @@
                   <div id="div-1" class="body">
                   
                   
-                    <form:form modelAttribute="tipoActividad" class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/admin1234/addTipoActividad.html">
+                    <form:form enctype="multipart/form-data" modelAttribute="tipoActividad" class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/admin1234/addTipoActividad.html">
 
 
 						            
@@ -137,7 +137,7 @@
 					  <div class="form-group">
                         <label class="control-label col-lg-3 col-sm-3">Imagen del tipo de actividad</label>
                         <div class="col-lg-2 col-sm-2">
-                          <input type="file">
+                          <input type="file" name="file">
                         </div>
 					
                         <!--  

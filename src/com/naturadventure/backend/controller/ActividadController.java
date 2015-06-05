@@ -33,6 +33,7 @@ import com.naturadventure.domain.NivelActividad;
 import com.naturadventure.domain.Reserva;
 import com.naturadventure.domain.TipoActividad;
 import com.naturadventure.domain.UserDetails;
+import com.sun.scenario.effect.Blend.Mode;
 
 
 @Controller 
@@ -57,8 +58,8 @@ public class ActividadController {
    public String addActividad(HttpSession session, Model model) {
 	   if (session.getAttribute("user") == null) 
        { 
-		   model.addAttribute("user", new UserDetails()); 
-           return "admin1234/login";
+		      model.addAttribute("user", new UserDetails()); 
+		      return "redirect:../admin1234/login.html";
        } 
 
        
@@ -88,7 +89,7 @@ public class ActividadController {
 	   	if (session.getAttribute("user") == null) 
 	   	{ 
 	   		model.addAttribute("user", new UserDetails()); 
-	   		return "redirect:admin1234/login.html";
+	   		return "redirect:login.html";
 	   	}
 //	   if (bindingResult.hasErrors()){
 //		   System.out.println("error\n"+actividad.toString()+"\n"+bindingResult.toString());
@@ -102,7 +103,7 @@ public class ActividadController {
                 // Creating the directory to store file
                 ServletContext sc = session.getServletContext();
                 String rootPath = sc.getRealPath( File.separator + "resources" );
-                File dir = new File(rootPath + File.separator + "subidas");
+                File dir = new File(rootPath + File.separator + "images");
                 if (!dir.exists())
                     dir.mkdirs();
  
@@ -114,8 +115,8 @@ public class ActividadController {
                 stream.write(bytes);
                 stream.close();
  
-                actividad.setFoto( File.separator + this.MD5(actividad.getNombre()) + "_" + actividad.getNombre() + ".jpg" );
-                System.out.println("You successfully uploaded file=");
+                actividad.setFoto( this.MD5(actividad.getNombre()) + "_" + actividad.getNombre() + ".jpg" );
+                System.out.println("You successfully uploaded file="+serverFile+ File.separator + this.MD5(actividad.getNombre()) + "_" + actividad.getNombre() + ".jpg" );
             } catch (Exception e) {
             	System.out.println("You failed to upload => " + e.getMessage());
             }
@@ -198,7 +199,7 @@ public class ActividadController {
 	   if (session.getAttribute("user") == null) 
 	   { 
 	      model.addAttribute("user", new UserDetails()); 
-	      return "redirect:admin1234/login.html";
+	      return "redirect:../../admin1234/login.html";
 	   }
 	   
 	    Actividad actividad = actividadDao.getActividad(id);
@@ -216,7 +217,7 @@ public class ActividadController {
 	   if (session.getAttribute("user") == null) 
 	   { 
 	      model.addAttribute("user", new UserDetails()); 
-	      return "redirect:admin1234/login.html";
+	      return "redirect:../../admin1234/login.html";
 	   }
 	   
 	   Actividad actividad = actividadDao.getActividad(id);
@@ -280,6 +281,13 @@ public class ActividadController {
 	 	   model.addAttribute("precio1", precio1);
 		   model.addAttribute("precio2", precio2);
 	 	   model.addAttribute("precio3", precio3);
+	 	  
+	 	   //FOTO:
+	 	   model.addAttribute("rutaImagen", actividad.getFoto());
+	 	   
+	 	   //Nuevo y rebajado:
+	 	   model.addAttribute("nuevo", actividad.getNuevo() > 0 ? ""+actividad.getNuevo() : "" );
+	 	   model.addAttribute("rebajado", actividad.getOferta().length() > 0 ? ""+actividad.getOferta() : null );
 	 	   
 	 	   return "admin1234/editaActividad";
 	   }
@@ -294,16 +302,17 @@ public class ActividadController {
 		   @ModelAttribute("actividad") Actividad actividad,  
 		   @ModelAttribute("listatipoactividad") TipoActividad tipoActividad,   
 		   BindingResult bindingResult,
+		   @RequestParam("file") MultipartFile file,
 		   HttpServletRequest request)
    {
 	   	if (session.getAttribute("user") == null) 
 	   	{ 
 	   		model.addAttribute("user", new UserDetails()); 
-	   		return "redirect:admin1234/login.html";
+	   		return "redirect:login.html";
 	   	}
 	   	int id = actividad.getIdActividad();
-	   	System.out.println(request.getParameter("manyana")+":"+request.getParameter("tarde"));
-	   	System.out.println("tipo de actividad: "+tipoActividad.toString()+"\n"+actividad.toString());
+	   	//System.out.println(request.getParameter("manyana")+":"+request.getParameter("tarde"));
+	   	//System.out.println("tipo de actividad: "+tipoActividad.toString()+"\n"+actividad.toString());
 	   
 	   	actividad.setOferta("nooferta");
 		actividad.setNuevo(0);
@@ -319,6 +328,48 @@ public class ActividadController {
 		}else{
 			actividad.setNuevo(0);
 		}
+		
+		//Imagen:
+	   	if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+                
+                // Creating the directory to store file
+                ServletContext sc = session.getServletContext();
+                String rootPath = sc.getRealPath( File.separator + "resources" );
+                File dir = new File(rootPath + File.separator + "images");
+                if (!dir.exists())
+                    dir.mkdirs();
+ 
+                // Create the file on server
+                File serverFile = new File(dir.getAbsolutePath()
+                        + File.separator + this.MD5(actividad.getNombre()) + "_" + actividad.getNombre() + ".jpg");
+                BufferedOutputStream stream = new BufferedOutputStream(
+                        new FileOutputStream(serverFile));
+                stream.write(bytes);
+                stream.close();
+ 
+                actividad.setFoto( this.MD5(actividad.getNombre()) + "_" + actividad.getNombre() + ".jpg" );
+                System.out.println("You successfully uploaded file="+serverFile+ File.separator + this.MD5(actividad.getNombre()) + "_" + actividad.getNombre() + ".jpg" );
+            } catch (Exception e) {
+            	System.err.println("You failed to upload => " + e.getMessage());
+            }
+        } else {
+            actividad.setFoto("");
+            
+            // Borrado de imagen
+            ServletContext sc = session.getServletContext();
+            String rootPath = sc.getRealPath( File.separator + "resources" );
+            File dir = new File(rootPath + File.separator + "images");
+            if (!dir.exists())
+                dir.mkdirs();
+
+            // Create the file on server
+            File serverFile = new File(dir.getAbsolutePath()
+                    + File.separator + this.MD5(actividad.getNombre()) + "_" + actividad.getNombre() + ".jpg");
+            if(serverFile.delete())
+            	System.out.println("Borrada imagen : "+serverFile);
+        }
 		
 		
 		actividadDao.updateActividad(actividad);

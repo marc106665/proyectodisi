@@ -11,7 +11,7 @@
                 <span class="icon-bar"></span> 
               </button>
               <a href="inicio.html" class="navbar-brand">
-                <img src="${pageContext.request.contextPath}/resources/admin/img/logo.png" alt="logo naturAdventure">
+                <img src="${pageContext.request.contextPath}/resources/admin/img/logo_nombre.png" alt="logo naturAdventure">
               </a> 
             </header>
             <div class="topnav">

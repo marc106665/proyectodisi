@@ -111,7 +111,7 @@
 							
 	                        </div>
 	                        <div class="col-lg-2 col-lg-offset-1 col-sm-2 col-sm-offset-5">
-	                        	<a class="btn btn-success" href="tiposActividades.html">Nuevo tipo de actividad</a>
+	                        	<a class="btn btn-success" href="../nuevoTipoActividad.html">Nuevo tipo de actividad</a>
 	                        </div>
                         
                       	</div>              
@@ -154,11 +154,11 @@
 	                            		
 								    </c:if>
 								    <c:if test="${not empty tieneManyana}">
-							        	<label>
-	                              			<label>
-	                            				<input name="manyana" tabindex="5" class="uniform" type="checkbox" value="MANYANA" checked="checked"> Mañana
-	                            			</label>
-	                            		</label>
+							        	
+                              			<label>
+                            				<input name="manyana" tabindex="5" class="uniform" type="checkbox" value="MANYANA" checked="checked"> Mañana
+                            			</label>
+	                            		
 								    </c:if>
 	                          	</div>
 	                          	
@@ -338,13 +338,24 @@
 
 					  
 					  <div class="form-group">
-                        <label class="control-label col-lg-3 col-sm-3">Imagen de la actividad</label>
-                        <div class="col-lg-2 col-sm-2">
-                        	
-                          <input type="file" name="file">
-                        </div>
+	                        <label class="control-label col-lg-3 col-sm-3">Imagen de la actividad</label>
+	                        <div class="col-lg-4 col-sm-4">
+		                        <input type="file" name="file">
+		                         
+		                        <c:if test="${not empty rutaImagen}">
+		                        	<div class="form-group">
+		                        		<div id="mostrarImagen" >
+											<div class="col-lg-6 col-md-6">
+												<img class="img-responsive" alt="Responsive image" src="${pageContext.request.contextPath}/resources/images/${rutaImagen}">
+											    <!-- <a class="btn btn-link" id="eliminaImagen">Eliminar imagen</a> -->
+											</div>
+										</div>
+									</div>
+		                        </c:if>
+	                        
+	                        </div>
 
-                        <div class="col-lg-3 col-lg-offset-2 col-sm-3 col-sm-offset-4">
+                        <div class="col-lg-3 col-sm-3">
                         <div class="panel panel-primary">
 						  <div class="panel-heading">
 						    Opciones de promoción
@@ -352,15 +363,32 @@
 						  <div class="panel-body">
 
 							  	<div class="checkbox">
-                    <label>
-                    	<input type="checkbox" tabindex="14" class="uniform" name="nuevo" value="1"> Nuevo
-                    </label>
-                  </div>
-                  <div class="checkbox">
-                    <label>
-                    	<input type="checkbox" name="oferta" tabindex="15" class="uniform" value="1"/> Rebajado
-                    </label>
-                  </div>
+							  		<c:if test="${not empty nuevo}">
+								  		<label>
+					                    	<input type="checkbox" tabindex="14" class="uniform" name="nuevo" value="1" checked="checked"> Nuevo
+					                    </label>
+							  		</c:if>
+							  		
+							  		<c:if test="${empty nuevo}">
+								  		<label>
+					                    	<input type="checkbox" tabindex="14" class="uniform" name="nuevo" value="1"> Nuevo
+					                    </label>
+							  		</c:if>
+				                    
+				                  </div>
+				                  
+				                  <div class="checkbox">
+				                  	  <c:if test="${rebajado == '1' || rebajado == 'oferta'}">
+									  	  <label>
+					                    	<input type="checkbox" name="oferta" tabindex="15" class="uniform" value="1" checked="checked"/> Rebajado
+					                      </label>
+							  		  </c:if>
+							  		  <c:if test="${rebajado == '0' || rebajado == 'nooferta'}">
+									  	  <label>
+					                    	<input type="checkbox" name="oferta" tabindex="15" class="uniform" value="1"/> Rebajado
+					                      </label>
+							  		  </c:if>
+				                  </div>
 						      </div>
 						</div>
 						<div class="col-lg-5"></div>
@@ -488,6 +516,10 @@
 			        confirma();
 			    }
 			});
+			
+		    $("#eliminaImagen").click(function(){
+		    	$('#mostrarImagen').html("<div class='col-lg-12 col-md-12'><div class='alert alert-info' role='alert'>Guarde para confirmar eliminar imagen</div></div>");
+		    });
 
 			function confirma () {
 				var valor = $( "#valorPrecio" ).val();

@@ -84,18 +84,7 @@ public class UserController {
           model.addAttribute("user", new UserDetails()); 
           return "admin1234/login";
        } 
-       
-       String test1 = request.getSession().getServletContext().getRealPath("");
-       String test2 = request.getSession().getServletContext().getRealPath("/");
 
-       String test5 = request.getSession().getServletContext().getRealPath(request.getServletPath());
-       
-       System.out.println(test1);
-       System.out.println(test2);
-
-       System.out.println(test5);
-       
-       
        List<Actividad> aux = null;
        //System.out.println(actividadDao.getActividades());
        aux = actividadDao.getActividades();

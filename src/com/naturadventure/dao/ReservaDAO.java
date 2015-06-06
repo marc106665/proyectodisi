@@ -24,6 +24,8 @@ import org.springframework.stereotype.Repository;
 
 
 
+
+import com.naturadventure.domain.Monitor;
 import com.naturadventure.domain.Reserva;
 
 
@@ -41,20 +43,20 @@ public class ReservaDAO {
 		
 	    public Reserva mapRow(ResultSet rs, int rowNum) throws SQLException { 
 	        Reserva reserva = new Reserva();
-	        reserva.setIdReserva(rs.getInt("idReserva"));
-	        reserva.setNombreCliente(rs.getString("nombreCliente"));
-	        reserva.setTelefonoCliente(rs.getString("telefonoCliente"));
+	        reserva.setIdReserva(rs.getInt("idreserva"));
+	        reserva.setNombreCliente(rs.getString("nombrecliente"));
+	        reserva.setTelefonoCliente(rs.getString("telefonocliente"));
 	        reserva.setEmailCliente(rs.getString("emailCliente"));
-	        reserva.setHoraInicio(rs.getString("horaInicio"));
+	        reserva.setHoraInicio(rs.getString("horainicio"));
 	        reserva.setEstado(rs.getString("estado"));
-	        reserva.setNumParticipantes(rs.getInt("numParticipantes"));
-	        java.sql.Date datesql = rs.getDate("fechaReserva");
+	        reserva.setNumParticipantes(rs.getInt("numparticipantes"));
+	        java.sql.Date datesql = rs.getDate("fechareserva");
 	        java.util.Date dateutil = new java.util.Date(datesql.getTime()); 
 	        reserva.setFechaReserva(dateutil);
-	        datesql = rs.getDate("fechaActividad");
+	        datesql = rs.getDate("fechaactividad");
 	        dateutil = new java.util.Date(datesql.getTime());
 	        reserva.setFechaActividad(dateutil);
-	        reserva.setIdActividad(rs.getInt("idActividad"));
+	        reserva.setIdActividad(rs.getInt("idactividad"));
 	        reserva.setMonitor(rs.getString("monitor"));
 	        reserva.setNivel(rs.getString("nivel"));
 
@@ -65,11 +67,18 @@ public class ReservaDAO {
 	}
 	
 	public List<Reserva> getReservas() {
-		 return this.jdbcTemplate.query("select idReserva, nombreCliente, telefonoCliente, emailCliente, horaInicio, estado, numParticipantes, fechaReserva,  fechaActividad, monitor, nivel from reserva", new ReservaMapper());
+		 return this.jdbcTemplate.query("select idreserva, nombrecliente, telefonocliente, emailcliente, horainicio, estado, numparticipantes, fechareserva, fechaactividad, idactividad, monitor, nivel from reserva", new ReservaMapper());
 	}	 
 	
 	public Reserva getReserva(int idReserva) {
 		return this.jdbcTemplate.queryForObject("select idReserva, nombreCliente, telefonoCliente, emailCliente, horaInicio, estado, numParticipantes, fechaReserva,  fechaActividad, nivel, idActividad, monitor from reserva where idReserva = ? ",  new Object[] {idReserva}, new ReservaMapper());
+	}
+	
+	public List<Reserva> getReservas(Monitor monitor) {
+		return this.jdbcTemplate.query(""
+				+ "select idreserva, nombrecliente, telefonocliente, emailcliente, horainicio, estado, numparticipantes, fechareserva, fechaactividad, idactividad, monitor, nivel "
+				+ "from reserva "
+				+ "where monitor = ? ",  new Object[] {monitor.getUsuario()}, new ReservaMapper());
 	}
 	
 	public int addReserva(Reserva reserva) {

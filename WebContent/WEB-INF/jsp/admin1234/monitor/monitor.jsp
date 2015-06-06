@@ -70,8 +70,8 @@
       <div id="content">
         <div class="outer">
           <div class="inner bg-light lter">
-  
-            <div class="row">
+          
+            <!-- <div class="row">
               <div class="col-lg-12">
                 <div class="box">
                   <header>
@@ -127,7 +127,7 @@
               </div>
             </div>
             <hr>
-
+ -->
 
 
             <!--Begin Datatables-->
@@ -162,7 +162,7 @@
                             <td>${listaReservas.numParticipantes}</td>
                             <td>${listaReservas.fechaActividad}</td>
                             <td>
-                            <a href="verReserva/${listaReservas.idActividad}.html" class="btn btn-info" ><i class="fa fa-info-circle"></i>&nbsp;Ver mas</a>
+                            <a href="verInfo/${listaReservas.idActividad}.html" class="btn btn-info" ><i class="fa fa-info-circle"></i>&nbsp;Ver mas</a>
                             </td>
                         </tr>
                     </c:forEach>

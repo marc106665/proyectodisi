@@ -27,7 +27,9 @@ import com.naturadventure.dao.TipoActividadDAO;
 import com.naturadventure.dao.UserDAO;
 import com.naturadventure.domain.Actividad;
 import com.naturadventure.domain.HorasInicio;
+import com.naturadventure.domain.Monitor;
 import com.naturadventure.domain.NivelActividad;
+import com.naturadventure.domain.Reserva;
 import com.naturadventure.domain.TipoActividad;
 import com.naturadventure.domain.UserDetails;
 
@@ -38,7 +40,7 @@ public class UserController {
    private UserDAO userDao;
    private ActividadDAO actividadDao;
    private TipoActividadDAO tipoActividadDao;
-   private ReservaDAO reservaActividadDao;
+   private ReservaDAO reservaDao;
 	
    @Autowired
    public void setActividadDAO(ActividadDAO actividadDAO) { 
@@ -53,6 +55,11 @@ public class UserController {
    @Autowired 
    public void setSociDao(UserDAO userDao) {
        this.userDao = userDao;
+   }
+   
+   @Autowired
+   public void setReservaDAO(ReservaDAO reservaDAO) { 
+       this.reservaDao = reservaDAO;
    }
    
   
@@ -103,11 +110,11 @@ public class UserController {
        
    }
    
-   @RequestMapping(value="/monitor/{nombreMonitor}.html", method=RequestMethod.GET)
+   @RequestMapping(value="/{nombreMonitor}.html", method=RequestMethod.GET)
    public String processDelete(HttpSession session, Model model, @PathVariable String nombreMonitor) {
 	   
 	   
-	   /*if (session.getAttribute("user") == null) 
+	   /*if (session.getAttribute("user") == null) //Tambien comprueba que coincide su user de session con su nombre url
 	   { 
 	      model.addAttribute("user", new UserDetails()); 
 	      return "redirect:admin1234/login.html";
@@ -117,19 +124,39 @@ public class UserController {
 	   //System.out.println(nombreMonitor);
 	   model.addAttribute("idMonitor", nombreMonitor);
 	   
-	   List<ReservaActividad> listaReservas = new LinkedList<ReservaActividad>();
-	   ReservaActividad datos = new ReservaActividad();
-	   datos.setNombreActividad("actividad test");
-	   datos.setTipo("tipo de actividad");
-	   datos.setNumParticipantes(20);
-	   datos.setIdActividad(2);
-	   datos.setFechaActividad(new java.util.Date());
+	   List<ReservaActividad> listaReservaActividad = new LinkedList<ReservaActividad>();
+	   
+	   List<Reserva> listaReservas = new LinkedList<Reserva>();
+	   Monitor monitor = new Monitor();
+	   monitor.setUsuario(nombreMonitor);
+	   
+	   listaReservas.addAll(reservaDao.getReservas(monitor));
+	   
+	   Iterator<Reserva> it = listaReservas.iterator();
+	   while (it.hasNext()) {
+		   Reserva reserva = it.next();
+		   ReservaActividad datos = new ReservaActividad();
+		   //Actividad:
+		   Actividad acti = actividadDao.getActividad(reserva.getIdActividad());
+		   datos.setDescripcion(acti.getDescripcion());
+		   datos.setDuracionHoras(acti.getDuracionHoras());
+		   datos.setNombreActividad(acti.getNombre());
+		   datos.setTipo(acti.getTipo());
+		   
+		   //Reserva:
+		   datos.setEstado(reserva.getEstado());
+		   datos.setFechaActividad(reserva.getFechaActividad());
+		   datos.setIdActividad(reserva.getIdActividad());
+		   datos.setMonitor(reserva.getMonitor());
+		   datos.setNivel(reserva.getNivel());
+		   datos.setNombreCliente(reserva.getNombreCliente());
+		   datos.setNumParticipantes(reserva.getNumParticipantes());
+		   
+		   listaReservaActividad.add(datos);
+	   }
 	   
 	   
-	   listaReservas.add(datos);
-	   
-	   
-	   model.addAttribute("listaReservas", listaReservas);
+	   model.addAttribute("listaReservas", listaReservaActividad);
 	   
        return "admin1234/monitor/monitor";
    }

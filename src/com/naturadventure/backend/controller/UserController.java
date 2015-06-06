@@ -1,6 +1,7 @@
 package com.naturadventure.backend.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -15,9 +16,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.naturadventure.domain.ReservaActividad;
 import com.naturadventure.dao.ActividadDAO;
+import com.naturadventure.dao.ReservaDAO;
 import com.naturadventure.dao.TipoActividadDAO;
 import com.naturadventure.dao.UserDAO;
 import com.naturadventure.domain.Actividad;
@@ -33,6 +38,7 @@ public class UserController {
    private UserDAO userDao;
    private ActividadDAO actividadDao;
    private TipoActividadDAO tipoActividadDao;
+   private ReservaDAO reservaActividadDao;
 	
    @Autowired
    public void setActividadDAO(ActividadDAO actividadDAO) { 
@@ -48,6 +54,7 @@ public class UserController {
    public void setSociDao(UserDAO userDao) {
        this.userDao = userDao;
    }
+   
   
    @RequestMapping("/inicio.html") 
    public String listSocis(HttpSession session, Model model) {
@@ -94,6 +101,37 @@ public class UserController {
        
        return "admin1234/actividades";
        
+   }
+   
+   @RequestMapping(value="/monitor/{nombreMonitor}.html", method=RequestMethod.GET)
+   public String processDelete(HttpSession session, Model model, @PathVariable String nombreMonitor) {
+	   
+	   
+	   /*if (session.getAttribute("user") == null) 
+	   { 
+	      model.addAttribute("user", new UserDetails()); 
+	      return "redirect:admin1234/login.html";
+	   }*/
+	   
+	   
+	   //System.out.println(nombreMonitor);
+	   model.addAttribute("idMonitor", nombreMonitor);
+	   
+	   List<ReservaActividad> listaReservas = new LinkedList<ReservaActividad>();
+	   ReservaActividad datos = new ReservaActividad();
+	   datos.setNombreActividad("actividad test");
+	   datos.setTipo("tipo de actividad");
+	   datos.setNumParticipantes(20);
+	   datos.setIdActividad(2);
+	   datos.setFechaActividad(new java.util.Date());
+	   
+	   
+	   listaReservas.add(datos);
+	   
+	   
+	   model.addAttribute("listaReservas", listaReservas);
+	   
+       return "admin1234/monitor/monitor";
    }
 
 

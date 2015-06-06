@@ -104,7 +104,7 @@
 	                        <label class="control-label col-lg-3 col-lg-offset-0 col-sm-2"><p class="text-right">Tipo de actividad</p></label>
 	                        <div class="col-lg-4 col-sm-2">
 	                      
-	                        <form:select path="tipo" tabindex="1" data-placeholder="Tipo de actividad" class="form-control chzn-select">
+	                        <form:select path="tipo" tabindex="1" data-placeholder="Tipo de actividad" class="form-control chzn-select" required="required">
 							    <form:options items="${listaTipoActividad}" itemLabel="tipo" itemValue="tipo" />
 							</form:select> 
 							
@@ -121,13 +121,13 @@
 	                    <form:input style="display:none" path="idActividad"/>
 	                        <form:label for="nombre" class="control-label col-lg-3" path="nombre">Nombre de la actividad</form:label>
 	                        <div class="col-lg-7">
-		                        <form:input tabindex="2" type="text" id="nombre" placeholder="Nombre" class="form-control" path="nombre"/>
+		                        <form:input tabindex="2" type="text" name="nombre" id="nombre" placeholder="Nombre" class="form-control" path="nombre" required="required"/>
 	                        </div>
 	                    </div>
 	                    <div class="form-group">
 	                    	<form:label path="duracionHoras" for="horas" class="control-label col-lg-3">Duración en horas</form:label>
 		                    <div class="col-lg-7">
-		                    	<form:input path="duracionHoras" tabindex="3" type="number" id="horas" placeholder="Duración en horas" class="form-control"/>
+		                    	<form:input path="duracionHoras" value="1" min="1" tabindex="3" type="number" name="horas" id="horas" placeholder="Duración en horas" class="form-control" required="required"/>
 		                    </div>
 	                    </div><!-- /.form-group -->
 	                    <div class="form-group">
@@ -135,7 +135,7 @@
 		                    <div class="col-lg-7">
 		                    <div class="input-group">
 		                        <div class="input-group-addon"><a href="http://maps.google.es/" target="_blanck"><li class="glyphicon glyphicon-map-marker"></li></a></div>
-		                        <form:input path="localizacion" tabindex="4" type="text" id="localizacion" placeholder="Link de Google maps" class="form-control"/>
+		                        <form:input path="localizacion" tabindex="4" type="url" name="localizacion" id="localizacion" placeholder="Link de Google maps" class="form-control"/>
 		                    	</div>
 		                    </div>
 	                    </div><!-- /.form-group -->
@@ -200,7 +200,7 @@
 		                  <label for="descripcion" class="control-label col-lg-3">Descripción</label>
 		                  <div id="descripcion" class="col-lg-7">
 		                  		
-		                	  <form:textarea path="descripcion" tabindex="8" id="wysihtml5" class="form-control" rows="5"/>
+		                	  <form:textarea path="descripcion" tabindex="16" id="wysihtml5" class="form-control" rows="5"/>
 		                      
 		                  </div>
 		                  <div class="col-lg-2"></div>
@@ -225,7 +225,7 @@
                         <div class="col-lg-2 col-sm-2">
                         	<div class="input-group">
 		                    	<div class="input-group-addon"><li class="glyphicon glyphicon-euro"></li></div>
-	                          	<input tabindex="10" type="number" id="valorPrecio" placeholder="Precio..." class="form-control">
+	                          	<input tabindex="10" type="number" value="1" min="1" name="valorPrecio" id="valorPrecio" placeholder="Precio..." class="form-control">
 	                    	</div>
 	                    </div>
                         <div class="col-lg-2 col-sm-2">
@@ -324,13 +324,13 @@
 							<form:label path="minParticipantes" for="minParticipantes" class="control-label col-lg-3 col-sm-3">nº mínimo de participantes</form:label>
 						  	
 	                        <div class="col-lg-1 col-sm-2">
-	                        	<form:input path="minParticipantes" tabindex="12" type="number" id="minParticipantes" placeholder="4..." class="form-control"/>
+	                        	<form:input path="minParticipantes" min="1" value="1" tabindex="12" type="number" name="minParticipantes" id="minParticipantes" placeholder="4..." class="form-control"/>
 	                        </div>
 	
 							<form:label path="maxParticipantes" for="maxParticipantes" class="control-label col-lg-4 col-lg-offset-1 col-sm-4">nº máximo de participantes</form:label>
 		                     
 		                    <div class="col-lg-1 col-sm-2">
-		                    	<form:input path="maxParticipantes" tabindex="13" type="number" id="maxParticipantes" placeholder="20..." class="form-control"/>
+		                    	<form:input path="maxParticipantes" min="1" value="1" tabindex="13" type="number" name="maxParticipantes" id="maxParticipantes" placeholder="20..." class="form-control"/>
 		                     
 		                    </div>
 		                    <div class="col-lg-5"></div>

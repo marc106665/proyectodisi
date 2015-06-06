@@ -1,5 +1,7 @@
 package com.naturadventure.domain;
 
+import java.util.ArrayList;
+
 public class Monitor {
 	private String nombre;
 	private String email;
@@ -38,6 +40,7 @@ public class Monitor {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
+	
 
 
 	@Override

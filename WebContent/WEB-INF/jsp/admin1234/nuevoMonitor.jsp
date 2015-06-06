@@ -99,27 +99,42 @@
                   	<table>
                   		<tr>
                   			<td><form:label path="nombre">Nombre</form:label></td>
-                  			<td><form:input path="nombre" /></td>
+                  			<td><form:input type="text" required="required" path="nombre" /></td>
                   		</tr>
                   		
                   		<tr>
                   			<td><form:label path="email">Email</form:label></td>
-                  			<td><form:input path="email" /></td>
+                  			<td><form:input type="email" required="required" path="email" /></td>
                   		</tr>
                   		
                   		<tr>
                   			<td><form:label path="usuario">Usuario</form:label></td>
-                  			<td><form:input path="usuario" /></td>
+                  			<td><form:input type="text" required="required" path="usuario" /></td>
+                  		</tr>
+                  		</form:form>
+                  		<form:form method = "post" modelAttribute="actividad">
+                  		<tr>
+                  			<div class="btn-group">
+                  				<td><form:label path="actividad">Actividades que supervisa</form:label></td>
+  								
+    							<c:forEach items="${tipoActividad}" var="actividad">
+                                	<label class="checkbox-inline">
+  										<input type="checkbox" id="${tipoActividad.tipo}" value="${tipoActividad.tipo}"> 
+  										"${tipoActividad.tipo}"</label>
+                                </c:forEach>
+                                                             
+                                </ul>
+							</div>
                   		</tr>
                   		
                   		<tr>
                   			<td><input type="submit" value="Añadir" /></td>
                   		</tr>
-                  	
+                  		</form:form>
                   	
                   	</table>               
                   
-                  </form:form>
+                  
                   </div>
                 </div>
               </div>

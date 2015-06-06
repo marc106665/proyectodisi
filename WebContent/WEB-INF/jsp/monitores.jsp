@@ -174,25 +174,32 @@
                                                         <th>#ID</th>
                                                         <th>Nombre</th>
                                                         <th>Email</th>
-                                                        <th>Tipo de actividad</th>
+                                                        <th>Actividades que supervisa</th>
 														<td><!-- Botones --></td>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <c:forEach items="${monitores}" var="monitor">
                                                     	<tr>
-                                                    		<td>${monitor.id}</td>
                                                     		<td>${monitor.nombre}</td>
                                                     		<td>${monitor.email}</td>
-                                                    		<td>${monitor.actividades}</td>
                                                     		<td>
-                                                        		<button class="btn edit"><i class="icon-edit"></i></button>
+                                                    		<c:forEach items="${supervisar}" var="supervisa">
+                                                    			<c:if test="${monitor.user = supervisa.usuario}">
+                                                    				${supervisa.idActividad}
+                                                    			</c:if>
+                                                    		</td>
+                                                    		</c:forEach>
+                                                    		<td>
+                                                        		<button class="btn edit" href="/deleteMonitor/{monitor.usuario}.html"><i class="icon-edit"></i></button>
                                                             	<button class="btn btn-danger remove" data-toggle="confirmation" href="editMonitor.html"><i class="icon-remove"></i></button>
                                                         	</td>
                                                     	</tr>
                                                     </c:forEach>
+                                                    <div class="col-lg-2 col-lg-offset-1 col-sm-2 col-sm-offset-5">
+                                                		<button type="button" class="btn btn-success" href = "nuevoMonitor.html">Nuevo Monitor</button>
+                                                	</div>
                                                 </tbody>
-                                                <a href = "nuevoMonitor.html">Nuevo</a>
                                             </table>
                                         </div>
                                     </div>

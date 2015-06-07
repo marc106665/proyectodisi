@@ -88,7 +88,12 @@ public class LoginController {
 	     //Guardem les dades de l'usuari autenticat a la sessioÌ�
 	     session.setAttribute("user", user); 
 	         
-	     // Torna a la pagina principal
+	  // Torna a la pagina principal
+	     if(user.getRol().equalsIgnoreCase("MONITOR")){
+	    	 session.setAttribute("usuario", user.getUsuario());
+	    	 return "redirect:"+user.getUsuario()+".html";
+	     }
+	     
 	     return "redirect:inicio.html";
 	 }
 

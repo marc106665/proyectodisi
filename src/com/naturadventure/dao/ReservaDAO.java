@@ -24,6 +24,8 @@ import org.springframework.stereotype.Repository;
 
 
 
+
+import com.naturadventure.domain.Monitor;
 import com.naturadventure.domain.Reserva;
 
 
@@ -74,6 +76,13 @@ public class ReservaDAO {
 	
 	public Reserva getReserva(int idReserva) {
 		return this.jdbcTemplate.queryForObject("select idReserva, nombreCliente, telefonoCliente, emailCliente, horaInicio, estado, numParticipantes, fechaReserva,  fechaActividad, nivel, idActividad, monitor from reserva where idReserva = ? ",  new Object[] {idReserva}, new ReservaMapper());
+	}
+	
+	public List<Reserva> getReservas(Monitor monitor) {
+		return this.jdbcTemplate.query(""
+				+ "select idreserva, nombrecliente, telefonocliente, emailcliente, horainicio, estado, numparticipantes, fechareserva, fechaactividad, idactividad, monitor, nivel "
+				+ "from reserva "
+				+ "where monitor = ? ",  new Object[] {monitor.getUsuario()}, new ReservaMapper());
 	}
 	
 	public int addReserva(Reserva reserva) {

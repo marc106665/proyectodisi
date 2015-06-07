@@ -53,10 +53,10 @@ public class MonitorDAO {
 	
 	
 	public List<Monitor> getMonitorDeTipo(String idtipo,Date fechaReservaUtil, String horainicio) { 
-      java.sql.Date fechaReservaSql = new java.sql.Date(fechaReservaUtil.getTime());
-		List<Monitor> lista = this.jdbcTemplate.query("select monitor.nombre, monitor.email, monitor.usuario from monitor INNER JOIN supervisar on monitor.usuario=supervisar.usuario  INNER JOIN ( select monitor from reserva where monitor is not null and fechaactividad=? and reserva.horainicio=? ) As res on res.monitor<> monitor.usuario where  supervisar.tipo=? ", new Object[] { fechaReservaSql, horainicio, idtipo}, new MonitorMapper());
-		if (lista != null){ return lista;}
-		else {return null;}
+	      java.sql.Date fechaReservaSql = new java.sql.Date(fechaReservaUtil.getTime());
+			List<Monitor> lista = this.jdbcTemplate.query("select monitor.nombre, monitor.email, monitor.usuario from monitor INNER JOIN supervisar on monitor.usuario=supervisar.usuario LEFT JOIN ( select monitor from reserva where monitor is not null and fechaactividad=? and reserva.horainicio=? ) As res on res.monitor<> monitor.usuario where  supervisar.tipo=? ", new Object[] { fechaReservaSql, horainicio, idtipo}, new MonitorMapper());
+			if (lista != null){ return lista;}
+			else {return null;}
 	}
 	
 	

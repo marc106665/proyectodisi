@@ -117,8 +117,13 @@
 	                        <form:label for="fechaReserva" class="control-label col-lg-3" path="fechaReserva">Fecha de la reserva</form:label>  
 	                        <div class="col-lg-7">
 	                        	  <c:set var="fReserva" value="${reserva.fechaReserva}" />
-					             <input tabindex="3" type="date" id="fechaReserva" class="form-control" name="fechaReserva"  value="<fmt:formatDate pattern="dd/MM/yyyy" value="${fReserva}"/>" readonly/>
-		                 		
+	                        	<c:choose>
+	                           	<c:when test="${browser == 'Chrome'}"><fmt:formatDate pattern="yyyy-MM-dd" value="${fReserva}" var="fechaPegaReserva"/></c:when>
+						  		<c:otherwise><fmt:formatDate pattern="dd/MM/yyyy" value="${fReserva}" var="fechaPegaReserva"/></c:otherwise>
+						  		</c:choose>
+	                        	  
+					             <input tabindex="3" type="date" id="fechaReservaPego" class="form-control" name="fechaReservaPego"  value="${fechaPegaReserva}" readonly/>
+		                 		<input name="fechaReserva" type="hidden" id="fechaReserva" value="<fmt:formatDate pattern="dd/MM/yyyy" value="${fReserva}" />"/>
 	                        </div>
 	                    </div>
 	                    <div class="form-group">
@@ -272,14 +277,25 @@
 	                        	  <c:set var="fActividad" value="${reserva.fechaActividad}" />
 	                      <c:choose>
 	                      <c:when test="${accion == 'ver'}">
-                        		<input tabindex="11" type="date" id="fechaActividad" class="form-control" placeholder="dd/mm/aaaa" name="fechaActividad"  value="<fmt:formatDate pattern="dd/MM/yyyy" value="${fActividad}"/>" readonly/>
+	                      		<c:choose>
+	                           	<c:when test="${browser == 'Chrome'}"><fmt:formatDate pattern="yyyy-MM-dd" value="${fActividad}" var="date"/>" /></c:when>
+						  		<c:otherwise><fmt:formatDate pattern="dd/MM/yyyy" value="${fActividad}" var="date" /></c:otherwise>
+						  		</c:choose>
+                        		<input tabindex="11" type="date" id="fechadePega" class="form-control" placeholder="dd/mm/aaaa" name="fechadePega"  value="${date}" readonly/>
+						  		  																																 
+						  																																																																				
+						  
 						  </c:when>
 						  <c:otherwise>
-						  		<input tabindex="11" type="date" id="fechaActividad" class="form-control" placeholder="dd/mm/aaaa" name="fechaActividad"  value="<fmt:formatDate pattern="dd/MM/yyyy" value="${fActividad}"/>" />
+						  		<c:choose>
+	                           	<c:when test="${browser == 'Chrome'}"><fmt:formatDate pattern="yyyy-MM-dd" value="${fActividad}" var="date"/> </c:when>
+						  		<c:otherwise><fmt:formatDate pattern="dd/MM/yyyy" value="${fActividad}" var="date" /></c:otherwise>
+						  		</c:choose>	
+						  		<input tabindex="11" type="date" id="fechadePega" class="form-control" placeholder="dd/mm/aaaa" name="fechadePega"  value="${date}" />
 						  </c:otherwise>
 						  </c:choose>  
 					             
-		                 		
+		                 		<input name="fechaActividad" type="hidden" id="fechaActividad" value="<fmt:formatDate pattern="dd/MM/yyyy" value="${fActividad}" />"/>
 	                        </div>
 	                    </div>
 					
@@ -450,6 +466,22 @@
 	var nivelPrecio = {<c:forEach var="niveles" items="${listaNiveles}"> <c:if test="${ i != 0 }">,</c:if> ${niveles.nivel}:{precio:${niveles.precioPorPersona}} <c:set var="i" value="${ i+1 }" /></c:forEach>};
         $(document).ready(function(){
         	
+        	$(document).ready(function(){
+            	$('#fechadePega').change(function(event) {
+            		var fechaFormato=$(this).val();
+            		var formatoAmericano = fechaFormato.indexOf("-");
+            		var formatoEuropeo = fechaFormato.indexOf("/");
+            		if(formatoAmericano>formatoEuropeo){
+            			var date = fechaFormato.split('-');
+            			fechaFormato= date[2]+"/"+date[1]+"/"+date[0];
+            		}
+    				$('#fechaActividad').val(fechaFormato);	        	
+    								        	
+            	});
+            });
+        	
+        	var ua = navigator.userAgent.toLowerCase();
+        	
 			$('#nivel').change(function(event) {
         		calculaprecios();
         	});
@@ -493,6 +525,7 @@
         	      var json = { horainicio : horainicio, fechaactividad : fechaactividad, tipo: tipo};
         	      var posting = $.post( "${pageContext.request.contextPath}/admin1234/reservas/ajaxMonitor.html", json);
         	      posting.done(function( data ) {
+        	    	  
         	    	  str = jQuery.parseJSON(data);
         	    	  s.empty();
         	    	  var monitores = str.monitores;
@@ -542,6 +575,7 @@
 				$( "#mostrarMonitor" ).text(monitorElegido);
 				$( "#usuario" ).val(usuarioElegido);
 			}
+			
 			
 			
 	        Metis.formWysiwyg();

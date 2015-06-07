@@ -92,7 +92,7 @@ public class ReservaController {
     }
 	
 	@RequestMapping(value="/actualizaReserva/{accion}/{idreserva}", method = RequestMethod.GET) 
-    public String actualizaReserva(HttpSession session, Model model, @PathVariable String accion, @PathVariable int idreserva) {
+    public String actualizaReserva(HttpSession session, Model model, @PathVariable String accion, @PathVariable int idreserva,HttpServletRequest req) {
 		if (session.getAttribute("user") == null) 
 		{ 
 		   model.addAttribute("user", new UserDetails()); 
@@ -111,6 +111,13 @@ public class ReservaController {
 		List<NivelActividad> LitasNiveles= actividadDao.getNivelActividad(reserva.getIdActividad());
 		double precioSinIva = objNivel.getPrecioPorPersona() * reserva.getNumParticipantes();
 		double varPrecioIva = precioSinIva + (precioSinIva * 0.21) ;
+		
+		String userAgent = req.getHeader("user-agent");
+		String browser = "other";
+		if(userAgent.contains("Chrome")) { browser = "Chrome"; }
+		model.addAttribute("browser", browser);
+		
+		
 		
 		if (reserva.getMonitor() != null){
 			Monitor monitor = monitorDao.getMonitor(reserva.getMonitor());
@@ -138,23 +145,20 @@ public class ReservaController {
     @RequestMapping(value="/actualizaReserva/{accion}/{idreserva}", method = RequestMethod.POST) 
     public String actualizaReservaSubmit(@PathVariable int idreserva, @PathVariable String accion,@ModelAttribute("reserva") Reserva reserva, BindingResult bindingResult) {
     	
-    	if ( accion!=null && accion.equals("ver") ){
-    		System.out.println(" entro 2--");
-    		 System.out.println(" accion --"+accion);
-    	}else if ( accion!=null ){
-    		System.out.println(" entro --3");
+    	if ( accion!=null && !accion.equals("ver")){
+    	
     		if (reserva.getMonitor().equals("null") ){ reserva.setMonitor(null); }
-    		System.out.println(" entro --4");
+    		// System.out.println(" monitor --"+reserva.getMonitor()+" estado --"+reserva.getEstado()+" fecha --"+reserva.getFechaActividad());
     		if (reserva.getMonitor()!=null && (reserva.getEstado().equals("RECHAZADA") ||reserva.getEstado().equals("PENDIENTE")) && reserva.getFechaActividad().after(new Date())){ reserva.setEstado("ACEPTADA"); }
     		else if(reserva.getMonitor()==null && reserva.getEstado().equals("RECHAZADA")  && reserva.getFechaActividad().after(new Date())){ reserva.setEstado("PENDIENTE"); reserva.setMonitor(null);} 
-//    		System.out.println(" accion --"+accion+" monitor"+ reserva.getMonitor());
-    		System.out.println(" entro --5");
+
+    	
     		reservaDao.updateReserva(reserva);
     	}
     	//if (bindingResult.hasErrors()) 
           //   return "monitor/update";
     	 
-    	 //System.out.println(" moniotr --"+reserva.getMonitor());
+    	
          //
          return "redirect:../../listadoReservas.html"; 
    }
@@ -183,16 +187,17 @@ public class ReservaController {
         List<Monitor> listaMonitoresAutorizados = monitorDao.getMonitorDeTipo(tipo, fechaActividad, horaInicio);
         String salida = "";
         if ( listaMonitoresAutorizados != null ){
-        	salida = "{\"monitores\":[{";
+        	salida = "{\"monitores\":[";
         	int i = 0;
         	for(Monitor monitor : listaMonitoresAutorizados) {
-        		if (i != 0 ){ salida+= ",{"; }
-        		salida += "\"nombre\":\""+monitor.getNombre()+"\", \"usuario\":\""+monitor.getUsuario()+"\"}";
+        		if (i != 0 ){ salida+= ","; }
+        		salida += "{\"nombre\":\""+monitor.getNombre()+"\", \"usuario\":\""+monitor.getUsuario()+"\"}";
         		i++;
         	}
         	salida+= "]}";
         
         }else { salida = "{\"monitores\":[]}"; }
+      System.out.println(" salida --"+salida);
         return salida;
      } 
     

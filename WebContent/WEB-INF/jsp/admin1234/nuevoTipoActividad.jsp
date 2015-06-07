@@ -104,7 +104,7 @@
 	                    <div class="form-group">
 	                        <form:label for="tipo" class="control-label col-lg-3" path="tipo">Tipo de actividad</form:label>
 	                        <div class="col-lg-7">
-		                        <form:input tabindex="2" type="text" id="tipo" placeholder="Tipo de actividad" class="form-control" path="tipo"/>
+		                        <form:input tabindex="1" type="text" id="tipo" placeholder="Tipo de actividad" class="form-control" path="tipo" required="required"/>
 	                        </div>
 	                    </div>
 	                    
@@ -115,8 +115,9 @@
 					  <div class="form-group">
 		                  <label for="descripcion" class="control-label col-lg-3">Descripción</label>
 		                  <div id="descripcion" class="col-lg-7">
-		                    
-		                      <textarea tabindex="8" id="wysihtml5" class="form-control" rows="5"></textarea>
+		                  		
+		                	  <form:textarea path="descripcion" tabindex="2" id="wysihtml5" class="form-control" rows="10"/>
+		                      
 		                      
 		                    
 		                  </div>
@@ -134,9 +135,10 @@
 					
 					
 					  
-					  <div class="form-group">
-                        <label class="control-label col-lg-3 col-sm-3">Imagen del tipo de actividad</label>
+					  
+						<label class="control-label col-lg-3 col-sm-3">Imagen del tipo de actividad</label>
                         <div class="col-lg-2 col-sm-2">
+                        	
                           <input type="file" name="file">
                         </div>
 					
@@ -220,6 +222,15 @@
     <!-- Metis demo scripts -->
     <script src="${pageContext.request.contextPath}/resources/admin/js/app.js"></script>
 
-   
+   <script>
+    $(document).ready(function(){
+    	
+        Metis.formWysiwyg();
+
+    	
+    });
+    
+    </script>
+    
 
   </body>

@@ -84,18 +84,7 @@ public class UserController {
           model.addAttribute("user", new UserDetails()); 
           return "admin1234/login";
        } 
-       
-       String test1 = request.getSession().getServletContext().getRealPath("");
-       String test2 = request.getSession().getServletContext().getRealPath("/");
 
-       String test5 = request.getSession().getServletContext().getRealPath(request.getServletPath());
-       
-       System.out.println(test1);
-       System.out.println(test2);
-
-       System.out.println(test5);
-       
-       
        List<Actividad> aux = null;
        //System.out.println(actividadDao.getActividades());
        aux = actividadDao.getActividades();
@@ -109,7 +98,7 @@ public class UserController {
 
 
    @RequestMapping("/tiposActividades.html") 
-   public String tipoActividades(HttpSession session, Model model) {
+   public String tipoActividades(HttpSession session, Model model, HttpServletRequest request) {
        if (session.getAttribute("user") == null) 
        { 
           model.addAttribute("user", new UserDetails()); 
@@ -127,7 +116,7 @@ public class UserController {
        
    }
    
-   
+   /*
    @RequestMapping("/nuevoTipoActividad.html") 
    public String addTipoActividad(HttpSession session, Model model) {
 	   if (session.getAttribute("user") == null) 
@@ -144,6 +133,6 @@ public class UserController {
 	   
        return "admin1234/nuevoTipoActividad";
        
-   }
+   }*/
    
 }

@@ -3,6 +3,7 @@ package com.naturadventure.backend.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,6 +33,7 @@ import com.naturadventure.domain.NivelActividad;
 import com.naturadventure.domain.Reserva;
 import com.naturadventure.domain.TipoActividad;
 import com.naturadventure.domain.UserDetails;
+import com.sun.scenario.effect.Blend.Mode;
 
 
 @Controller 
@@ -56,8 +58,8 @@ public class ActividadController {
    public String addActividad(HttpSession session, Model model) {
 	   if (session.getAttribute("user") == null) 
        { 
-		   model.addAttribute("user", new UserDetails()); 
-           return "admin1234/login";
+		      model.addAttribute("user", new UserDetails()); 
+		      return "redirect:../admin1234/login.html";
        } 
 
        
@@ -87,7 +89,7 @@ public class ActividadController {
 	   	if (session.getAttribute("user") == null) 
 	   	{ 
 	   		model.addAttribute("user", new UserDetails()); 
-	   		return "redirect:admin1234/login.html";
+	   		return "redirect:login.html";
 	   	}
 //	   if (bindingResult.hasErrors()){
 //		   System.out.println("error\n"+actividad.toString()+"\n"+bindingResult.toString());
@@ -101,7 +103,7 @@ public class ActividadController {
                 // Creating the directory to store file
                 ServletContext sc = session.getServletContext();
                 String rootPath = sc.getRealPath( File.separator + "resources" );
-                File dir = new File(rootPath + File.separator + "subidas");
+                File dir = new File(rootPath + File.separator + "images");
                 if (!dir.exists())
                     dir.mkdirs();
  
@@ -113,8 +115,8 @@ public class ActividadController {
                 stream.write(bytes);
                 stream.close();
  
-                actividad.setFoto( File.separator + this.MD5(actividad.getNombre()) + "_" + actividad.getNombre() + ".jpg" );
-                System.out.println("You successfully uploaded file=");
+                actividad.setFoto( this.MD5(actividad.getNombre()) + "_" + actividad.getNombre() + ".jpg" );
+                System.out.println("You successfully uploaded file="+serverFile+ File.separator + this.MD5(actividad.getNombre()) + "_" + actividad.getNombre() + ".jpg" );
             } catch (Exception e) {
             	System.out.println("You failed to upload => " + e.getMessage());
             }
@@ -197,7 +199,7 @@ public class ActividadController {
 	   if (session.getAttribute("user") == null) 
 	   { 
 	      model.addAttribute("user", new UserDetails()); 
-	      return "redirect:admin1234/login.html";
+	      return "redirect:../../admin1234/login.html";
 	   }
 	   
 	    Actividad actividad = actividadDao.getActividad(id);
@@ -215,7 +217,7 @@ public class ActividadController {
 	   if (session.getAttribute("user") == null) 
 	   { 
 	      model.addAttribute("user", new UserDetails()); 
-	      return "redirect:admin1234/login.html";
+	      return "redirect:../../admin1234/login.html";
 	   }
 	   
 	   Actividad actividad = actividadDao.getActividad(id);
@@ -223,11 +225,69 @@ public class ActividadController {
 	   
 	   if (actividad != null) {
 		   List<TipoActividad>listaTipoActividad = tipoActividadDao.getTiposActividad();
-		   System.out.println(listaTipoActividad);
+		   //System.out.println(listaTipoActividad);
+		   
+		   List<HorasInicio> listaHoras = actividadDao.getHorasActividad(actividad.getIdActividad());
 		   
 		   model.addAttribute("listaTipoActividad", listaTipoActividad);
 		   
 	 	   model.addAttribute("actividad", actividad);
+	 	   
+	 	   String tieneManyana = "";
+	 	   String tieneTarde = "";
+	 	   String tieneNoche = "";
+	 	   
+	 	   for (int i = 0; i < listaHoras.size(); i++) {
+	 		  switch (listaHoras.get(i).getHoraInicio()) {
+				case "MANYANA":
+					tieneManyana = "MANYANA";
+				break;
+				case "TARDE":
+					tieneTarde = "TARDE";
+				break;
+				case "NOCHE":
+					tieneNoche = "NOCHE";
+				break;
+				default:
+					break;
+				}
+	 	   }
+	 	   
+		   model.addAttribute("tieneManyana", tieneManyana);
+		   model.addAttribute("tieneTarde", tieneTarde);
+	 	   model.addAttribute("tieneNoche", tieneNoche);
+	 	   
+	 	   List<NivelActividad> listaNiveles = actividadDao.getNivelActividad(actividad.getIdActividad());
+	 	   float precio1=0;
+	 	   float precio2=0;
+	 	   float precio3=0;
+	 	   
+	 	  for (int i = 0; i < listaNiveles.size(); i++) {
+	 		  switch (listaNiveles.get(i).getNivel()) {
+				case "PRINCIPIANTE":
+					precio1 = listaNiveles.get(i).getPrecioPorPersona();
+				break;
+				case "INTERMEDIO":
+					precio2 = listaNiveles.get(i).getPrecioPorPersona();
+				break;
+				case "AVANZADO":
+					precio3 = listaNiveles.get(i).getPrecioPorPersona();
+				break;
+				default:
+					break;
+				}
+	 	   }
+	 	  
+	 	   model.addAttribute("precio1", precio1);
+		   model.addAttribute("precio2", precio2);
+	 	   model.addAttribute("precio3", precio3);
+	 	  
+	 	   //FOTO:
+	 	   model.addAttribute("rutaImagen", actividad.getFoto());
+	 	   
+	 	   //Nuevo y rebajado:
+	 	   model.addAttribute("nuevo", actividad.getNuevo() > 0 ? ""+actividad.getNuevo() : "" );
+	 	   model.addAttribute("rebajado", actividad.getOferta().length() > 0 ? ""+actividad.getOferta() : null );
 	 	   
 	 	   return "admin1234/editaActividad";
 	   }
@@ -242,16 +302,17 @@ public class ActividadController {
 		   @ModelAttribute("actividad") Actividad actividad,  
 		   @ModelAttribute("listatipoactividad") TipoActividad tipoActividad,   
 		   BindingResult bindingResult,
+		   @RequestParam("file") MultipartFile file,
 		   HttpServletRequest request)
    {
 	   	if (session.getAttribute("user") == null) 
 	   	{ 
 	   		model.addAttribute("user", new UserDetails()); 
-	   		return "redirect:admin1234/login.html";
+	   		return "redirect:login.html";
 	   	}
 	   	int id = actividad.getIdActividad();
-	   	System.out.println(request.getParameter("manyana")+":"+request.getParameter("tarde"));
-	   	System.out.println("tipo de actividad: "+tipoActividad.toString()+"\n"+actividad.toString());
+	   	//System.out.println(request.getParameter("manyana")+":"+request.getParameter("tarde"));
+	   	//System.out.println("tipo de actividad: "+tipoActividad.toString()+"\n"+actividad.toString());
 	   
 	   	actividad.setOferta("nooferta");
 		actividad.setNuevo(0);
@@ -268,54 +329,130 @@ public class ActividadController {
 			actividad.setNuevo(0);
 		}
 		
+		//Imagen:
+	   	if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+                
+                // Creating the directory to store file
+                ServletContext sc = session.getServletContext();
+                String rootPath = sc.getRealPath( File.separator + "resources" );
+                File dir = new File(rootPath + File.separator + "images");
+                if (!dir.exists())
+                    dir.mkdirs();
+ 
+                // Create the file on server
+                File serverFile = new File(dir.getAbsolutePath()
+                        + File.separator + this.MD5(actividad.getNombre()) + "_" + actividad.getNombre() + ".jpg");
+                BufferedOutputStream stream = new BufferedOutputStream(
+                        new FileOutputStream(serverFile));
+                stream.write(bytes);
+                stream.close();
+ 
+                actividad.setFoto( this.MD5(actividad.getNombre()) + "_" + actividad.getNombre() + ".jpg" );
+                System.out.println("You successfully uploaded file="+serverFile+ File.separator + this.MD5(actividad.getNombre()) + "_" + actividad.getNombre() + ".jpg" );
+            } catch (Exception e) {
+            	System.err.println("You failed to upload => " + e.getMessage());
+            }
+        } else {
+            actividad.setFoto("");
+            
+            // Borrado de imagen
+            ServletContext sc = session.getServletContext();
+            String rootPath = sc.getRealPath( File.separator + "resources" );
+            File dir = new File(rootPath + File.separator + "images");
+            if (!dir.exists())
+                dir.mkdirs();
+
+            // Create the file on server
+            File serverFile = new File(dir.getAbsolutePath()
+                    + File.separator + this.MD5(actividad.getNombre()) + "_" + actividad.getNombre() + ".jpg");
+            if(serverFile.delete())
+            	System.out.println("Borrada imagen : "+serverFile);
+        }
+		
 		
 		actividadDao.updateActividad(actividad);
        
+		List<HorasInicio> listaHoras = new LinkedList<HorasInicio>();
        	
        	//Franja horaria:
 	   	if (request.getParameter("manyana") != null) {
 	   		HorasInicio objHora = new HorasInicio();
 	   		objHora.setIdActividad(id);
 	   		objHora.setHoraInicio(request.getParameter("manyana"));
-	   		actividadDao.updateHoraInicio(objHora);
+	   		listaHoras.add(objHora);
 	   	}
 		if (request.getParameter("tarde") != null) {
 			HorasInicio objHora = new HorasInicio();
 	   		objHora.setIdActividad(id);
 	   		objHora.setHoraInicio(request.getParameter("tarde"));	
-	   		actividadDao.updateHoraInicio(objHora);
+	   		listaHoras.add(objHora);
 		}
 		if (request.getParameter("noche") != null) {
 			HorasInicio objHora = new HorasInicio();
 	   		objHora.setIdActividad(id);
 	   		objHora.setHoraInicio(request.getParameter("noche"));
-	   		actividadDao.updateHoraInicio(objHora);
+	   		listaHoras.add(objHora);
 		}
-
+		
+		
+		HorasInicio objHora = new HorasInicio();
+		objHora.setIdActividad(id);
+		actividadDao.deleteHoraInicio(objHora);
+		
+		
+		Iterator<HorasInicio> it = listaHoras.iterator();
+		while(it.hasNext()){
+			
+			HorasInicio elem = it.next();	
+			actividadDao.addHoraInicio(elem);
+		}
+			
 		
 		//Precio por nivel:
-	   	if (request.getParameter("precio1") != null) {//Hay que comprobar el tipo
+		
+		List<NivelActividad> listaNiveles = new LinkedList<NivelActividad>();
+		
+	   	if (request.getParameter("precio1") != null ) {//Hay que comprobar el tipo
 	   		NivelActividad precio1 = new NivelActividad();
 	   		precio1.setIdActividad(id);
 	   		precio1.setNivel("PRINCIPIANTE");
-	   		precio1.setPrecioPorPersona(Float.valueOf(request.getParameter("precio1")));
-	   		actividadDao.updateNivelActividad(precio1);
+	   		float precio = Float.valueOf(request.getParameter("precio1"));
+	   		precio1.setPrecioPorPersona(precio);
+	   		if(precio > 0)
+	   			listaNiveles.add(precio1);
 	   	}
 		if (request.getParameter("precio2") != null) {
 			NivelActividad precio2 = new NivelActividad();
 			precio2.setIdActividad(id);
 			precio2.setNivel("INTERMEDIO");
-			precio2.setPrecioPorPersona(Float.valueOf(request.getParameter("precio2")));
-	   		actividadDao.updateNivelActividad(precio2);
+			float precio = Float.valueOf(request.getParameter("precio2"));
+	   		precio2.setPrecioPorPersona(precio);
+	   		if(precio > 0)
+	   			listaNiveles.add(precio2);
 		}
 		if (request.getParameter("precio3") != null) {
 			NivelActividad precio3 = new NivelActividad();
 			precio3.setIdActividad(id);
 			precio3.setNivel("AVANZADO");
-			precio3.setPrecioPorPersona(Float.valueOf(request.getParameter("precio3")));
-	   		actividadDao.updateNivelActividad(precio3);
+			float precio = Float.valueOf(request.getParameter("precio3"));
+	   		precio3.setPrecioPorPersona(precio);
+	   		if(precio > 0)
+	   			listaNiveles.add(precio3);
 		}
 		
+		NivelActividad nivelActividad = new NivelActividad();
+		nivelActividad.setIdActividad(id);
+		actividadDao.deleteNivelActividad(nivelActividad);
+		
+		
+		Iterator<NivelActividad> itHoras = listaNiveles.iterator();
+		while(itHoras.hasNext()){
+			
+			NivelActividad elem = itHoras.next();	
+			actividadDao.addNivelActividad(elem);
+		}
        
 		return "redirect:/admin1234/actividades.html"; 
 	   	

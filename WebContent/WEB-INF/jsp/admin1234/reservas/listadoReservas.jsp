@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=latin1"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html class="no-js">
   <head>
     <meta charset="UTF-8">
-    <title>Panel administraciÃ³n</title>
+    <title>Panel administración</title>
 
     <!--IE Compatibility modes-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -59,11 +59,11 @@
     <div class="bg-dark dk" id="wrap">
       <div id="top">
 
-      <%@ include file="components/menuAdmin.jsp" %>
+      <%@ include file="../components/menuAdmin.jsp" %>
 
 		<div class="main-bar">
             <h3>
-              <i class="fa fa-dashboard"></i>&nbsp; Tipo de actividades</h3>
+              <i class="fa fa-dashboard"></i>&nbsp; Reservas</h3>
           </div><!-- /.main-bar -->
         </header><!-- /.head -->
       </div><!-- /#top -->
@@ -75,7 +75,7 @@
               <div class="col-lg-12">
                 <div class="box">
                   <header>
-                    <h5>Tipo de actividades</h5>
+                    <h5>Reservas</h5>
                   </header>
                   <div class="body" id="trigo" style="height: 250px;"></div>
                 </div>
@@ -93,13 +93,11 @@
                     <div class="icons">
                       <i class="fa fa-table"></i>
                     </div>
-                    <h5>Tipo de actividades</h5>
+                    <h5>Reservas</h5>
                     <!-- .toolbar -->
                     <div class="toolbar">
                       <nav style="padding: 8px;">
-                        <a href="nuevoTipoActividad.html" class="btn btn-success btn-xs">
-                          <i class="fa fa-plus"></i>
-                        </a> 
+                        
                       </nav>
                     </div><!-- /.toolbar -->
                   </header>
@@ -107,21 +105,59 @@
                     <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
                       <thead>
                         <tr>
-                            <th>Tipo actividad</th>
+                        	<th>#</th>
+                        	<th>Actividad</th>
+                            <th>Cliente</th>
+                            <th>Participantes</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                     
-                    <c:forEach items="${listaTipoActividades}" var="listaTipoActividades">
+                    <c:forEach items="${listadoDeReservas}" var="reserva">
                         <tr>
-                            <td>${listaTipoActividades.tipo}</td>
-                            
-                            
+                            <td>${reserva.idReserva}</td>
+                            <c:set var="nombre" value="${mapActividades[reserva.idActividad]}" />
+                            <td>${nombre}</td>
+                            <td>${reserva.nombreCliente}</td>
+                            <td>${reserva.numParticipantes}</td>
+                            <c:set var="fecha" value="${reserva.fechaActividad}" />
+                            <td><fmt:formatDate type="date" value="${fecha}"  /></td>
+                            <c:choose>
+                            <c:when test="${reserva.estado == 'PENDIENTE'}">
+                            <td><span class="label label-warning">&nbsp;&nbsp;${reserva.estado}&nbsp;&nbsp;</span></td>
                             <td>
-                            <a href="editaTipoActividad/${listaTipoActividades.tipo}.html" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
-                            <a href="borrarTipoActividad/${listaTipoActividades.tipo}.html" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
+                            <a href="actualizaReserva/aceptar/${reserva.idReserva}.html" class="btn btn-success btn-sm" ><i class="fa fa-pencil-square-o "></i>&nbsp;Aceptar</a>
+                            <a href="rechazar/${reserva.idReserva}.html" class="btn btn-danger btn-sm" ><i class="fa fa-trash-o " ></i>&nbsp;Rechazar</a>
                             </td>
+                            </c:when>
+                            <c:when test="${reserva.estado == 'ACEPTADA'}">
+                            	<c:choose>
+                            	<c:when test="${fecha.time > fechaactual.time}">
+                            	<td><span class="label label-success">&nbsp;&nbsp;${reserva.estado}&nbsp;</span></td>
+                            	<td>
+                            	<a href="actualizaReserva/editar/${reserva.idReserva}.html" class="btn btn-warning btn-sm" ><i class="fa fa-pencil-square-o ">&nbsp;</i>&nbsp;Editar&nbsp;&nbsp;</a>
+                            	<a href="rechazar/${reserva.idReserva}.html" class="btn btn-danger btn-sm" ><i class="fa fa-trash-o " ></i>&nbsp;Rechazar</a>
+                            	</td>
+                            	</c:when>
+                            	<c:otherwise>
+       							<td><span class="label label-success">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${reserva.estado}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+                            	<td>
+                            	<a href="actualizaReserva/ver/${reserva.idReserva}.html" class="btn btn-info btn-sm" ><i class="fa fa-pencil-square-o "></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ver&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                            	</td>
+    						</c:otherwise>
+                            	</c:choose>
+                            </c:when>
+                            <c:otherwise>
+       						<td><span class="label label-danger">${reserva.estado}</span></td>
+                            <td>
+                            <a href="actualizaReserva/ver/${reserva.idReserva}.html" class="btn btn-info btn-sm" ><i class="fa fa-pencil-square-o "></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ver&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                            <a href="actualizaReserva/editar/${reserva.idReserva}.html" class="btn btn-warning btn-sm" ><i class="fa fa-pencil-square-o ">&nbsp;</i>&nbsp;&nbsp;&nbsp;Editar&nbsp;&nbsp;&nbsp;</a>
+                            </td>
+    						</c:otherwise>
+                            </c:choose>
                         </tr>
                     </c:forEach>
                     

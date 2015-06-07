@@ -119,13 +119,13 @@
 	                    <div class="form-group">
 	                        <form:label for="nombre" class="control-label col-lg-3" path="nombre">Nombre de la actividad</form:label>
 	                        <div class="col-lg-7">
-		                        <form:input tabindex="2" type="text" id="nombre" placeholder="Nombre" class="form-control" path="nombre"/>
+		                        <form:input tabindex="2" type="text" name="nombre" id="nombre" placeholder="Nombre" class="form-control" path="nombre" required="required"/>
 	                        </div>
 	                    </div>
 	                    <div class="form-group">
 	                    	<form:label path="duracionHoras" for="horas" class="control-label col-lg-3">Duración en horas</form:label>
 		                    <div class="col-lg-7">
-		                    	<form:input path="duracionHoras" min="1" tabindex="3" type="number" id="horas" placeholder="Duración en horas" class="form-control"/>
+		                    	<form:input path="duracionHoras" min="1" tabindex="3" type="number" name="horas" id="horas" placeholder="Duración en horas" class="form-control" required="required"/>
 		                    </div>
 	                    </div><!-- /.form-group -->
 	                    <div class="form-group">
@@ -133,37 +133,21 @@
 		                    <div class="col-lg-7">
 		                    <div class="input-group">
 		                        <div class="input-group-addon"><a href="http://maps.google.es/" target="_blanck"><li class="glyphicon glyphicon-map-marker"></li></a></div>
-		                        <form:input path="localizacion" tabindex="4" type="text" id="localizacion" placeholder="Link de Google maps" class="form-control"/>
+		                        <form:input path="localizacion" tabindex="4" type="url" name="localizacion" id="localizacion" placeholder="Link de Google maps" class="form-control"/>
 		                    	</div>
 		                    </div>
 	                    </div><!-- /.form-group -->
 
 						<div class="form-group">
-								
-							
-								
-								<%-- 
-								
-								<form:checkbox modelAttribute="objhorasinicio"  path="horasinicio.horaInicio" value="MANYANA"/>Mañana 
- 								
- 							<c:forEach items="${horasinicio}" var="horasinicio">
- 									
- 									<form:checkbox path="horasinicio.horaInicio" value="MANYANA"/>Mañana 
- 								
- 								</c:forEach> --%>
-							  
-							    
+
 						</div>
 
 	                    <div class="form-group">
 		                    <label for="franjahoraria" class="control-label col-lg-3">Franjas horarias</label>
 		                    <div class="col-lg-9">
 		                    	<div class="checkbox">
-		                    		
 	                            	<label>
-	                              		<label>
 	                              			<input name="manyana" tabindex="5" class="uniform" type="checkbox" value="MANYANA"> Mañana
-	                            		</label>
 	                            	</label>
 	                          	</div>
 	                          	<div class="checkbox">
@@ -183,7 +167,7 @@
 		                  <label for="descripcion" class="control-label col-lg-3">Descripción</label>
 		                  <div id="descripcion" class="col-lg-7">
 		                  		
-		                	  <form:textarea path="descripcion" tabindex="8" id="wysihtml5" class="form-control" rows="5"/>
+		                	  <form:textarea path="descripcion" tabindex="16" id="wysihtml5" class="form-control" rows="5"/>
 		                      
 		                      
 		                    
@@ -204,7 +188,7 @@
                         <div class="col-lg-2 col-sm-2">
                         	<div class="input-group">
 		                    	<div class="input-group-addon"><li class="glyphicon glyphicon-euro"></li></div>
-	                          	<input tabindex="10" min="1" type="number" id="valorPrecio" placeholder="Precio..." class="form-control">
+	                          	<input tabindex="10" min="1" type="number" name="valorPrecio" id="valorPrecio" placeholder="Precio..." class="form-control">
 	                    	</div>
 	                    </div>
                         <div class="col-lg-2 col-sm-2">
@@ -220,7 +204,7 @@
 						    Nivel 1
 						  </div>
 						  <div class="panel-body">
-							  	<p class="text text-center"><b id="mostrarPrecio1">--- &nbsp;&euro;</b></p>
+							  	<p class="text text-center"><b id="mostrarPrecio1">--- <span class="glyphicon glyphicon-euro"></span></b></p>
 						  </div>
 						</div>
 					</div>
@@ -231,7 +215,7 @@
 						    Nivel 2
 						  </div>
 						  <div class="panel-body">
-							  	<p class="text text-center"><b id="mostrarPrecio2">--- &nbsp;&euro;</b></p>
+							  	<p class="text text-center"><b id="mostrarPrecio2">--- <span class="glyphicon glyphicon-euro"></span></b></p>
 						  </div>
 						</div>
 					</div>
@@ -242,7 +226,7 @@
 						    Nivel 3
 						  </div>
 						  <div class="panel-body">
-							  	<p class="text text-center"><b id="mostrarPrecio3">--- &nbsp;&euro;</b></p>
+							  	<p class="text text-center"><b id="mostrarPrecio3">--- <span class="glyphicon glyphicon-euro"></span></b></p>
 						  </div>
 						</div>
 					</div>

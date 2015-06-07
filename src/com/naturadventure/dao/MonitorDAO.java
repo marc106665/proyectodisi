@@ -2,6 +2,7 @@ package com.naturadventure.dao;
 
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -11,7 +12,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+
+import com.naturadventure.domain.Actividad;
 import com.naturadventure.domain.Monitor;
+import com.naturadventure.domain.NivelActividad;
+import com.naturadventure.domain.Supervisar;
 
 
 @Repository
@@ -34,6 +39,26 @@ public class MonitorDAO {
 	        return monitor;
 	    }
 	}
+	
+	private static final class SupervisarMapper implements RowMapper<Supervisar> { 
+		
+	    public Supervisar mapRow(ResultSet rs, int rowNum) throws SQLException { 
+	    	Supervisar supervisar = new Supervisar();
+	    	supervisar.setTipo(rs.getString("tipo"));
+	    	supervisar.setTipo(rs.getString("usuario"));
+	        
+	        return supervisar;
+	    }
+	}
+	
+	
+	public List<Monitor> getMonitorDeTipo(String idtipo,Date fechaReservaUtil, String horainicio) { 
+      java.sql.Date fechaReservaSql = new java.sql.Date(fechaReservaUtil.getTime());
+		List<Monitor> lista = this.jdbcTemplate.query("select monitor.nombre, monitor.email, monitor.usuario from monitor INNER JOIN supervisar on monitor.usuario=supervisar.usuario  INNER JOIN ( select monitor from reserva where monitor is not null and fechaactividad=? and reserva.horainicio=? ) As res on res.monitor<> monitor.usuario where  supervisar.tipo=? ", new Object[] { fechaReservaSql, horainicio, idtipo}, new MonitorMapper());
+		if (lista != null){ return lista;}
+		else {return null;}
+	}
+	
 	
 	public List<Monitor> getMonitores() {
 		 return this.jdbcTemplate.query("select nombre, email, usuario from monitor", new MonitorMapper());

@@ -174,7 +174,7 @@
 							<div class="col-sm-6 col-md-3 isotope-item novedades">
 								<div class="well well-sm">
 									<div class="overlay-container">
-										<img src="${pageContext.request.contextPath}${tactividad.foto}" alt="">
+										<img src="${pageContext.request.contextPath}resources/images/${tactividad.foto}" alt="">
 										<a class="overlay" data-toggle="modal" data-target="#${tactividad.tipo}">
 											<span class="btn btn-info">Más información</span>
 										</a>
@@ -200,7 +200,7 @@
 														
 													</div>
 													<div class="col-md-6">
-														<img src="${pageContext.request.contextPath}${tactividad.foto}" alt="">
+														<img src="${pageContext.request.contextPath}resources/images/${tactividad.foto}" alt="">
 													</div>
 												</div>
 											</div>
@@ -303,8 +303,10 @@ Todo aquel que quiera una aventura  con nosotros pude contactar y informarse má
 										<textarea class="form-control" rows="8" id="message2" placeholder="Mensaje, pregunta..." name="mensaje" required></textarea>
 										<i class="fa fa-pencil form-control-feedback"></i>
 									</div>
-									<input type="submit" value="¡Enviar!" onclick="doAjax()" class="btn btn-default">
-									<span id="result"></span>
+									<div class="col-lg-4">	<input type="submit" value="¡Enviar!" onclick="doAjax()" class="btn btn-default"></div>
+								
+									<div class="col-lg-8 alert alert-info" style="display:none" role="alert" id="result" ></div>
+									
 								</form:form>
 							</div>
 						</div>

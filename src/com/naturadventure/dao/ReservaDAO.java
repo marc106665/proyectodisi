@@ -40,23 +40,27 @@ public class ReservaDAO {
 	private static final class ReservaMapper implements RowMapper<Reserva> { 
 		
 	    public Reserva mapRow(ResultSet rs, int rowNum) throws SQLException { 
-	        Reserva reserva = new Reserva();
-	        reserva.setIdReserva(rs.getInt("idReserva"));
-	        reserva.setNombreCliente(rs.getString("nombreCliente"));
-	        reserva.setTelefonoCliente(rs.getString("telefonoCliente"));
-	        reserva.setEmailCliente(rs.getString("emailCliente"));
-	        reserva.setHoraInicio(rs.getString("horaInicio"));
-	        reserva.setEstado(rs.getString("estado"));
+	        Reserva reserva = new Reserva(); 
+	        reserva.setIdReserva(rs.getInt("idReserva")); 
+	        reserva.setNombreCliente(rs.getString("nombreCliente")); 
+	        reserva.setTelefonoCliente(rs.getString("telefonoCliente")); 
+	        reserva.setEmailCliente(rs.getString("emailCliente")); 
+	        reserva.setHoraInicio(rs.getString("horaInicio")); 
+	        reserva.setEstado(rs.getString("estado")); 
 	        reserva.setNumParticipantes(rs.getInt("numParticipantes"));
-	        java.sql.Date datesql = rs.getDate("fechaReserva");
-	        java.util.Date dateutil = new java.util.Date(datesql.getTime()); 
-	        reserva.setFechaReserva(dateutil);
-	        datesql = rs.getDate("fechaActividad");
-	        dateutil = new java.util.Date(datesql.getTime());
-	        reserva.setFechaActividad(dateutil);
-	        reserva.setIdActividad(rs.getInt("idActividad"));
-	        reserva.setMonitor(rs.getString("monitor"));
-	        reserva.setNivel(rs.getString("nivel"));
+	        java.sql.Date datesql = rs.getDate("fechaReserva"); 
+	        java.util.Date dateutil = new java.util.Date(datesql.getTime());  
+	        reserva.setFechaReserva(dateutil); 
+	        if ( rs.getDate("fechaActividad") !=  null) { 
+	        	datesql = rs.getDate("fechaActividad"); 
+	        	dateutil = new java.util.Date(datesql.getTime()); 
+	        }else {
+	        	dateutil = new java.util.Date(); 
+	        }
+	        reserva.setFechaActividad(dateutil); 
+	        reserva.setIdActividad(rs.getInt("idActividad")); 
+	        reserva.setMonitor(rs.getString("monitor")); 
+	        reserva.setNivel(rs.getString("nivel")); 
 
 
 
@@ -65,7 +69,7 @@ public class ReservaDAO {
 	}
 	
 	public List<Reserva> getReservas() {
-		 return this.jdbcTemplate.query("select idReserva, nombreCliente, telefonoCliente, emailCliente, horaInicio, estado, numParticipantes, fechaReserva,  fechaActividad, monitor, nivel from reserva", new ReservaMapper());
+		 return this.jdbcTemplate.query("select idReserva, nombreCliente, telefonoCliente, emailCliente, horaInicio, estado, numParticipantes, fechaReserva,  fechaActividad, monitor, nivel , idActividad from reserva", new ReservaMapper());
 	}	 
 	
 	public Reserva getReserva(int idReserva) {
@@ -110,14 +114,14 @@ public class ReservaDAO {
 	
 	public void updateReserva(Reserva reserva) {
 		this.jdbcTemplate.update(
-				"update reserva set idReserva =?, nombreCliente=?, telefonoCliente=?, emailCliente=?, horaInicio=?, estado=?, numParticipantes=?, fechaReserva=?,  fechaActividad=?, monitor=?, nivel=?",reserva.getIdReserva(), reserva.getNombreCliente(), reserva.getTelefonoCliente(), reserva.getEmailCliente(), reserva.getHoraInicio(), reserva.getEstado(), reserva.getNumParticipantes(), reserva.getFechaReserva(), reserva.getFechaActividad(), reserva.getMonitor(), reserva.getNivel());
+				"update reserva set nombreCliente=?, telefonoCliente=?, emailCliente=?, horaInicio=?, estado=?, numParticipantes=?, fechaReserva=?,  fechaActividad=?, monitor=?, nivel=? where idReserva =?", reserva.getNombreCliente(), reserva.getTelefonoCliente(), reserva.getEmailCliente(), reserva.getHoraInicio(), reserva.getEstado(), reserva.getNumParticipantes(), reserva.getFechaReserva(), reserva.getFechaActividad(), reserva.getMonitor(), reserva.getNivel(),reserva.getIdReserva());
 	}
 	
-	public void deleteReserva(int idReserva) {
+	public void updateEstadoReserva(int idreserva, String estado) {
 		this.jdbcTemplate.update(
-		        "delete from reserva where idReserva = ?",
-		        idReserva);
+				"update reserva set estado=?, monitor=null where idReserva=?",estado,idreserva);
 	}
+	
 	
 	
 }

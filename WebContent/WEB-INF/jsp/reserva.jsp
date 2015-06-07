@@ -170,8 +170,9 @@
 
 								        </label>
 								        <div class="controls">
-								        	<form:input path="fechaActividad" type="date" class="date-picker form-control"  placeholder="dd/mm/aaaa" />
+								        	<input type="date" class="date-picker form-control"  placeholder="dd/mm/aaaa" id="fechadePega"/>
 								        	
+								        	<form:input path="fechaActividad" type="hidden" id="fechaActividad"/>
 								          
 								        </div>
 								    </div>
@@ -190,9 +191,9 @@
 					                	
 					                	<form:select path="numParticipantes" id="numParticipantes" class="form-control" >
 															                	
-					                	<c:forEach var="i" begin="1" end="${actividad.maxParticipantes}">
+					                	<c:forEach var="i" begin="${actividad.minParticipantes}" end="${actividad.maxParticipantes}">
 					                		<c:choose>
-					                		<c:when test="${i == 1}">
+					                		<c:when test="${i == actividad.minParticipantes}">
         										<option selected="selected"> ${i} </option>
     										</c:when>
    											<c:otherwise>
@@ -214,7 +215,7 @@
 									        </thead>
 									        	<tbody>
 									        		<tr>
-											          	<td id="calculo">1 X ${nivel.precioPorPersona} &euro;</td>
+											          	<td id="calculo">${actividad.minParticipantes} X ${nivel.precioPorPersona} &euro;</td>
 											            <td id="total">${nivel.precioPorPersona} &euro;</td>
 											        </tr>
 										        </tbody>
@@ -237,7 +238,7 @@
 					                </div>
 					                <div class="form-group">
 					                    <label class="control-label">Teléfono</label>
-					                    <form:input path="telefonoCliente" maxlength="15" type="tel" class="form-control" placeholder="Teléfono de contacto"  /> 
+					                    <form:input path="telefonoCliente" maxlength="9" type="number" class="form-control" placeholder="Teléfono de contacto" min="100000000" max="999999999" /> 
 					                </div>
 					                <div class="form-group">
 					                    <label class="control-label">Email</label>
@@ -364,6 +365,23 @@
 		<!-- Custom Scripts -->
 		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/customPago.js"></script> 
 
+		<script>
+    
+        $(document).ready(function(){
+        	$('#fechadePega').change(function(event) {
+        		var fechaFormato=$(this).val();
+        		var formatoAmericano = fechaFormato.indexOf("-");
+        		var formatoEuropeo = fechaFormato.indexOf("/");
+        		if(formatoAmericano>formatoEuropeo){
+        			var date = fechaFormato.split('-');
+        			fechaFormato= date[2]+"/"+date[1]+"/"+date[0];
+        		}
+				$('#fechaActividad').val(fechaFormato);	        	
+								        	
+        	});
+        });
+
+    	</script>
 	</body>
 </html>
 

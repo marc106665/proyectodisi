@@ -174,7 +174,7 @@
 							<div class="col-sm-6 col-md-3 isotope-item novedades">
 								<div class="well well-sm">
 									<div class="overlay-container">
-										<img src="${pageContext.request.contextPath}resources/images/${tactividad.foto}" alt="">
+										<img src="${pageContext.request.contextPath}/resources/images/${tactividad.foto}" alt="">
 										<a class="overlay" data-toggle="modal" data-target="#${tactividad.tipo}">
 											<span class="btn btn-info">Más información</span>
 										</a>
@@ -200,7 +200,7 @@
 														
 													</div>
 													<div class="col-md-6">
-														<img src="${pageContext.request.contextPath}resources/images/${tactividad.foto}" alt="">
+														<img src="${pageContext.request.contextPath}/resources/images/${tactividad.foto}" alt="">
 													</div>
 												</div>
 											</div>

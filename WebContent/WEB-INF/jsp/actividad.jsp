@@ -142,8 +142,8 @@
 						<div class="space"></div>
 						<div class="row">
 							<div class="col-md-6" id="links">
-							<a href="${pageContext.request.contextPath}resources/images/${tipoactividad.foto}" title="${tipoactividad.tipo}" data-gallery>
-						        <img src="${pageContext.request.contextPath}resources/images/${tipoactividad.foto}" alt="${tipoactividad.tipo}">
+							<a href="${pageContext.request.contextPath}/resources/images/${tipoactividad.foto}" title="${tipoactividad.tipo}" data-gallery>
+						        <img src="${pageContext.request.contextPath}/resources/images/${tipoactividad.foto}" alt="${tipoactividad.tipo}">
 						    </a>
 						    <c:if test="${not empty mapaListaActividadesPorNiveles}">
 						    	
@@ -151,7 +151,7 @@
 						    	<c:set var="listaActividades" value="${mapaListaActividadesPorNiveles[map.key]}" />
 								<c:forEach var="actividad" items="${listaActividades}">
 									<c:if test="${id != actividad.idActividad}">		 	
-						    		<a href="${pageContext.request.contextPath}resources/images/${actividad.foto}" title="${actividad.nombre}" data-gallery></a>
+						    		<a href="${pageContext.request.contextPath}/resources/images/${actividad.foto}" title="${actividad.nombre}" data-gallery></a>
 						    		<c:set var="id" value="${actividad.idActividad}" />
 						    		</c:if>
 						    	</c:forEach>

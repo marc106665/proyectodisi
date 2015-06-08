@@ -70,22 +70,8 @@ public class UserController {
           return "admin1234/login";
        } 
        
-    // Create an ArrayList with test data
-       ArrayList list = new ArrayList();
-       Map author1 = new HashMap();
-       author1.put("name", "A");
-       author1.put("id", new Integer(1));
-       list.add(author1);
-       Map author2 = new HashMap();
-       author2.put("name", "B");
-       author2.put("id", new Integer(2));
-       list.add(author2);
-       Map author3 = new HashMap();
-       author3.put("name", "C");
-       author3.put("id", new Integer(3));
-       list.add(author3);
+    
        
-       model.addAttribute("reservas", list);
        
        return "admin1234/inicio";
    }

@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span> 
                 <span class="icon-bar"></span> 
               </button>
-              <a href="inicio.html" class="navbar-brand">
+              <a href="${pageContext.request.contextPath}/admin1234/inicio.html" class="navbar-brand">
                 <img src="${pageContext.request.contextPath}/resources/admin/img/logo_nombre.png" alt="logo naturAdventure">
               </a> 
             </header>
@@ -43,14 +43,14 @@
               <!-- .nav -->
               <ul class="nav navbar-nav">
                     <li><a href="${pageContext.request.contextPath}/admin1234/reservas/listadoReservas.html">Reservas</a></li>
-                    <li><a href="actividades.html">Actividades</a></li>
-                    <li><a href="tiposActividades.html">Tipos Actividades</a></li>
-                    <li><a href="monitores.html">Monitores</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin1234/actividades.html">Actividades</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin1234/tiposActividades.html">Tipos Actividades</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin1234/monitores.html">Monitores</a></li>
                   <ul class="dropdown-menu">
                     <li><a href="${pageContext.request.contextPath}/admin1234/reservas/listadoReservas.html">Reservas</a></li>
-                    <li><a href="actividades.html">Actividades</a></li>
-                    <li><a href="tiposActividades.html">Tipos Actividades</a></li>
-                    <li><a href="monitores.html">Monitores</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin1234/actividades.html">Actividades</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin1234/tiposActividades.html">Tipos Actividades</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin1234/monitores.html">Monitores</a></li>
                   </ul>
                 </li>
               </ul><!-- /.nav -->
@@ -59,15 +59,15 @@
         </nav><!-- /.navbar -->
         <header class="head">
           <div class="search-bar">
-            <form class="main-search" action="">
+            <!--<form class="main-search" action="">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Buscar...">
+                 <input type="text" class="form-control" placeholder="Buscar..."> 
                 <span class="input-group-btn">
             <button class="btn btn-primary btn-sm text-muted" type="button">
                 <i class="fa fa-search"></i>
             </button>
         </span> 
               </div>
-            </form><!-- /.main-search -->
+            </form> /.main-search -->
           </div><!-- /.search-bar -->
           

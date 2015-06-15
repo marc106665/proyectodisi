@@ -144,19 +144,23 @@
 							<div class="col-md-6" id="links">
 							<a href="${pageContext.request.contextPath}/resources/images/${tipoactividad.foto}" title="${tipoactividad.tipo}" data-gallery>
 						        <img src="${pageContext.request.contextPath}/resources/images/${tipoactividad.foto}" alt="${tipoactividad.tipo}">
+						    
+							    <c:if test="${not empty mapaListaActividadesPorNiveles}">
+							    	
+							    	<c:forEach var="map" items="${mapaListaActividadesPorNiveles}">
+							    	<c:set var="listaActividades" value="${mapaListaActividadesPorNiveles[map.key]}" />
+									<c:forEach var="actividad" items="${listaActividades}">
+										<c:if test="${id != actividad.idActividad}">
+											<c:if test="${not empty actividad.foto}">		 	
+							    				<a href="${pageContext.request.contextPath}/resources/images/${actividad.foto}" title="${actividad.nombre}" data-gallery></a>
+							    			</c:if>
+							    		<c:set var="id" value="${actividad.idActividad}" />
+							    		</c:if>
+							    	</c:forEach>
+							    	</c:forEach>
+							    </c:if>
+						    
 						    </a>
-						    <c:if test="${not empty mapaListaActividadesPorNiveles}">
-						    	
-						    	<c:forEach var="map" items="${mapaListaActividadesPorNiveles}">
-						    	<c:set var="listaActividades" value="${mapaListaActividadesPorNiveles[map.key]}" />
-								<c:forEach var="actividad" items="${listaActividades}">
-									<c:if test="${id != actividad.idActividad}">		 	
-						    		<a href="${pageContext.request.contextPath}/resources/images/${actividad.foto}" title="${actividad.nombre}" data-gallery></a>
-						    		<c:set var="id" value="${actividad.idActividad}" />
-						    		</c:if>
-						    	</c:forEach>
-						    	</c:forEach>
-						    </c:if>
 								<div class="space"></div>
 							</div>
 							<div class="col-md-6">
@@ -165,13 +169,13 @@
 								<h5>Requistos:</h5>
 								<ul class="list-unstyled">
 								<c:choose>
-    <c:when test="${not empty tipoactividad.requisitos}">
-        	<li><i class="fa fa-caret-right pr-10 text-colored"></i> ${tipoactividad.requisitos}</li>
-    </c:when>
-    <c:otherwise>
-        	<li><i class="fa fa-caret-right pr-10 text-colored"></i> Sin requisitos previos</li>
-    </c:otherwise>
-</c:choose>
+								    <c:when test="${not empty tipoactividad.requisitos}">
+								        	<li><i class="fa fa-caret-right pr-10 text-colored"></i> ${tipoactividad.requisitos}</li>
+								    </c:when>
+								    <c:otherwise>
+								        	<li><i class="fa fa-caret-right pr-10 text-colored"></i> Sin requisitos previos</li>
+								    </c:otherwise>
+								</c:choose>
 								
 								</ul>
 							</div>

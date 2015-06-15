@@ -5,8 +5,13 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletRequest;
@@ -71,7 +76,7 @@ public class IndexController {
 	    public String viewTActividad(Model model, @PathVariable String tipo) {
 		 	model.addAttribute("tipoactividad", tipoActividadDao.getTipoActividad(tipo));
 		 	
-	        HashMap<String, List<Actividad>> mapadeniveles = new HashMap<String, List<Actividad>>();
+	        TreeMap<String, List<Actividad>> mapadeniveles = new TreeMap<String, List<Actividad>>();
 	       	HashMap<String, HashMap<Integer, Double>> mapaDePrecios = new HashMap<String, HashMap<Integer, Double>>();
 
 		 	List<NivelActividad> listaNiveles = new LinkedList<NivelActividad>(); 
@@ -117,14 +122,13 @@ public class IndexController {
 	       
 	        }
 	        }
-	      
+	        
+	        //   model.addAttribute("listaNiveles", listaNivelesUnicos );
 	       
-	    //   model.addAttribute("listaNiveles", listaNivelesUnicos );
+	        model.addAttribute("mapaListaActividadesPorNiveles", mapadeniveles );
+	        model.addAttribute("precioPoridActividad", mapaDePrecios );
 	       
-	       model.addAttribute("mapaListaActividadesPorNiveles", mapadeniveles );
-	       model.addAttribute("precioPoridActividad", mapaDePrecios );
-	       
-	       return "actividad"; 
+	        return "actividad"; 
 	       
 	    
 	        

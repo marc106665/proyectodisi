@@ -138,6 +138,80 @@ public Actividad(){
 				+ localizacion + ", foto=" + foto + "]";
 	}
 
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime * result + duracionHoras;
+		result = prime * result + ((foto == null) ? 0 : foto.hashCode());
+		result = prime * result + idActividad;
+		result = prime * result
+				+ ((localizacion == null) ? 0 : localizacion.hashCode());
+		result = prime * result + maxParticipantes;
+		result = prime * result + minParticipantes;
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + nuevo;
+		result = prime * result + ((oferta == null) ? 0 : oferta.hashCode());
+		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Actividad other = (Actividad) obj;
+		if (descripcion == null) {
+			if (other.descripcion != null)
+				return false;
+		} else if (!descripcion.equals(other.descripcion))
+			return false;
+		if (duracionHoras != other.duracionHoras)
+			return false;
+		if (foto == null) {
+			if (other.foto != null)
+				return false;
+		} else if (!foto.equals(other.foto))
+			return false;
+		if (idActividad != other.idActividad)
+			return false;
+		if (localizacion == null) {
+			if (other.localizacion != null)
+				return false;
+		} else if (!localizacion.equals(other.localizacion))
+			return false;
+		if (maxParticipantes != other.maxParticipantes)
+			return false;
+		if (minParticipantes != other.minParticipantes)
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (nuevo != other.nuevo)
+			return false;
+		if (oferta == null) {
+			if (other.oferta != null)
+				return false;
+		} else if (!oferta.equals(other.oferta))
+			return false;
+		if (tipo == null) {
+			if (other.tipo != null)
+				return false;
+		} else if (!tipo.equals(other.tipo))
+			return false;
+		return true;
+	}
+
 	
 	
 }

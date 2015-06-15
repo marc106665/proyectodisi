@@ -152,7 +152,7 @@
                     <div class="col-lg-2 col-sm-2" >
                         <div class="panel panel-warning" >
 						  <div class="panel-heading">
-						    &nbsp;&nbsp;&nbsp;Precio sin iva
+						    &nbsp;&nbsp;&nbsp;Precio TOTAL sin iva
 						  </div>
 						  <div class="panel-body">
 							  	<p class="text text-center"><b id="sinIva"><fmt:formatNumber type="number" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" value="${precioSinIva}" /> &nbsp;&euro;</b></p>
@@ -163,7 +163,7 @@
 					<div class="col-lg-2 col-sm-2">
                         <div class="panel panel-info" >
 						  <div class="panel-heading">
-						    &nbsp;&nbsp;&nbsp;Precio con iva
+						    &nbsp;&nbsp;&nbsp;Precio TOTAL con iva
 						  </div>
 						  <div class="panel-body">
 							  	<p class="text text-center"><b id="conIva"><fmt:formatNumber type="number" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" value="${precioIva}" />&nbsp;&euro;</b></p>

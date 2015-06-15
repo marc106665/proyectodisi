@@ -58,8 +58,8 @@
           </div><!-- /.container-fluid -->
         </nav><!-- /.navbar -->
         <header class="head">
-          <div class="search-bar">
-            <!--<form class="main-search" action="">
+          <!--<div class="search-bar">
+            <form class="main-search" action="">
               <div class="input-group">
                  <input type="text" class="form-control" placeholder="Buscar..."> 
                 <span class="input-group-btn">
@@ -68,6 +68,6 @@
             </button>
         </span> 
               </div>
-            </form> /.main-search -->
-          </div><!-- /.search-bar -->
+            </form><!-- /.main-search -->
+          <!--</div> /.search-bar -->
           

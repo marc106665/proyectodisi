@@ -128,7 +128,7 @@
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2 object-non-visible" data-animation-effect="fadeIn">
 							<p><h1 class="text-center"><span style="color:rgb(63, 120, 38);">N</span><span style="color: #fff;">atur</span></p><p><span style="color:rgb(125, 179, 56)">A</span><span style="color: #fff;">dventure</span></h1></p>
-							<p class="lead text-center">Disfruta la <b><i style="color:rgb(140, 215, 248);">naturaleza</i></b>. Vive la <b><i style="color:rgb(140, 215, 248);">aventura</i></b></p>
+							<p class="lead text-center">Disfruta la <a href="index.html#aventuras"><b><i style="color:rgb(140, 215, 248);">naturaleza</i></b></a>. Vive la <a href="index.html#aventuras"><b><i style="color:rgb(140, 215, 248);">aventura</i></b></a></p>
 						</div>
 					</div>
 				</div>

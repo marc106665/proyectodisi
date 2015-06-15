@@ -209,7 +209,7 @@
 												
 													<li><i class="fa fa-caret-right pr-10 text-colored"></i> ${actividad.nombre} 
 														<ul class="list-unstyled">
-															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> ${actividad.descripcion} - Duración de ${actividad.duracionHoras} horas <a href="">¿Donde esta?</a></li>
+															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i> ${actividad.descripcion} - Duración de ${actividad.duracionHoras} horas <a href="">¿Donde está?</a></li>
 														</ul>
 													</li>
 												</c:forEach>	
@@ -237,7 +237,7 @@
 
 													<li><i class="fa fa-caret-right pr-10 text-colored"></i>  ${actividad.nombre} 
 														<ul class="list-unstyled">
-															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i>  ${actividad.descripcion} - Duración de ${actividad.duracionHoras} horas <a href="">¿Donde esta?</a></li>
+															<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right pr-10 text-colored"></i>  ${actividad.descripcion} - Duración de ${actividad.duracionHoras} horas <a href="">¿Donde está?</a></li>
 														</ul>
 													</li>
 													</c:forEach>

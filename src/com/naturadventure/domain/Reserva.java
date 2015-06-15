@@ -49,14 +49,6 @@ public Reserva(){
 	}
 
 
-	@Override
-	public String toString() {
-		return "Reserva  faltan datos [nombre=" + nombreCliente + ", email=" + emailCliente + ", usuario="
-				+ monitor + "]";
-	}
-
-
-
 
 
 
@@ -230,6 +222,24 @@ public Reserva(){
 	public void setMonitor(String monitor) {
 		this.monitor = monitor;
 	}
+
+
+
+
+
+
+	@Override
+	public String toString() {
+		return "Reserva [idReserva=" + idReserva + ", nombreCliente="
+				+ nombreCliente + ", telefonoCliente=" + telefonoCliente
+				+ ", emailCliente=" + emailCliente + ", horaInicio="
+				+ horaInicio + ", estado=" + estado + ", numParticipantes="
+				+ numParticipantes + ", fechaReserva=" + fechaReserva
+				+ ", fechaActividad=" + fechaActividad + ", idActividad="
+				+ idActividad + ", monitor=" + monitor + ", nivel=" + nivel
+				+ "]";
+	}
 	
 
+	
 }

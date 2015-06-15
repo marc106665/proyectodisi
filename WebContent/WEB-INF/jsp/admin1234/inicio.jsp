@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=latin1"
     pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!doctype html>
 <html class="no-js">
   <head>
@@ -89,45 +90,23 @@
                         <tr>
                             <th>Nombre Cliente<i class="fa fa-caret-down"></i></th>
                             <th>Estado</th>
-                            <th>Precio reserva<i class="fa fa-caret-down"></i></th>
+                            <th>Número participantes<i class="fa fa-caret-down"></i></th>
                             <th>Fecha de actividad<i class="fa fa-caret-down"></i></th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                     
-                    	<c:forEach items="${reservas}" var="reservaTest">
+                    	<c:forEach items="${reservas}" var="reserva">
                           <tr>
-                              <td>${reservaTest.name}</td>
-                              <td><span class="label label-info">${reservaTest.id}</span></td>
-                              <td>${reservaTest.name}</td>
-                              <td>${reservaTest.id}</td>
-                              <td>
-                                <a href="#" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
-                              <a href="#" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
-                              </td>
+                              <td>${reserva.nombreCliente}</td>
+                              <td><span class="label label-warning">${reserva.estado}</span></td>
+                              <td>${reserva.numParticipantes}</td>
+                              <c:set var="fecha" value="${reserva.fechaActividad}" />
+                              <td><fmt:formatDate type="date" value="${fecha}"  /></td>
+
                           </tr>
                         </c:forEach>
-                        <tr>
-                            <td>Pepe perez</td>
-                            <td><span class="label label-info">Pendiente</span></td>
-                            <td>214€</td>
-                            <td>12/05/2015</td>
-                            <td>
-                              <a href="#" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
-                              <a href="#" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Miru Garcia</td>
-                            <td><span class="label label-info">Pendiente</span></td>
-                            <td>435€</td>
-                            <td>22/05/2015</td>
-                            <td>
-                              <a href="#" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
-                              <a href="#" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
-                            </td>
-                        </tr>
+                        
                       </tbody>
                     </table>
                     </div>

@@ -69,8 +69,22 @@ public class UserController {
           model.addAttribute("user", new UserDetails()); 
           return "admin1234/login";
        } 
+       List<Reserva> listaReservasPendientes = reservaDao.getReservasPendientes();
+       List<Actividad> listaActividades;
        
-    
+//       Iterator<Reserva> it = listaReservasPendientes.iterator();
+//       while (it.hasNext()) {
+//		   Reserva reserva = it.next();
+//		   Actividad actividad = actividadDao.getActividad(reserva.getIdActividad());
+//		   TipoActividad tipo = tipoActividadDao.getTipoActividad(actividad.getTipo());
+//       }
+       
+       //System.out.println(listaReservasPendientes);
+       if(listaReservasPendientes != null){
+    	   model.addAttribute("reservas", listaReservasPendientes);
+    	   
+    	   
+       }
        
        
        return "admin1234/inicio";

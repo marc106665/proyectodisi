@@ -117,7 +117,7 @@
                     <tbody>
                     
                     <c:forEach items="${listaActividades}" var="listaActividades">
-                        <tr>
+                        <tr id="${listaActividades.idActividad}">
                             <td>${listaActividades.nombre}</td>
                             <td>${listaActividades.minParticipantes}/${listaActividades.maxParticipantes}</td>
                             
@@ -135,7 +135,7 @@
 						    </c:if>
                             <td>
                             <a href="editaActividad/${listaActividades.idActividad}.html" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
-                            <a href="borrarActividad/${listaActividades.idActividad}.html" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
+                            <a onclick="confirmarBorrado('borrarActividad/${listaActividades.idActividad}.html', '${listaActividades.idActividad}')" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -232,7 +232,27 @@
           
           console.log("arrancado");
         });
-
+		
+        function confirmarBorrado(urlBorrado, id) {
+            var txt;
+            var r = confirm("¿Borrar?");
+            if (r == true) {
+                //txt = "url:"+urlBorrado+", id:"+id;
+                
+                	//console.log("ejecutando...");
+                    $.ajax({
+                    	url: urlBorrado, 
+                    	success: function(result){
+                      //  	console.log("Borrado con exito");
+                        	$("#"+id).hide(500);
+                    }});
+                
+            } else {
+            	//ev.p
+                //txt = "You pressed Cancel!";
+            }
+            //console.log(txt);
+        }
     </script>
-
+	
   </body>

@@ -114,17 +114,16 @@
                     <tbody>
                     
                     <c:forEach items="${listaTipoActividades}" var="listaTipoActividades">
-                        <tr>
+                        <tr id="${listaTipoActividades.tipo}">
                             <td>${listaTipoActividades.tipo}</td>
                             
                             
                             <td>
                             <a href="editaTipoActividad/${listaTipoActividades.tipo}.html" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
-                            <a href="borrarTipoActividad/${listaTipoActividades.tipo}.html" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
+                            <a onclick="confirmarBorrado('borrarTipoActividad/${listaTipoActividades.tipo}.html' , '${listaTipoActividades.tipo}')" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
                             </td>
                         </tr>
-                    </c:forEach>
-                    
+					</c:forEach>                   
                         
                        </tbody>
                     </table>
@@ -216,8 +215,30 @@
           Metis.metisSortable();
           
           console.log("arrancado");
+          
+          
         });
-
+	
+        function confirmarBorrado(urlBorrado, id) {
+            var txt;
+            var r = confirm("¿Borrar?");
+            if (r == true) {
+                //txt = "url:"+urlBorrado+", id:"+id;
+                
+                	//console.log("ejecutando...");
+                    $.ajax({
+                    	url: urlBorrado, 
+                    	success: function(result){
+                      //  	console.log("Borrado con exito");
+                        	$("#"+id).hide(500);
+                    }});
+                
+            } else {
+            	//ev.p
+                //txt = "You pressed Cancel!";
+            }
+            //console.log(txt);
+        }
     </script>
 
   </body>

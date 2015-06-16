@@ -2,7 +2,6 @@
     pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!doctype html>
 <html class="no-js">
   <head>
@@ -66,7 +65,7 @@
 
 		<div class="main-bar">
             <h3>
-              <i class="fa fa-dashboard"></i>&nbsp; Nueva actividad</h3>
+              <i class="fa fa-dashboard"></i>&nbsp; Nuevo tipo de actividad</h3>
           </div><!-- /.main-bar -->
         </header><!-- /.head -->
       </div><!-- /#top -->
@@ -77,8 +76,8 @@
 
       	<div class="outer">
           <div class="inner bg-light lter">
-          
-          <!--BEGIN INPUT TEXT FIELDS-->
+
+            <!--BEGIN INPUT TEXT FIELDS-->
             <div class="row">
               <div class="col-lg-12">
                 <div class="box dark">
@@ -95,50 +94,136 @@
                   </header>
                   <div id="div-1" class="body">
                   
-                  <form:form method = "post" modelAttribute="monitor">
-                  	<table>
-                  		<tr>
-                  			<td><form:label path="nombre">Nombre</form:label></td>
-                  			<td><form:input type="text" required="required" path="nombre" /></td>
-                  		</tr>
-                  		
-                  		<tr>
-                  			<td><form:label path="email">Email</form:label></td>
-                  			<td><form:input type="email" required="required" path="email" /></td>
-                  		</tr>
-                  		
-                  		<tr>
-                  			<td><form:label path="usuario">Usuario</form:label></td>
-                  			<td><form:input type="text" required="required" path="usuario" /></td>
-                  		</tr>
-                  		</form:form>
-                  		<form:form method = "post" modelAttribute="actividad">
-                  		<tr>
-                  			<div class="btn-group">
-                  				<td><form:label path="actividad">Actividades que supervisa</form:label></td>
-  								
-    							<c:forEach items="${tipoActividad}" var="actividad">
-                                	<label class="checkbox-inline">
-  										<input type="checkbox" id="${tipoActividad.tipo}" value="${tipoActividad.tipo}"> 
-  										"${tipoActividad.tipo}"</label>
-                                </c:forEach>
-                                                             
-                                </ul>
-							</div>
-                  		</tr>
-                  		
-                  		<tr>
-                  			<td><input type="submit" value="Añadir" /></td>
-                  		</tr>
-                  		</form:form>
-                  	
-                  	</table>               
                   
-                  
+                    <form:form enctype="multipart/form-data" modelAttribute="Monitor" class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/admin1234/nuevoMonitor.html">
+
+
+						            
+
+                      
+	                    <div class="form-group">
+	                        <form:label for="tipo" class="control-label col-lg-3" path="tipo">Usuario</form:label>
+	                        <div class="col-lg-7">
+		                        <form:input tabindex="1" type="text" id="usuario" placeholder="Usuario..." class="form-control" path="usuario" required="required"/>
+	                        </div>
+	                    </div>
+	                    
+	                   <div class="form-group">
+	                        <form:label for="tipo" class="control-label col-lg-3" path="tipo">Usuario</form:label>
+	                        <div class="col-lg-7">
+		                        <form:input tabindex="1" type="text" id="usuario" placeholder="Usuario..." class="form-control" path="usuario" required="required"/>
+	                        </div>
+	                    </div>
+
+	                    
+
+					
+					
+					<div class="form-group">
+	                    	<form:label path="requisitos" for="requisitos" class="control-label col-lg-3">Requisitos previos</form:label>
+		                    <div class="col-lg-7">
+		                    	<form:input path="requisitos" tabindex="3" type="text" id="requisitos" placeholder="Requisitos previos" class="form-control"/>
+		                    </div>
+	                    </div><!-- /.form-group -->
+					
+					
+					  
+					  
+						<label class="control-label col-lg-3 col-sm-3">Imagen del tipo de actividad</label>
+                        <div class="col-lg-2 col-sm-2">
+                        	
+                          <input type="file" name="file">
+                        </div>
+					
+                        <!--  
+						      </div>
+						</div>
+						<div class="col-lg-5"></div>
+						</div>
+                      </div>
+						-->
+						
+                                            <hr>
+                      <div class="form-actions no-margin-bottom">
+                        <input type="submit" value="Guardar" class="btn btn-primary">
+                      </div>
+                    </form:form>
                   </div>
                 </div>
               </div>
             </div>
             </div>
             </div>
-          
+
+
+      </div><!-- /#content -->
+
+      <!-- Menu lateral derecho (descomentar boton en el menu)
+      <div id="right" class="bg-light lter">
+        <div class="alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>Warning!</strong>  Best check yo self, you're not looking too good.
+        </div>
+      </div> /#right -->
+
+    </div><!-- /#wrap -->
+    <footer class="Footer bg-dark dker">
+      <p>2015 &copy; Project GAGA team</p>
+    </footer><!-- /#footer -->
+
+    <!-- #helpModal -->
+    <div id="helpModal" class="modal fade">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">FAQ - Ayuda</h4>
+          </div>
+          <div class="modal-body">
+            
+            <%@ include file="components/ayuda.jsp" %>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal --><!-- /#helpModal -->
+    
+    
+    <!--jQuery -->
+    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/admin/js/moment.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery-ui.min.js"></script>
+
+
+    <!--Bootstrap -->
+    <script src="${pageContext.request.contextPath}/resources/admin/js/bootstrap.min.js"></script>
+
+    <!-- MetisMenu -->
+    <script src="${pageContext.request.contextPath}/resources/admin/js/metisMenu.min.js"></script>
+
+    <!-- Screenfull -->
+    <script src="${pageContext.request.contextPath}/resources/admin/js/screenfull.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/screenfull.js/2.0.0/screenfull.min.js"></script>
+
+
+    <!-- Metis core scripts -->
+    <script src="${pageContext.request.contextPath}/resources/admin/js/core.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/admin/js/bootstrap3-wysihtml5.all.min.js"></script>
+    <!-- Metis demo scripts -->
+    <script src="${pageContext.request.contextPath}/resources/admin/js/app.js"></script>
+
+   <script>
+    $(document).ready(function(){
+    	
+        Metis.formWysiwyg();
+
+    	
+    });
+    
+    </script>
+    
+
+  </body>

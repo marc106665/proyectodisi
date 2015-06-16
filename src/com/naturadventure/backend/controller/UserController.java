@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.naturadventure.dao.ActividadDAO;
+import com.naturadventure.dao.MonitorDAO;
 import com.naturadventure.dao.ReservaDAO;
+import com.naturadventure.dao.SupervisarDAO;
 import com.naturadventure.dao.TipoActividadDAO;
 import com.naturadventure.dao.UserDAO;
 import com.naturadventure.domain.Actividad;
@@ -29,6 +31,7 @@ import com.naturadventure.domain.Monitor;
 import com.naturadventure.domain.NivelActividad;
 import com.naturadventure.domain.Reserva;
 import com.naturadventure.domain.ReservaActividad;
+import com.naturadventure.domain.Supervisar;
 import com.naturadventure.domain.TipoActividad;
 import com.naturadventure.domain.UserDetails;
 
@@ -40,6 +43,8 @@ public class UserController {
    private ActividadDAO actividadDao;
    private TipoActividadDAO tipoActividadDao;
    private ReservaDAO reservaDao;
+   private MonitorDAO monitorDao;
+   private SupervisarDAO supervisarDao;
 	
    @Autowired
    public void setActividadDAO(ActividadDAO actividadDAO) { 
@@ -61,6 +66,15 @@ public class UserController {
        this.reservaDao = reservaDAO;
    }
    
+   @Autowired 
+   public void setMonitorDao(MonitorDAO monitorDao) {
+       this.monitorDao = monitorDao;
+   }
+   
+   @Autowired 
+   public void setSupervisarDao(SupervisarDAO supervisarDao) {
+       this.supervisarDao = supervisarDao;
+   }
   
    @RequestMapping("/inicio.html") 
    public String listSocis(HttpSession session, Model model) {
@@ -109,7 +123,43 @@ public class UserController {
        
    }
 
+   
+   @RequestMapping("/monitores.html") 
+   public String monitores(HttpSession session, Model model, HttpServletRequest request) {
+       if (session.getAttribute("user") == null) 
+       { 
+          model.addAttribute("user", new UserDetails()); 
+          return "admin1234/login";
+       } 
 
+       List<Monitor> listaMonitores = new LinkedList<Monitor>(monitorDao.getMonitores());
+       HashMap<String, List<String>> mo = new HashMap<String, List<String>>();
+       
+       //System.out.println(actividadDao.getActividades());
+
+       
+       Iterator<Monitor> it = listaMonitores.iterator();
+       while (it.hasNext()) {
+		Monitor monitor = (Monitor) it.next();
+		//Lista de tipos:
+		mo.put(monitor.getUsuario(), supervisarDao.getTiposActividadesSupervisadasPorMonitor(monitor.getUsuario()));
+		
+	}
+       
+       if(listaMonitores != null)
+    	   model.addAttribute("monitores", listaMonitores);
+       
+       if (mo !=null) {
+    	   model.addAttribute("supervisar", mo);
+	}
+       
+       
+       return "admin1234/monitores";
+       
+   }
+
+
+   
    @RequestMapping("/tiposActividades.html") 
    public String tipoActividades(HttpSession session, Model model, HttpServletRequest request) {
        if (session.getAttribute("user") == null) 

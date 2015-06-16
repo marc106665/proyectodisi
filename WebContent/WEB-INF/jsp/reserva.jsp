@@ -187,7 +187,7 @@
 					                </div>
 
 									<div class="form-group">
-					                	<label class="control-label">¿Cuantos soys?</label>
+					                	<label class="control-label">¿Cuantos sois?</label>
 					                	
 					                	<form:select path="numParticipantes" id="numParticipantes" class="form-control" >
 															                	

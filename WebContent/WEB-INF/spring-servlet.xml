@@ -24,30 +24,31 @@
 	<bean id="monitorDao" class="com.naturadventure.dao.MonitorDAO" />
 	<bean id="tipoActividadDao" class="com.naturadventure.dao.TipoActividadDAO" />
 	<bean id="actividadDao" class="com.naturadventure.dao.ActividadDAO" />
-	<bean id="reservaDao" class="com.naturadventure.dao.ReservaDAO" />	
+	<bean id="reservaDao" class="com.naturadventure.dao.ReservaDAO" />
+	<bean id="supervisarDao" class="com.naturadventure.dao.SupervisarDAO" />	
 	
 	
 		
-	<!-- Font de dades 
+	<!-- Font de dades -->
 	 
 	 <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${jdbc.driverClassName}"/>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
- 	</bean> -->
-	<!-- Fitxer de Propietats JDBC, localització relativa al classpath 
- 	<context:property-placeholder location="classpath:jdbc.properties"/> --> 
+ 	</bean> 
+	<!-- Fitxer de Propietats JDBC, localització relativa al classpath -->
+ 	<context:property-placeholder location="classpath:jdbc.properties"/>  
  	
  	<!-- Recursos -->
  	
- 	<!-- Local host conexion -->
+ 	<!-- Local host conexion 
  	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="url" value="jdbc:postgresql://localhost:5432/postgres"/>
         <property name="username" value="postgres"/>
         <property name="password" value="postgres"/>
- 	</bean> 
+ 	</bean> -->
  	
  	<context:component-scan base-package="com.naturadventure.domain" />
 	<bean id="UserDetails" class="com.naturadventure.domain.UserDetails" />

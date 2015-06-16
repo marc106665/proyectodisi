@@ -44,8 +44,8 @@ public class MonitorDAO {
 		
 	    public Supervisar mapRow(ResultSet rs, int rowNum) throws SQLException { 
 	    	Supervisar supervisar = new Supervisar();
-	    	supervisar.setTipo(rs.getString("tipo"));
-	    	supervisar.setTipo(rs.getString("usuario"));
+	    	supervisar.setIdActividad(rs.getString("tipo"));
+	    	supervisar.setUsuario(rs.getString("usuario"));
 	        
 	        return supervisar;
 	    }
@@ -55,6 +55,7 @@ public class MonitorDAO {
 	public List<Monitor> getMonitorDeTipo(String idtipo,Date fechaReservaUtil, String horainicio) { 
 	      java.sql.Date fechaReservaSql = new java.sql.Date(fechaReservaUtil.getTime());
 			List<Monitor> lista = this.jdbcTemplate.query("select monitor.nombre, monitor.email, monitor.usuario from monitor INNER JOIN supervisar on monitor.usuario=supervisar.usuario LEFT JOIN ( select monitor from reserva where monitor is not null and fechaactividad=? and reserva.horainicio=? ) As res on res.monitor<> monitor.usuario where  supervisar.tipo=? ", new Object[] { fechaReservaSql, horainicio, idtipo}, new MonitorMapper());
+			System.out.println("entro en aqui"+lista.toString());
 			if (lista != null){ return lista;}
 			else {return null;}
 	}

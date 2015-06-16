@@ -61,7 +61,7 @@ public class MonitorController {
 			}
 		}
 		
-		return "redirect:list.html";
+		return "redirect:nuevoMonitor.html";
 	}
 	
 	 

@@ -97,7 +97,7 @@
                   <div id="div-1" class="body">
                   
                   
-                    <form:form enctype="multipart/form-data" modelAttribute="Monitor" class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/admin1234/editaMonitor.html">
+                    <form:form enctype="multipart/form-data" modelAttribute="monitor" class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/admin1234/editaMonitorSubmit.html">
 
 					  <div class="form-group">
 					  <form:input style="display:none" path="usuario"/>

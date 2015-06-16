@@ -1,5 +1,6 @@
 package com.naturadventure.backend.controller;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -81,35 +82,32 @@ public class MonitorController {
 		      model.addAttribute("user", new UserDetails()); 
 		      return "redirect:admin1234/login.html";
 		   }
-		
-			System.out.println("en edita"+usuario);
-		   Monitor monitor = new Monitor();
+			
+		if(usuario == null){
+			return "redirect:/admin1234/monitores.html";
+		}
+			//System.out.println("en edita"+usuario);
+		   Monitor monitor = monitorDao.getMonitor(usuario);
 		   
-		   //System.out.println(monitorDao);
+		   //System.out.println(monitor.toString());
 		   model.addAttribute("monitor", monitor);
 		   return "admin1234/editaMonitor";
 	   }	
 	
-	
-	@RequestMapping(value="/editaMonitor.html", method=RequestMethod.POST)
-	public String processUpdateSubmit(@ModelAttribute("monitor") Monitor monitor, HttpSession session, Model model, @PathVariable String usuario) {
+	//Procesa el guardar de editar monitor
+	@RequestMapping(value="/editaMonitorSubmit.html", method=RequestMethod.POST)
+	public String processUpdateSubmit(@ModelAttribute("monitor") Monitor monitor, HttpSession session, Model model) {
 		if (session.getAttribute("user") == null) 
 		   { 
 		      model.addAttribute("user", new UserDetails()); 
 		      return "redirect:admin1234/login.html";
 		   }
-		   
-		monitorDao.addMonitor(monitor);
-		List<TipoActividad> actividades = tiposActividades.getTiposActividad();
-		Iterator<TipoActividad> iter = actividades.iterator();
-		TipoActividad actividad;
-		while (iter.hasNext()){
-			actividad = iter.next();
-			if (request.getParameter(actividad.getTipo()) != null){
-				supervisarDao.addSupervision(actividad.getTipo(), monitor.getUsuario());
-			}
-		}
-		return "redirect:list.html";
+		
+			//System.out.println(monitor.toString());
+			monitorDao.updateMonitor(monitor);
+		
+		
+			return "redirect:/admin1234/monitores.html"; 
 	}
 	
 	//Eliminacion

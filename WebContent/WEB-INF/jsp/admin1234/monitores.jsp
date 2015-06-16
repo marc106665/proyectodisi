@@ -104,38 +104,39 @@
                     </div><!-- /.toolbar -->
                   </header>
                   <div id="collapse4" class="body">
-										<table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        
-                                                        <th>Nombre</th>
-                                                        <th>Email</th>
-                                                        <th>Actividades que supervisa</th>
-														<td><!-- Botones --></td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <c:forEach items="${monitores}" var="monitor">
-                                                    	<tr>
-                                                    		<td>${monitor.nombre}</td>
-                                                    		<td>${monitor.email}</td>
-                                                    		<td>
-                                                    		<c:set var="lista" value="${supervisar[monitor.usuario]} "></c:set>
-                                                    		<c:forEach items="${lista}" var="ltipo">
-                                                    			<c:forEach items="${ltipo}" var="tipo">
-                                                    			${tipo} /
-                                                    			</c:forEach>
-                                                    		</c:forEach>
-                                                    		</td>
-                                                    		<td>
-                                                        		<button class="btn edit" href="/deleteMonitor/{monitor.usuario}.html"><i class="icon-edit"></i>Editar</button>
-                                                            	<button class="btn btn-danger remove" data-toggle="confirmation" href="editMonitor.html"><i class="icon-remove"></i>Borrar</button>
-                                                        	</td>
-                                                    	</tr>
-                                                    </c:forEach>
-                                                    
-                                                </tbody>
-                                            </table>
+<table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
+                                      <thead>
+                                          <tr>
+                                              
+                                              <th>Nombre</th>
+                                              <th>Email</th>
+                                              <th>Actividades que supervisa</th>
+				<td><!-- Botones --></td>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                                 <c:forEach items="${monitores}" var="monitor">
+                                 	<tr>
+                                 		<td>${monitor.nombre}</td>
+                                 		<td>${monitor.email}</td>
+                                 		<td>
+                                 		<c:set var="lista" value="${supervisar[monitor.usuario]} "></c:set>
+                                 		<c:forEach items="${lista}" var="ltipo">
+                                 			<c:forEach items="${ltipo}" var="tipo">
+                                 			${tipo} /
+                                 			</c:forEach>
+                                 		</c:forEach>
+                                 		</td>
+                                 		<td>
+                	                 		<a href="editaMonitor/${monitor.usuario}.html" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
+				                            <a class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
+                                     		<!-- onclick="confirmarBorrado('href=/editaMonitor/${monitor.usuario}.html', '${listaActividades.idActividad}')" -->
+                                     	</td>
+                                 	</tr>
+                                 </c:forEach>
+                                 
+                             </tbody>
+                         </table>
 
                   </div>
                 </div>

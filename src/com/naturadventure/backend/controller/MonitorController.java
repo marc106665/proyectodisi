@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.naturadventure.dao.ActividadDAO;
 import com.naturadventure.dao.MonitorDAO;
 import com.naturadventure.dao.SupervisarDAO;
 import com.naturadventure.dao.TipoActividadDAO;
@@ -29,6 +31,11 @@ public class MonitorController {
 	private TipoActividadDAO tiposActividades;
 	private SupervisarDAO supervisarDao;
 	private HttpServletRequest request;
+
+    @Autowired
+    public void setMonitorDAO(MonitorDAO monitorDAO) { 
+        this.monitorDao = monitorDAO;
+    }
 
 	
 	// Creacion
@@ -66,40 +73,44 @@ public class MonitorController {
 	
 	 
 	
-	//Modificacion
-	@RequestMapping(value="/editMonitor/{usuario}.html", method=RequestMethod.GET)
+	//LLama a la pantalla de edicion
+	@RequestMapping(value="/editaMonitor/{usuario}.html", method=RequestMethod.GET)
 	public String editMonitor(HttpSession session, Model model, @PathVariable String usuario) {
 		if (session.getAttribute("user") == null) 
 		   { 
 		      model.addAttribute("user", new UserDetails()); 
 		      return "redirect:admin1234/login.html";
 		   }
+		
+			System.out.println("en edita"+usuario);
+		   Monitor monitor = new Monitor();
 		   
-		   model.addAttribute("monitor", monitorDao.getMonitor(usuario));
+		   //System.out.println(monitorDao);
+		   model.addAttribute("monitor", monitor);
 		   return "admin1234/editaMonitor";
 	   }	
 	
 	
-	@RequestMapping(value="/editMonitor/{usuario}.html", method=RequestMethod.GET)
-		public String processUpdateSubmit(@ModelAttribute("monitor") Monitor monitor, HttpSession session, Model model, @PathVariable String usuario) {
-			if (session.getAttribute("user") == null) 
-			   { 
-			      model.addAttribute("user", new UserDetails()); 
-			      return "redirect:admin1234/login.html";
-			   }
-			   
-			monitorDao.addMonitor(monitor);
-			List<TipoActividad> actividades = tiposActividades.getTiposActividad();
-			Iterator<TipoActividad> iter = actividades.iterator();
-			TipoActividad actividad;
-			while (iter.hasNext()){
-				actividad = iter.next();
-				if (request.getParameter(actividad.getTipo()) != null){
-					supervisarDao.addSupervision(actividad.getTipo(), monitor.getUsuario());
-				}
-			}
-			   return "redirect:list.html";
+	@RequestMapping(value="/editaMonitor.html", method=RequestMethod.POST)
+	public String processUpdateSubmit(@ModelAttribute("monitor") Monitor monitor, HttpSession session, Model model, @PathVariable String usuario) {
+		if (session.getAttribute("user") == null) 
+		   { 
+		      model.addAttribute("user", new UserDetails()); 
+		      return "redirect:admin1234/login.html";
 		   }
+		   
+		monitorDao.addMonitor(monitor);
+		List<TipoActividad> actividades = tiposActividades.getTiposActividad();
+		Iterator<TipoActividad> iter = actividades.iterator();
+		TipoActividad actividad;
+		while (iter.hasNext()){
+			actividad = iter.next();
+			if (request.getParameter(actividad.getTipo()) != null){
+				supervisarDao.addSupervision(actividad.getTipo(), monitor.getUsuario());
+			}
+		}
+		return "redirect:list.html";
+	}
 	
 	//Eliminacion
 	@RequestMapping(value="/deleteMonitor/{usuario}.html")

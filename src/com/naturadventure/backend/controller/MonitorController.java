@@ -37,39 +37,55 @@ public class MonitorController {
         this.monitorDao = monitorDAO;
     }
 
+    @Autowired
+    public void settiposActividadesDAO(TipoActividadDAO tipoActividadesDAO) { 
+        this.tipoActividadDao = tipoActividadesDAO;
+    }
+	
+	@Autowired
+    public void setSupervisarDAO(SupervisarDAO supervisarDAO) { 
+        this.supervisarDao = supervisarDAO;
+    }
 	
 	// Creacion
-	@RequestMapping("/nuevoMonitor.html") 
-	   public String addMonitor(@ModelAttribute("monitor") Monitor monitor, HttpSession session, Model model){
-		if (session.getAttribute("user") == null) 
-	       { 
-			   model.addAttribute("user", new UserDetails()); 
-	           return "admin1234/login";
-	       }
-		return "admin1234/nuevoMonitor";
-	}
-	
-	@RequestMapping(value = "/nuevoMonitor.html", method=RequestMethod.POST) 
-	   public String processAddSubmit(@ModelAttribute("monitor") Monitor monitor, HttpSession session, Model model){
-		if (session.getAttribute("user") == null) 
-	       { 
-			   model.addAttribute("user", new UserDetails()); 
-	           return "admin1234/login";
-	       }
-		
-		monitorDao.addMonitor(monitor);
-		List<TipoActividad> actividades = tiposActividades.getTiposActividad();
-		Iterator<TipoActividad> iter = actividades.iterator();
-		TipoActividad actividad;
-		while (iter.hasNext()){
-			actividad = iter.next();
-			if (request.getParameter(actividad.getTipo()) != null){
-				supervisarDao.addSupervision(actividad.getTipo(), monitor.getUsuario());
-			}
+		@RequestMapping("/nuevoMonitor.html") 
+		   public String addMonitor(HttpSession session, Model model){
+			if (session.getAttribute("user") == null) 
+		       { 
+				   model.addAttribute("user", new UserDetails()); 
+		           return "admin1234/login";
+		       }
+			   Monitor monitor = new Monitor();
+			   List<TipoActividad> actividades = tipoActividadDao.getTiposActividad();
+			   model.addAttribute("listaActividades", actividades);
+			   model.addAttribute("Monitor", monitor);
+			return "admin1234/nuevoMonitor";
 		}
 		
-		return "redirect:nuevoMonitor.html";
-	}
+		@RequestMapping(value = "/nuevoMonitor.html", method=RequestMethod.POST) 
+		   public String processAddSubmit(Model model, @ModelAttribute("Monitor") Monitor monitor, HttpSession session, HttpServletRequest request){
+			System.out.println("ent5ro");
+			if (session.getAttribute("user") == null) 
+		       { 
+				   model.addAttribute("user", new UserDetails()); 
+		           return "admin1234/login";
+		       }
+			System.out.println("ent5ro22222   "+ monitor.getEmail()+ "  "+ monitor.getNombre()+ "  "+ monitor.getUsuario()+ "  ");
+			
+			monitorDao.addMonitor(monitor);
+			List<TipoActividad> actividades = tipoActividadDao.getTiposActividad();
+		
+			Iterator<TipoActividad> iter = actividades.iterator();
+			TipoActividad actividad;
+			while (iter.hasNext()){
+				actividad = iter.next();
+				if (request.getParameter(actividad.getTipo()) != null){
+					supervisarDao.addSupervision(actividad.getTipo(), monitor.getUsuario());
+				}
+			}
+			
+			return "redirect:monitores.html";
+		}
 	
 	 
 	

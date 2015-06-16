@@ -102,16 +102,16 @@
 
                       
 	                    <div class="form-group">
-	                        <form:label for="tipo" class="control-label col-lg-3" path="tipo">Usuario</form:label>
+	                        <form:label for="nombre" class="control-label col-lg-3" path="nombre">Nombre</form:label>
 	                        <div class="col-lg-7">
-		                        <form:input tabindex="1" type="text" id="usuario" placeholder="Usuario..." class="form-control" path="usuario" required="required"/>
+		                        <form:input tabindex="1" type="text" id="nombre" placeholder="Usuario..." class="form-control" path="nombre" required="required"/>
 	                        </div>
 	                    </div>
 	                    
 	                   <div class="form-group">
-	                        <form:label for="tipo" class="control-label col-lg-3" path="tipo">Usuario</form:label>
+	                        <form:label for="usuario" class="control-label col-lg-3" path="usuario">Usuario</form:label>
 	                        <div class="col-lg-7">
-		                        <form:input tabindex="1" type="text" id="usuario" placeholder="Usuario..." class="form-control" path="usuario" required="required"/>
+		                        <form:input tabindex="2" type="text" id="usuario" placeholder="Usuario..." class="form-control" path="usuario" required="required"/>
 	                        </div>
 	                    </div>
 
@@ -120,29 +120,29 @@
 					
 					
 					<div class="form-group">
-	                    	<form:label path="requisitos" for="requisitos" class="control-label col-lg-3">Requisitos previos</form:label>
+	                    	<form:label path="email" for="email" class="control-label col-lg-3">Correo</form:label>
 		                    <div class="col-lg-7">
-		                    	<form:input path="requisitos" tabindex="3" type="text" id="requisitos" placeholder="Requisitos previos" class="form-control"/>
+		                    	<form:input path="email" tabindex="3" type="email" id="email" placeholder="Requisitos previos" class="form-control"/>
 		                    </div>
 	                    </div><!-- /.form-group -->
 					
 					
+					    <div class="form-group">
+		                    <label for="supervisar" class="control-label col-lg-3">Actividades a supervisar</label>
+		                    <div class="col-lg-9">
+		                    <c:forEach items="${listaActividades}" var="actividad">
+		                    	<div class="checkbox">
+	                            	<label>
+	                              			<input name="${actividad.tipo}" tabindex="5" class="uniform" type="checkbox" value="${actividad.tipo}"> ${actividad.tipo}
+	                            	</label>
+	                          	</div>
+	                        </c:forEach>
+	                          	
+		                    </div>
+	                    </div>
 					  
-					  
-						<label class="control-label col-lg-3 col-sm-3">Imagen del tipo de actividad</label>
-                        <div class="col-lg-2 col-sm-2">
-                        	
-                          <input type="file" name="file">
-                        </div>
 					
-                        <!--  
-						      </div>
-						</div>
-						<div class="col-lg-5"></div>
-						</div>
-                      </div>
-						-->
-						
+					
                                             <hr>
                       <div class="form-actions no-margin-bottom">
                         <input type="submit" value="Guardar" class="btn btn-primary">

@@ -152,7 +152,7 @@
                     <div class="col-lg-2 col-sm-2" >
                         <div class="panel panel-warning" >
 						  <div class="panel-heading">
-						    &nbsp;&nbsp;&nbsp;Precio TOTAL sin iva
+						    &nbsp;&nbsp;&nbsp;Precio sin iva
 						  </div>
 						  <div class="panel-body">
 							  	<p class="text text-center"><b id="sinIva"><fmt:formatNumber type="number" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" value="${precioSinIva}" /> &nbsp;&euro;</b></p>
@@ -163,7 +163,7 @@
 					<div class="col-lg-2 col-sm-2">
                         <div class="panel panel-info" >
 						  <div class="panel-heading">
-						    &nbsp;&nbsp;&nbsp;Precio TOTAL con iva
+						    &nbsp;&nbsp;&nbsp;Precio con iva
 						  </div>
 						  <div class="panel-body">
 							  	<p class="text text-center"><b id="conIva"><fmt:formatNumber type="number" groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" value="${precioIva}" />&nbsp;&euro;</b></p>
@@ -415,26 +415,26 @@
       <p>2015 &copy; Project GAGA team</p>
     </footer><!-- /#footer -->
 
-	<!-- #helpModal -->
+    <!-- #helpModal -->
     <div id="helpModal" class="modal fade">
-      <div class="modal-dialog modal-lg">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">FAQ - Ayuda</h4>
+            <h4 class="modal-title">Modal title</h4>
           </div>
           <div class="modal-body">
-            
-            <%@ include file="../components/ayuda.jsp" %>
-            
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+              in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal --><!-- /#helpModal -->
-	
 
     <!--jQuery -->
     <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.min.js"></script>
@@ -466,19 +466,24 @@
 	var nivelPrecio = {<c:forEach var="niveles" items="${listaNiveles}"> <c:if test="${ i != 0 }">,</c:if> ${niveles.nivel}:{precio:${niveles.precioPorPersona}} <c:set var="i" value="${ i+1 }" /></c:forEach>};
         $(document).ready(function(){
         	
-        	$(document).ready(function(){
-            	$('#fechadePega').change(function(event) {
+        	
+            $('#fechadePega').change(function(event) {
             		var fechaFormato=$(this).val();
             		var formatoAmericano = fechaFormato.indexOf("-");
             		var formatoEuropeo = fechaFormato.indexOf("/");
             		if(formatoAmericano>formatoEuropeo){
             			var date = fechaFormato.split('-');
-            			fechaFormato= date[2]+"/"+date[1]+"/"+date[0];
+            			
+            			fechaFormato= ""+date[2]+"/"+date[1]+"/"+date[0];
+            			
             		}
+            		
     				$('#fechaActividad').val(fechaFormato);	        	
-    								        	
-            	});
+    			 	enviapeticion ();
+    	        	event.preventDefault();
+    	        	  								        	
             });
+            
         	
         	var ua = navigator.userAgent.toLowerCase();
         	
@@ -501,11 +506,7 @@
         		
         	}
         	
-        	$('#fechaActividad').change(function(event) {
-        		
-        		enviapeticion ();
-        		event.preventDefault();
-        	});
+       
         	$('#horaInicio').change(function(event) {
         		enviapeticion ();
         		event.preventDefault();

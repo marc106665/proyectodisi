@@ -143,7 +143,7 @@
                             	</td>
                             	</c:when>
                             	<c:otherwise>
-       							<td><span class="label label-success">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${reserva.estado}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+       							<td><span class="label label-success">&nbsp;&nbsp;${reserva.estado}&nbsp;</span></td>
                             	<td>
                             	<a href="actualizaReserva/ver/${reserva.idReserva}.html" class="btn btn-info btn-sm" ><i class="fa fa-pencil-square-o "></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ver&nbsp;&nbsp;&nbsp;&nbsp;</a>
                             	</td>
@@ -186,26 +186,26 @@
       <p>2015 &copy; Project GAGA team</p>
     </footer><!-- /#footer -->
 
-	<!-- #helpModal -->
+    <!-- #helpModal -->
     <div id="helpModal" class="modal fade">
-      <div class="modal-dialog modal-lg">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">FAQ - Ayuda</h4>
+            <h4 class="modal-title">Modal title</h4>
           </div>
           <div class="modal-body">
-            
-            <%@ include file="../components/ayuda.jsp" %>
-            
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+              in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal --><!-- /#helpModal -->
-
 
     <!--jQuery -->
     <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.min.js"></script>

@@ -3,6 +3,8 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html class="no-js">
   <head>
@@ -136,7 +138,10 @@
                   			</tr>
                   			<tr>
                   				<td>Fecha a realizar la actividad</td>
-                  				<td>${datos.fechaActividad}</td>
+                  					<c:set var="fecha" value="${datos.fechaActividad}" />
+	                            <td><fmt:formatDate type="date" value="${fecha}" /></td>
+                  				
+                  				
                   			</tr>
                   			<tr>
                   				<td>Monitor responsable</td>

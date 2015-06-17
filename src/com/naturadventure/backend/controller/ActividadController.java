@@ -168,25 +168,34 @@ public class ActividadController {
 		
 		//Precio por nivel:
 	   	if (request.getParameter("precio1") != null) {//Hay que comprobar el tipo
-	   		NivelActividad precio1 = new NivelActividad();
-	   		precio1.setIdActividad(id);
-	   		precio1.setNivel("PRINCIPIANTE");
-	   		precio1.setPrecioPorPersona(Float.valueOf(request.getParameter("precio1")));
-	   		actividadDao.addNivelActividad(precio1);
+	   		double variablePrecio1 = Float.valueOf(request.getParameter("precio1"));
+	   		if (variablePrecio1 > 0 ){
+	   			NivelActividad precio1 = new NivelActividad();
+	   			precio1.setIdActividad(id);
+	   			precio1.setNivel("PRINCIPIANTE");
+	   			precio1.setPrecioPorPersona(Float.valueOf(request.getParameter("precio1")));
+	   			actividadDao.addNivelActividad(precio1);
+	   		}
 	   	}
 		if (request.getParameter("precio2") != null) {
-			NivelActividad precio2 = new NivelActividad();
-			precio2.setIdActividad(id);
-			precio2.setNivel("INTERMEDIO");
-			precio2.setPrecioPorPersona(Float.valueOf(request.getParameter("precio2")));
-	   		actividadDao.addNivelActividad(precio2);
+			double variablePrecio2 = Float.valueOf(request.getParameter("precio2"));
+	   		if (variablePrecio2 > 0 ){
+	   			NivelActividad precio2 = new NivelActividad();
+	   			precio2.setIdActividad(id);
+	   			precio2.setNivel("INTERMEDIO");
+	   			precio2.setPrecioPorPersona(Float.valueOf(request.getParameter("precio2")));
+	   			actividadDao.addNivelActividad(precio2);
+	   		}
 		}
 		if (request.getParameter("precio3") != null) {
-			NivelActividad precio3 = new NivelActividad();
-			precio3.setIdActividad(id);
-			precio3.setNivel("AVANZADO");
-			precio3.setPrecioPorPersona(Float.valueOf(request.getParameter("precio3")));
-	   		actividadDao.addNivelActividad(precio3);
+			double variablePrecio3 = Float.valueOf(request.getParameter("precio3"));
+	   		if (variablePrecio3 > 0 ){
+	   			NivelActividad precio3 = new NivelActividad();
+	   			precio3.setIdActividad(id);
+	   			precio3.setNivel("AVANZADO");
+	   			precio3.setPrecioPorPersona(Float.valueOf(request.getParameter("precio3")));
+	   			actividadDao.addNivelActividad(precio3);
+	   		}
 		}
 		
        
@@ -415,6 +424,7 @@ public class ActividadController {
 		List<NivelActividad> listaNiveles = new LinkedList<NivelActividad>();
 		
 	   	if (request.getParameter("precio1") != null ) {//Hay que comprobar el tipo
+	   		
 	   		NivelActividad precio1 = new NivelActividad();
 	   		precio1.setIdActividad(id);
 	   		precio1.setNivel("PRINCIPIANTE");

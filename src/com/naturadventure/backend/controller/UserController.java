@@ -193,7 +193,7 @@ public class UserController {
 	   List<ReservaActividad> listaReservaActividad = new LinkedList<ReservaActividad>();
 	   List<ReservaActividad> listaActividadesPendientes = new LinkedList<ReservaActividad>();
 	   List<Reserva> listaReservas = new LinkedList<Reserva>();
-	   boolean pendiente = false;
+	   
 	   boolean aunNoSeHaRealizado = false;
 	   
 	   Monitor monitor = new Monitor();
@@ -204,9 +204,7 @@ public class UserController {
 	   Iterator<Reserva> it = listaReservas.iterator();
 	   while (it.hasNext()) {
 		   Reserva reserva = it.next();
-		   if(reserva.getEstado().equalsIgnoreCase("PENDIENTE")){
-			   pendiente = true;
-		   }
+		  
 		   ReservaActividad datos = new ReservaActividad();
 		   //Actividad:
 		   Actividad acti = actividadDao.getActividad(reserva.getIdActividad());
@@ -223,11 +221,11 @@ public class UserController {
 		   datos.setNivel(reserva.getNivel());
 		   datos.setNombreCliente(reserva.getNombreCliente());
 		   datos.setNumParticipantes(reserva.getNumParticipantes());
-		   
+		   datos.setIdReserva(reserva.getIdReserva());
 		   
 		   java.util.Date utilDate = new java.util.Date(); //La fecha del servidor AHORA
 		   java.util.Date sqlDate = new java.util.Date(reserva.getFechaActividad().getTime());
-		   if (utilDate.compareTo(sqlDate) < 0){ //La fecha del sistema es menor que la de la reserva (aun no ha llegado la fecha)
+		   if (sqlDate.after(utilDate)){ //La fecha de la reserva es despues de la fecha actual
 		      System.out.println("aun no hecha"); 
 		      aunNoSeHaRealizado = true;
 		   }else{ 
@@ -235,12 +233,11 @@ public class UserController {
 		      aunNoSeHaRealizado = false;
 		   }
 		   
-		   if(aunNoSeHaRealizado == false || !reserva.getEstado().equalsIgnoreCase("PENDIENTE"))//Si ya se ha realizado, que vaya a la tabla del historial de actividades
+		   if(aunNoSeHaRealizado == false )//Si ya se ha realizado, que vaya a la tabla del historial de actividades
 			   listaReservaActividad.add(datos);
-		   
-		   if(pendiente && reserva.getEstado().equalsIgnoreCase("PENDIENTE"))
+		   else
 			   listaActividadesPendientes.add(datos);
-		   pendiente = false;
+		   
 	   }
 	   
 	   model.addAttribute("listaPendiente", listaActividadesPendientes);

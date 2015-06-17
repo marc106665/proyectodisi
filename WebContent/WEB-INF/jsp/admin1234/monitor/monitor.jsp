@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=latin1"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!doctype html>
 <html class="no-js">
@@ -99,9 +101,10 @@
 	                            <td>${listaPendiente.nombreActividad}</td>
 	                            <td>${listaPendiente.numParticipantes}</td>
 								<td>${listaPendiente.nivel}</td>
-	                            <td>${listaPendiente.fechaActividad}</td>
+								<c:set var="fecha" value="${listaPendiente.fechaActividad}" />
+	                            <td><fmt:formatDate type="date" value="${fecha}" /></td>
 	                            <td>
-	                            <a href="verInfo/${listaPendiente.idActividad}.html" class="btn btn-info" ><i class="fa fa-info-circle"></i>&nbsp;Ver mas</a>
+	                            <a href="verInfo/${listaPendiente.idReserva}.html" class="btn btn-info" ><i class="fa fa-info-circle"></i>&nbsp;Ver mas</a>
 	                            </td>
 	                        </tr>
 	                    </c:forEach>
@@ -148,9 +151,10 @@
                             <td>${listaReservas.nombreActividad}</td>
                             <td>${listaReservas.numParticipantes}</td>
 							<td>${listaReservas.estado}</td>
-                            <td>${listaReservas.fechaActividad}</td>
+                            <c:set var="fecha" value="${listaReservas.fechaActividad}" />
+	                        <td><fmt:formatDate type="date" value="${fecha}" /></td>
                             <td>
-                            <a href="verInfo/${listaReservas.idActividad}.html" class="btn btn-info" ><i class="fa fa-info-circle"></i>&nbsp;Ver mas</a>
+                            <a href="verInfo/${listaReservas.idReserva}.html" class="btn btn-info" ><i class="fa fa-info-circle"></i>&nbsp;Ver mas</a>
                             </td>
                         </tr>
                     </c:forEach>

@@ -170,7 +170,7 @@
 
 								        </label>
 								        <div class="controls">
-								        	<input type="date" class="date-picker form-control"  placeholder="dd/mm/aaaa" id="fechadePega"/>
+								        	<input type="date" class="date-picker form-control"  placeholder="dd/mm/aaaa" id="fechadePega" required/>
 								        	
 								        	<form:input path="fechaActividad" type="hidden" id="fechaActividad"/>
 								          
@@ -234,15 +234,15 @@
 					                <h3> Información de contacto </h3>
 					                <div class="form-group">
 					                    <label class="control-label">Nombre</label>
-					                  	<form:input path="nombreCliente" maxlength="200" type="text" class="form-control" placeholder="Nombre" />
+					                  	<form:input path="nombreCliente" maxlength="200" type="text" class="form-control" placeholder="Nombre" required="required"/>
 					                </div>
 					                <div class="form-group">
 					                    <label class="control-label">Teléfono</label>
-					                    <form:input path="telefonoCliente" maxlength="9" type="number" class="form-control" placeholder="Teléfono de contacto" min="100000000" max="999999999" /> 
+					                    <form:input path="telefonoCliente" maxlength="9" type="number" class="form-control" placeholder="Teléfono de contacto" min="100000000" max="999999999" required="required"/> 
 					                </div>
 					                <div class="form-group">
 					                    <label class="control-label">Email</label>
-					            		<form:input path="emailCliente" maxlength="200" type="email" class="form-control" placeholder="Email de contacto"  />  
+					            		<form:input path="emailCliente" maxlength="200" type="email" class="form-control" placeholder="Email de contacto"  required="required"/>  
 					                </div>
 					                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Siguiente</button>
 					            </div>
@@ -293,7 +293,7 @@
 								                        </div> 
 								                        <div class="row">
 								                            <div class="col-xs-12">
-								                                <input class="btn btn-success btn-lg btn-block" type="submit">Pagar y confirmar reserva</a>
+								                                <input class="btn btn-success btn-lg btn-block" type="submit" value="Pagar y confirmar reserva">
 								                            </div>
 								                        </div>
 								                        <div class="row" style="display:none;">

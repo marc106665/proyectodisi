@@ -152,7 +152,8 @@ public class IndexController {
 	 @RequestMapping(value="/pedido", method=RequestMethod.POST)
 	 	public String pedido(Model model, @ModelAttribute("reserva") Reserva reserva, BindingResult bindingResult) {
 		 if (bindingResult.hasErrors()) 
-		 System.out.println(" errores  " +bindingResult.toString() );
+			 return "redirect:actividad/reserva/"+reserva.getIdActividad()+"/"+reserva.getNivel()+".html";
+		 //System.out.println(" errores  " +bindingResult.toString() );
 		 		
 		 		//return "/actividad/reserva/";
 		 		

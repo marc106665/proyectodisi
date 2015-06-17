@@ -14,9 +14,12 @@ import javax.servlet.http.HttpSession;
 import mail.Mail;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -150,7 +153,7 @@ public class ReservaController {
     		if (reserva.getMonitor().equals("null") ){ reserva.setMonitor(null); }
     		// System.out.println(" monitor --"+reserva.getMonitor()+" estado --"+reserva.getEstado()+" fecha --"+reserva.getFechaActividad());
     		if (reserva.getMonitor()!=null && (reserva.getEstado().equals("RECHAZADA") ||reserva.getEstado().equals("PENDIENTE")) && reserva.getFechaActividad().after(new Date())){ reserva.setEstado("ACEPTADA"); }
-    		else if(reserva.getMonitor()==null && reserva.getEstado().equals("RECHAZADA")  && reserva.getFechaActividad().after(new Date())){ reserva.setEstado("PENDIENTE"); reserva.setMonitor(null);} 
+    		else if(reserva.getMonitor()==null && reserva.getFechaActividad().after(new Date())){ reserva.setEstado("PENDIENTE"); reserva.setMonitor(null);} 
 
     	
     		reservaDao.updateReserva(reserva);
@@ -200,6 +203,13 @@ public class ReservaController {
       System.out.println(" salida --"+salida);
         return salida;
      } 
+    
+    @InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, "fechaActividad",new CustomDateEditor(dateFormat, false));
+	}
     
 	
 	

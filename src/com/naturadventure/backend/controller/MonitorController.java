@@ -29,7 +29,7 @@ import com.naturadventure.domain.UserDetails;
 public class MonitorController {
 	
 	private MonitorDAO monitorDao;
-	private TipoActividadDAO tiposActividades;
+	private TipoActividadDAO tipoActividadDao;
 	private SupervisarDAO supervisarDao;
 	private HttpServletRequest request;
 

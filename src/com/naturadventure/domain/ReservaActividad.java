@@ -18,7 +18,7 @@ public class ReservaActividad
 		private String monitor;
 		private String nivel;
 		private String localizacion;
-		
+		private int idReserva;
 		public ReservaActividad(){
 			
 		}
@@ -146,5 +146,13 @@ public class ReservaActividad
 					+ ", fechaActividad=" + fechaActividad + ", idActividad="
 					+ idActividad + ", monitor=" + monitor + ", nivel=" + nivel
 					+ "]";
+		}
+
+		public int getIdReserva() {
+			return idReserva;
+		}
+
+		public void setIdReserva(int idReserva) {
+			this.idReserva = idReserva;
 		}
 }

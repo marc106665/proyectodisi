@@ -127,7 +127,7 @@
 	                    <div class="form-group">
 	                    	<form:label path="duracionHoras" for="horas" class="control-label col-lg-3">Duración en horas</form:label>
 		                    <div class="col-lg-7">
-		                    	<form:input path="duracionHoras" value="1" min="1" tabindex="3" type="number" name="horas" id="horas" placeholder="Duración en horas" class="form-control" required="required"/>
+		                    	<form:input path="duracionHoras" min="1" tabindex="3" type="number" name="horas" id="horas" placeholder="Duración en horas" class="form-control" required="required"/>
 		                    </div>
 	                    </div><!-- /.form-group -->
 	                    <div class="form-group">
@@ -324,13 +324,13 @@
 							<form:label path="minParticipantes" for="minParticipantes" class="control-label col-lg-3 col-sm-3">nº mínimo de participantes</form:label>
 						  	
 	                        <div class="col-lg-1 col-sm-2">
-	                        	<form:input path="minParticipantes" min="1" value="1" tabindex="12" type="number" name="minParticipantes" id="minParticipantes" placeholder="4..." class="form-control"/>
+	                        	<form:input path="minParticipantes" min="1" tabindex="12" type="number" name="minParticipantes" id="minParticipantes" placeholder="4..." class="form-control"/>
 	                        </div>
 	
 							<form:label path="maxParticipantes" for="maxParticipantes" class="control-label col-lg-4 col-lg-offset-1 col-sm-4">nº máximo de participantes</form:label>
 		                     
 		                    <div class="col-lg-1 col-sm-2">
-		                    	<form:input path="maxParticipantes" min="1" value="1" tabindex="13" type="number" name="maxParticipantes" id="maxParticipantes" placeholder="20..." class="form-control"/>
+		                    	<form:input path="maxParticipantes" min="1" tabindex="13" type="number" name="maxParticipantes" id="maxParticipantes" placeholder="20..." class="form-control"/>
 		                     
 		                    </div>
 		                    <div class="col-lg-5"></div>

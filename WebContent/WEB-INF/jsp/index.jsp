@@ -352,7 +352,8 @@ $( "#footer-form" ).submit(function( event ) {
 	var $form = $( this ),
 	    nombre = $form.find( "input[name='nombre']" ).val(),
 	    email = $form.find( "input[name='email']" ).val(),
-	    mensaje = $form.find( "input[name='mensaje']" ).val();
+	    mensaje = $form.find( "textarea[name='mensaje']" ).val();
+	
 	var posting = $.post( "ajaxmailcontact.html", {nombre: nombre, email: email, mensaje: mensaje});
 	posting.done(function( data ) {
     	$( "#result" ).empty().append( data );

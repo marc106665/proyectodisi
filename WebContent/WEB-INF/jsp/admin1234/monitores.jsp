@@ -129,8 +129,10 @@
                                  		</td>
                                  		<td>
                 	                 		<a href="editaMonitor/${monitor.usuario}.html" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
-				                            <a class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
+				                            <%-- <a class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>--%>
                                      		<!-- onclick="confirmarBorrado('href=/editaMonitor/${monitor.usuario}.html', '${listaActividades.idActividad}')" -->
+                                     		<a onclick="confirmarBorrado('borrarMonitor/${monitor.usuario}.html' , '${monitor.usuario}')" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>                                     	</td>
+                                     		
                                      	</td>
                                  	</tr>
                                  </c:forEach>

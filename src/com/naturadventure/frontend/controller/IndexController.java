@@ -188,12 +188,11 @@ public class IndexController {
 	        String nombre =request.getParameter("nombre");
 	        String email =request.getParameter("email");
 	        String mensaje =request.getParameter("mensaje");
-	        String result = "Correo enviado con exito";		
+	        String result = "Correo enviado con éxito";		
 	        Mail mail = new Mail();
 	        mail.setRecipient("agg.naturaventure.info@gmail.com");
 	        mail.setSubject("Contacto");
-	        //+mensaje
-	        String body ="Contacto de "+ nombre +"\n Con email:"+email+ "\n Pide información sobre : "; 
+	        String body ="Contacto de "+ nombre +"\n Con email:"+email+ "\n Pide información sobre : "+mensaje; 
 	        mail.setBodyText(body);
 	        boolean verificacion= true;
 	        System.out.println(" valor send mail  "+ verificacion);

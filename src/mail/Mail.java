@@ -129,7 +129,9 @@ public class Mail {
         props.put("mail.smtp.port", "587");
          props.put("mail.smtp.auth", "true");
         
-        Boolean resultado=true;
+        Boolean resultado=false;
+        
+        
         
         Session session = Session.getDefaultInstance(props);
         MimeMessage message = new MimeMessage(session);
@@ -137,12 +139,12 @@ public class Mail {
         try {
             message.setFrom(new InternetAddress(from));
             
-            InternetAddress[] toAddress = new InternetAddress[to.size()-1];
+            InternetAddress[] toAddress = new InternetAddress[to.size()];
             
             // To get the array of addresses
-            for( int i = 0; i < to.size()-1; i++ ) {
+            for( int i = 0; i < to.size(); i++ ) {
                 toAddress[i] = new InternetAddress(to.get(i));
-            }
+            }   
 
             for( int i = 0; i < toAddress.length; i++) {
                 message.addRecipient(Message.RecipientType.TO, toAddress[i]);
@@ -153,6 +155,7 @@ public class Mail {
             transport.connect(host, from, pass);
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
+            resultado = true;
         }
         catch (NullPointerException pex) {
         	pex.printStackTrace();
@@ -165,9 +168,7 @@ public class Mail {
         catch (MessagingException me) {
             me.printStackTrace();
             
-        } finally {
-        	resultado = false;
-        }
+        } 
         return resultado;
     }
 	

@@ -192,7 +192,8 @@ public class IndexController {
 	        Mail mail = new Mail();
 	        mail.setRecipient("agg.naturaventure.info@gmail.com");
 	        mail.setSubject("Contacto");
-	        String body ="Contacto de "+ nombre +"\n Con email:"+email+ "\n Pide información sobre : "+mensaje; 
+	        //+mensaje
+	        String body ="Contacto de "+ nombre +"\n Con email:"+email+ "\n Pide información sobre : "; 
 	        mail.setBodyText(body);
 	        boolean verificacion= true;
 	        System.out.println(" valor send mail  "+ verificacion);

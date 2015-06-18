@@ -91,6 +91,18 @@ public class ReservaController {
 		   return "redirect:/admin1234/login.html";
 		}
 		reservaDao.updateEstadoReserva(idreserva, "RECHAZADA");
+		Mail mail = new Mail();
+		Reserva  reserva = reservaDao.getReserva(idreserva);
+		Actividad actividad = actividadDao.getActividad(reserva.getIdActividad());
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        mail.setRecipient(reserva.getEmailCliente());
+        mail.setSubject("Ha sido rechazada su resverva en Naturaventure para el día "+dateFormat.format(reserva.getFechaActividad()));
+        String body ="Estimado cliente "+ reserva.getNombreCliente() +"<br/> Lamentamos rechazar su reserva para el dia "+dateFormat.format(reserva.getFechaActividad())+ " de la actividad "+actividad.getNombre()+ " por falta de personal "; 
+        mail.setBodyText(body);
+        boolean verificacion= true; 
+        verificacion = mail.sendEmail();
+        if (!verificacion)  
+        	System.out.println(" error send mail  ");
     	return "redirect:../listadoReservas.html"; 
     }
 	
@@ -152,7 +164,21 @@ public class ReservaController {
     	
     		if (reserva.getMonitor().equals("null") ){ reserva.setMonitor(null); }
     		// System.out.println(" monitor --"+reserva.getMonitor()+" estado --"+reserva.getEstado()+" fecha --"+reserva.getFechaActividad());
-    		if (reserva.getMonitor()!=null && (reserva.getEstado().equals("RECHAZADA") ||reserva.getEstado().equals("PENDIENTE")) && reserva.getFechaActividad().after(new Date())){ reserva.setEstado("ACEPTADA"); }
+    		if (reserva.getMonitor()!=null && (reserva.getEstado().equals("RECHAZADA") ||reserva.getEstado().equals("PENDIENTE")) && reserva.getFechaActividad().after(new Date())){
+    			reserva.setEstado("ACEPTADA"); 
+    			Mail mail = new Mail();
+    			Actividad actividad = actividadDao.getActividad(reserva.getIdActividad());
+    			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    	        mail.setRecipient(reserva.getEmailCliente());
+    	        mail.setSubject("Ha sido aceptada su resverva en Naturaventure para el día "+dateFormat.format(reserva.getFechaActividad()));
+    	        String body ="Estimado cliente "+ reserva.getNombreCliente() +"<br/> Le comunicamos que su reserva para el dia "+dateFormat.format(reserva.getFechaActividad())+ " de la actividad "+actividad.getNombre()+ " ha sido aceptada."; 
+    	        mail.setBodyText(body);
+    	        boolean verificacion= true; 
+    	        verificacion = mail.sendEmail();
+    	        if (!verificacion)  
+    	        	System.out.println(" error send mail  ");
+    			
+    		}
     		else if(reserva.getMonitor()==null && reserva.getFechaActividad().after(new Date())){ reserva.setEstado("PENDIENTE"); reserva.setMonitor(null);} 
 
     	

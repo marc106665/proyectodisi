@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import com.naturadventure.dao.ActividadDAO;
 import com.naturadventure.dao.MonitorDAO;
 import com.naturadventure.dao.SupervisarDAO;
 import com.naturadventure.dao.TipoActividadDAO;
+import com.naturadventure.dao.UsuarioDAO;
 import com.naturadventure.domain.Monitor;
 import com.naturadventure.domain.TipoActividad;
 import com.naturadventure.domain.UserDetails;
@@ -31,6 +33,7 @@ public class MonitorController {
 	private MonitorDAO monitorDao;
 	private TipoActividadDAO tipoActividadDao;
 	private SupervisarDAO supervisarDao;
+	private UsuarioDAO usuarioDao;
 	private HttpServletRequest request;
 
     @Autowired
@@ -46,6 +49,11 @@ public class MonitorController {
 	@Autowired
     public void setSupervisarDAO(SupervisarDAO supervisarDAO) { 
         this.supervisarDao = supervisarDAO;
+    }
+	
+	@Autowired
+    public void setUsuarioDAO(UsuarioDAO usuarioDAO) { 
+        this.usuarioDao = usuarioDAO;
     }
 	
 	// Creacion
@@ -84,6 +92,15 @@ public class MonitorController {
 					supervisarDao.addSupervision(actividad.getTipo(), monitor.getUsuario());
 				}
 			}
+			
+			//crea un usuario para el nuevo monitor
+			BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor(); 
+			UserDetails usuario= new UserDetails();
+			usuario.setUsuario(monitor.getUsuario());
+			usuario.setContrasenya(monitor.getUsuario());
+			//usuario.setContrasenya(passwordEncryptor.encryptPassword(monitor.getUsuario()));
+			usuario.setRol("MONITOR");
+			usuarioDao.addUsuario(usuario);
 			
 			return "redirect:monitores.html";
 		}
@@ -127,15 +144,18 @@ public class MonitorController {
 	}
 	
 	//Eliminacion
-	@RequestMapping(value="/deleteMonitor/{usuario}.html")
-	public String processDelete(@ModelAttribute("monitor") Monitor monitor, @PathVariable String usuario, Model model, HttpSession session) {
-		if (session.getAttribute("user") == null) 
+	@RequestMapping(value="/borrarMonitor/{usuario}.html")
+	   public String processDelete(HttpSession session, Model model, @PathVariable String usuario) {
+		   if (session.getAttribute("user") == null) 
 		   { 
 		      model.addAttribute("user", new UserDetails()); 
 		      return "redirect:admin1234/login.html";
 		   }
-		   
-		   monitorDao.deleteMonitor(usuario);
-		   return "redirect:list.html";
+		    
+		    
+		    monitorDao.deleteMonitor(usuario);
+		    
+		    
+		    return "redirect:/admin1234/monitores.html";
 	   }
 }

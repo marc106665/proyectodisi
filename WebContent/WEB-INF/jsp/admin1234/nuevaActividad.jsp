@@ -180,9 +180,9 @@
                         <div class="col-lg-2 col-sm-2">
                         
                           <select tabindex="9" data-placeholder="Nivel" id="nivel" class="form-control chzn-select">
-                            <option value="mostrarPrecio1">Nivel 1</option>
-                            <option value="mostrarPrecio2">Nivel 2</option>
-                            <option value="mostrarPrecio3">Nivel 3</option>
+                            <option value="mostrarPrecio1">Nivel principiante</option>
+                            <option value="mostrarPrecio2">Nivel avanzado</option>
+                            <option value="mostrarPrecio3">Nivel experto</option>
                           </select>
                         </div>
                         <div class="col-lg-2 col-sm-2">
@@ -201,7 +201,7 @@
                     <div class="col-lg-2 col-lg-offset-3 col-sm-2 col-sm-offset-3">
                         <div class="panel panel-success" id="mostrarPrecio1mostrarPrecio1">
 						  <div class="panel-heading">
-						    Nivel 1
+						    Nivel principiante
 						  </div>
 						  <div class="panel-body">
 							  	<p class="text text-center"><b id="mostrarPrecio1">--- <span class="glyphicon glyphicon-euro"></span></b></p>
@@ -212,7 +212,7 @@
                     <div class="col-lg-2 col-sm-2" >
                         <div class="panel panel-warning" id="mostrarPrecio2mostrarPrecio2">
 						  <div class="panel-heading">
-						    Nivel 2
+						    Nivel avanzado
 						  </div>
 						  <div class="panel-body">
 							  	<p class="text text-center"><b id="mostrarPrecio2">--- <span class="glyphicon glyphicon-euro"></span></b></p>
@@ -223,7 +223,7 @@
 					<div class="col-lg-2 col-sm-2">
                         <div class="panel panel-info" id="mostrarPrecio3mostrarPrecio3">
 						  <div class="panel-heading">
-						    Nivel 3
+						    Nivel experto
 						  </div>
 						  <div class="panel-body">
 							  	<p class="text text-center"><b id="mostrarPrecio3">--- <span class="glyphicon glyphicon-euro"></span></b></p>

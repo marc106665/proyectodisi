@@ -97,7 +97,7 @@
                     <!-- .toolbar -->
                     <div class="toolbar">
                       <nav style="padding: 8px;">
-                        <a href="nuevoTipoActividad.html" class="btn btn-success btn-xs">
+                        <a href="${pageContext.request.contextPath}/admin1234/nuevoTipoActividad.html" class="btn btn-success btn-xs">
                           <i class="fa fa-plus"></i>
                         </a> 
                       </nav>
@@ -114,13 +114,13 @@
                     <tbody>
                     
                     <c:forEach items="${listaTipoActividades}" var="listaTipoActividades">
-                        <tr id="${listaTipoActividades.tipo}">
+                        <tr class="<c:if test="${ not empty ultimoid && ultimoid==listaTipoActividades.tipo }">success</c:if>" id="${listaTipoActividades.tipo}">
                             <td>${listaTipoActividades.tipo}</td>
                             
                             
                             <td>
-                            <a href="editaTipoActividad/${listaTipoActividades.tipo}.html" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
-                            <a onclick="confirmarBorrado('borrarTipoActividad/${listaTipoActividades.tipo}.html' , '${listaTipoActividades.tipo}')" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
+                            <a href="${pageContext.request.contextPath}/admin1234/editaTipoActividad/${listaTipoActividades.tipo}.html" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
+                            <a onclick="confirmarBorrado('${pageContext.request.contextPath}/admin1234/borrarTipoActividad/${listaTipoActividades.tipo}.html' , '${listaTipoActividades.tipo}')" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
                             </td>
                         </tr>
 					</c:forEach>                   

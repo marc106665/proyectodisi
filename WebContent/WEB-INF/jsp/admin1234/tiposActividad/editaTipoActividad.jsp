@@ -129,7 +129,7 @@
 	                    </div><!-- /.form-group -->
 
 					  
-					 
+					<div class="form-group">	 
 	                        <label class="control-label col-lg-3 col-sm-3">Imagen del tipo de actividad</label>
 	                        <div class="col-lg-4 col-sm-4">
 		                        <input type="file" name="file">
@@ -146,7 +146,7 @@
 		                        </c:if>
 	                        
 	                        </div>
-
+				</div>
                         
 
                       <hr>

@@ -134,14 +134,14 @@
 	                    </div><!-- /.form-group -->
 					
 					
-					  
+					<div class="form-group">  
 					  
 						<label class="control-label col-lg-3 col-sm-3">Imagen del tipo de actividad</label>
                         <div class="col-lg-2 col-sm-2">
                         	
                           <input type="file" name="file">
                         </div>
-					
+					</div>
                         <!--  
 						      </div>
 						</div>

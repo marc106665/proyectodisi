@@ -382,7 +382,7 @@
                       <div class="form-actions no-margin-bottom">
                                    	<c:choose>
 	                           <c:when test="${accion == 'ver'}">
-                        	       <form:button type="submit" value="Aceptar" id="guardar" class="btn btn-primary" >Aceptar</form:button>
+                        	       <a tabindex="15" class="btn btn-primary" href="${pageContext.request.contextPath}/admin1234/reservas/listadoReservas.html">&nbsp;&nbsp;Aceptar&nbsp;&nbsp;</a>
 						  </c:when>
 						  <c:otherwise>
 						  		        <form:button type="submit" value="Modificar" class="btn btn-primary">Modificar</form:button>

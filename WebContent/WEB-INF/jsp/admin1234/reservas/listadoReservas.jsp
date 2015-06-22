@@ -117,7 +117,7 @@
                     <tbody>
                     
                     <c:forEach items="${listadoDeReservas}" var="reserva">
-                        <tr>
+                        <tr class="<c:if test="${ not empty ultimoid && ultimoid==reserva.idReserva }">success</c:if>">
                             <td>${reserva.idReserva}</td>
                             <c:set var="nombre" value="${mapActividades[reserva.idActividad]}" />
                             <td>${nombre}</td>
@@ -129,8 +129,8 @@
                             <c:when test="${reserva.estado == 'PENDIENTE'}">
                             <td><span class="label label-warning">&nbsp;&nbsp;${reserva.estado}&nbsp;&nbsp;</span></td>
                             <td>
-                            <a href="actualizaReserva/aceptar/${reserva.idReserva}.html" class="btn btn-success btn-sm" ><i class="fa fa-pencil-square-o "></i>&nbsp;Aceptar</a>
-                            <a href="rechazar/${reserva.idReserva}.html" class="btn btn-danger btn-sm" ><i class="fa fa-trash-o " ></i>&nbsp;Rechazar</a>
+                            <a href="${pageContext.request.contextPath}/admin1234/reservas/actualizaReserva/aceptar/${reserva.idReserva}.html" class="btn btn-success btn-sm" ><i class="fa fa-pencil-square-o "></i>&nbsp;Aceptar</a>
+                            <a href="${pageContext.request.contextPath}/admin1234/reservas//rechazar/${reserva.idReserva}.html" class="btn btn-danger btn-sm" ><i class="fa fa-trash-o " ></i>&nbsp;Rechazar</a>
                             </td>
                             </c:when>
                             <c:when test="${reserva.estado == 'ACEPTADA'}">
@@ -138,14 +138,14 @@
                             	<c:when test="${fecha.time > fechaactual.time}">
                             	<td><span class="label label-success">&nbsp;&nbsp;${reserva.estado}&nbsp;</span></td>
                             	<td>
-                            	<a href="actualizaReserva/editar/${reserva.idReserva}.html" class="btn btn-warning btn-sm" ><i class="fa fa-pencil-square-o ">&nbsp;</i>&nbsp;Editar&nbsp;&nbsp;</a>
-                            	<a href="rechazar/${reserva.idReserva}.html" class="btn btn-danger btn-sm" ><i class="fa fa-trash-o " ></i>&nbsp;Rechazar</a>
+                            	<a href="${pageContext.request.contextPath}/admin1234/reservas/actualizaReserva/editar/${reserva.idReserva}.html" class="btn btn-warning btn-sm" ><i class="fa fa-pencil-square-o ">&nbsp;</i>&nbsp;Editar&nbsp;&nbsp;</a>
+                            	<a href="${pageContext.request.contextPath}/admin1234/reservas/rechazar/${reserva.idReserva}.html" class="btn btn-danger btn-sm" ><i class="fa fa-trash-o " ></i>&nbsp;Rechazar</a>
                             	</td>
                             	</c:when>
                             	<c:otherwise>
        							<td><span class="label label-success">&nbsp;&nbsp;${reserva.estado}&nbsp;</span></td>
                             	<td>
-                            	<a href="actualizaReserva/ver/${reserva.idReserva}.html" class="btn btn-info btn-sm" ><i class="fa fa-pencil-square-o "></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ver&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                            	<a href="${pageContext.request.contextPath}/admin1234/reservas/actualizaReserva/ver/${reserva.idReserva}.html" class="btn btn-info btn-sm" ><i class="fa fa-pencil-square-o "></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ver&nbsp;&nbsp;&nbsp;&nbsp;</a>
                             	</td>
     						</c:otherwise>
                             	</c:choose>
@@ -153,8 +153,8 @@
                             <c:otherwise>
        						<td><span class="label label-danger">${reserva.estado}</span></td>
                             <td>
-                            <a href="actualizaReserva/ver/${reserva.idReserva}.html" class="btn btn-info btn-sm" ><i class="fa fa-pencil-square-o "></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ver&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                            <a href="actualizaReserva/editar/${reserva.idReserva}.html" class="btn btn-warning btn-sm" ><i class="fa fa-pencil-square-o ">&nbsp;</i>&nbsp;&nbsp;&nbsp;Editar&nbsp;&nbsp;&nbsp;</a>
+                            <a href="${pageContext.request.contextPath}/admin1234/reservas/actualizaReserva/ver/${reserva.idReserva}.html" class="btn btn-info btn-sm" ><i class="fa fa-pencil-square-o "></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ver&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                            <a href="${pageContext.request.contextPath}/admin1234/reservas/actualizaReserva/editar/${reserva.idReserva}.html" class="btn btn-warning btn-sm" ><i class="fa fa-pencil-square-o ">&nbsp;</i>&nbsp;&nbsp;&nbsp;Editar&nbsp;&nbsp;&nbsp;</a>
                             </td>
     						</c:otherwise>
                             </c:choose>

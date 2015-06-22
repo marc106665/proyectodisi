@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=latin1"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+    pageEncoding="UTF-8" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!doctype html>
 <html class="no-js">
   <head>
     <meta charset="UTF-8">
     <title>Panel administración</title>
+
 
     <!--IE Compatibility modes-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,6 +30,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/fullcalendar.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/style-switcher.css"> 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/bootstrap3-wysihtml5.min.css">
+
     <link rel="stylesheet/less" type="text/css" href="${pageContext.request.contextPath}/resources/admin/less/theme.less">
 
 
@@ -59,81 +63,105 @@
     <div class="bg-dark dk" id="wrap">
       <div id="top">
 
-      <%@ include file="components/menuAdmin.jsp" %>
+        <%@ include file="../components/menuAdmin.jsp" %>
 
 		<div class="main-bar">
             <h3>
-              <i class="fa fa-dashboard"></i>&nbsp; Tipo de actividades</h3>
+              <i class="fa fa-dashboard"></i>&nbsp; Actualizar tipo de actividad</h3>
           </div><!-- /.main-bar -->
         </header><!-- /.head -->
       </div><!-- /#top -->
+
+
       <div id="content">
-        <div class="outer">
+        
+
+      	<div class="outer">
           <div class="inner bg-light lter">
-  
+
+            <!--BEGIN INPUT TEXT FIELDS-->
             <div class="row">
               <div class="col-lg-12">
-                <div class="box">
-                  <header>
-                    <h5>Tipo de actividades</h5>
-                  </header>
-                  <div class="body" id="trigo" style="height: 250px;"></div>
-                </div>
-              </div>
-            </div>
-            <hr>
-
-
-
-            <!--Begin Datatables-->
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="box">
+                <div class="box dark">
                   <header>
                     <div class="icons">
-                      <i class="fa fa-table"></i>
+                      <i class="fa fa-edit"></i>
                     </div>
-                    <h5>Tipo de actividades</h5>
+                    <h5>${nombreTipo}</h5>
+
                     <!-- .toolbar -->
                     <div class="toolbar">
-                      <nav style="padding: 8px;">
-                        <a href="nuevoTipoActividad.html" class="btn btn-success btn-xs">
-                          <i class="fa fa-plus"></i>
-                        </a> 
-                      </nav>
+                      
                     </div><!-- /.toolbar -->
                   </header>
-                  <div id="collapse4" class="body">
-                    <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
-                      <thead>
-                        <tr>
-                            <th>Tipo actividad</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    
-                    <c:forEach items="${listaTipoActividades}" var="listaTipoActividades">
-                        <tr id="${listaTipoActividades.tipo}">
-                            <td>${listaTipoActividades.tipo}</td>
-                            
-                            
-                            <td>
-                            <a href="editaTipoActividad/${listaTipoActividades.tipo}.html" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
-                            <a onclick="confirmarBorrado('borrarTipoActividad/${listaTipoActividades.tipo}.html' , '${listaTipoActividades.tipo}')" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
-                            </td>
-                        </tr>
-					</c:forEach>                   
+                  <div id="div-1" class="body">
+                  
+                  
+                    <form:form enctype="multipart/form-data" modelAttribute="tipoActividad" class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/admin1234/editaTipoActividad.html">
+
+
+					         
+					  <div class="form-group">
+					  <form:input style="display:none" path="tipo"/>
+	                        
+	                  </div>
+	                    
+	                    
+
+	                    
+					  <div class="form-group">
+		                  <label for="descripcion" class="control-label col-lg-3">Descripción</label>
+		                  <div id="descripcion" class="col-lg-7">
+		                  		
+		                	  <form:textarea path="descripcion" tabindex="1" id="wysihtml5" class="form-control" rows="10"/>
+		                      
+		                  </div>
+		                  <div class="col-lg-2"></div>
+		              </div>
+		              
+		              
+					
+					<div class="form-group">
+	                    	<form:label path="requisitos" for="requisitos" class="control-label col-lg-3">Requisitos previos</form:label>
+		                    <div class="col-lg-7">
+		                    	<form:input path="requisitos" tabindex="2" type="text" id="requisitos" placeholder="Requisitos previos" class="form-control"/>
+		                    </div>
+	                    </div><!-- /.form-group -->
+
+					  
+					 
+	                        <label class="control-label col-lg-3 col-sm-3">Imagen del tipo de actividad</label>
+	                        <div class="col-lg-4 col-sm-4">
+		                        <input type="file" name="file">
+		                         
+		                        <c:if test="${not empty rutaImagen}">
+		                        	<div class="form-group">
+		                        		<div id="mostrarImagen" >
+											<div class="col-lg-6 col-md-6">
+												<img class="img-responsive" alt="Responsive image" src="${pageContext.request.contextPath}/resources/images/${rutaImagen}">
+											    <!-- <a class="btn btn-link" id="eliminaImagen">Eliminar imagen</a> -->
+											</div>
+										</div>
+									</div>
+		                        </c:if>
+	                        
+	                        </div>
+
                         
-                       </tbody>
-                    </table>
+
+                      <hr>
+                      <div class="form-actions no-margin-bottom">
+                          <form:button type="submit" value="Guardar" class="btn btn-primary">Guardar</form:button>
+                      </div>
+                    </form:form>
                   </div>
                 </div>
               </div>
-            </div><!-- /.row -->
-            
-          </div><!-- /.inner -->
-        </div><!-- /.outer -->
+            </div>
+            </div>
+            </div>
+
+
       </div><!-- /#content -->
 
       <!-- Menu lateral derecho (descomentar boton en el menu)
@@ -149,7 +177,7 @@
       <p>2015 &copy; Project GAGA team</p>
     </footer><!-- /#footer -->
 
-<!-- #helpModal -->
+    <!-- #helpModal -->
     <div id="helpModal" class="modal fade">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -159,7 +187,7 @@
           </div>
           <div class="modal-body">
             
-            <%@ include file="components/ayuda.jsp" %>
+            <%@ include file="../components/ayuda.jsp" %>
             
           </div>
           <div class="modal-footer">
@@ -168,22 +196,13 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal --><!-- /#helpModal -->
-
+    
+    
     <!--jQuery -->
     <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/admin/js/moment.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/admin/js/jquery-ui.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/admin/js/fullcalendar.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.tablesorter.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.sparkline.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.flot.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.flot.selection.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.flot.resize.min.js"></script>
 
-    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.dataTables.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/admin/js/dataTables.bootstrap.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.tablesorter.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.ui.touch-punch.min.js"></script>
 
     <!--Bootstrap -->
     <script src="${pageContext.request.contextPath}/resources/admin/js/bootstrap.min.js"></script>
@@ -193,51 +212,28 @@
 
     <!-- Screenfull -->
     <script src="${pageContext.request.contextPath}/resources/admin/js/screenfull.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/screenfull.js/2.0.0/screenfull.min.js"></script>
+
 
     <!-- Metis core scripts -->
     <script src="${pageContext.request.contextPath}/resources/admin/js/core.min.js"></script>
-
+    <script src="${pageContext.request.contextPath}/resources/admin/js/bootstrap3-wysihtml5.all.min.js"></script>
     <!-- Metis demo scripts -->
     <script src="${pageContext.request.contextPath}/resources/admin/js/app.js"></script>
+
     <script>
+    $(document).ready(function(){
+    	
+        Metis.formWysiwyg();
 
-
-
-        $(document).ready(function(){
-
-    	  var contexto = "${pageContext.request.contextPath}";
-		
-		
-          Metis.dashboard();
-          //Metis.MetisChart();
-          Metis.MetisTable();
-          Metis.metisSortable();
-          
-          console.log("arrancado");
-          
-          
-        });
-	
-        function confirmarBorrado(urlBorrado, id) {
-            var txt;
-            var r = confirm("¿Borrar?");
-            if (r == true) {
-                //txt = "url:"+urlBorrado+", id:"+id;
-                
-                	//console.log("ejecutando...");
-                    $.ajax({
-                    	url: urlBorrado, 
-                    	success: function(result){
-                      //  	console.log("Borrado con exito");
-                        	$("#"+id).hide(500);
-                    }});
-                
-            } else {
-            	//ev.p
-                //txt = "You pressed Cancel!";
-            }
-            //console.log(txt);
-        }
+    	
+    });
+    
     </script>
+    
+
+
+
+       
 
   </body>

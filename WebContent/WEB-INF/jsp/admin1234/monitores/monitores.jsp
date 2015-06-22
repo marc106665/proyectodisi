@@ -59,7 +59,7 @@
     <div class="bg-dark dk" id="wrap">
       <div id="top">
 
-      <%@ include file="components/menuAdmin.jsp" %>
+      <%@ include file="../components/menuAdmin.jsp" %>
 
 		<div class="main-bar">
             <h3>
@@ -116,7 +116,7 @@
                              </thead>
                              <tbody>
                                  <c:forEach items="${monitores}" var="monitor">
-                                 	<tr>
+                                 	<tr id="${monitor.usuario}">
                                  		<td>${monitor.nombre}</td>
                                  		<td>${monitor.email}</td>
                                  		<td>
@@ -172,7 +172,7 @@
           </div>
           <div class="modal-body">
             
-            <%@ include file="components/ayuda.jsp" %>
+            <%@ include file="../components/ayuda.jsp" %>
             
           </div>
           <div class="modal-footer">
@@ -235,13 +235,12 @@
             if (r == true) {
                 //txt = "url:"+urlBorrado+", id:"+id;
                 
-                	//console.log("ejecutando...");
-                    $.ajax({
-                    	url: urlBorrado, 
-                    	success: function(result){
-                      //  	console.log("Borrado con exito");
-                        	$("#"+id).hide(500);
-                    }});
+            	//console.log("ejecutando...");
+                $.ajax({
+                	url: urlBorrado, 
+                	success: function(result){
+                    	$("#"+id).hide(500);
+                }});
                 
             } else {
             	//ev.p

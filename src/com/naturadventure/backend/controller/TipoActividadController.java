@@ -53,7 +53,7 @@ public class TipoActividadController {
 	   	   
 	   model.addAttribute("tipoActividad", tipoActividad);
 	   
-       return "admin1234/nuevoTipoActividad";
+       return "admin1234/tiposActividad/nuevoTipoActividad";
        
    }
    
@@ -165,7 +165,7 @@ public class TipoActividadController {
 	 	   model.addAttribute("nombreTipo", tipoActividad2.getTipo());
 	 	  
 	 	   
-	 	   return "admin1234/editaTipoActividad";
+	 	   return "admin1234/tiposActividad/editaTipoActividad";
 	   }
 	   
        return "redirect:/admin1234/tiposActividades.html";

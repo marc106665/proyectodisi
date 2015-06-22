@@ -2,13 +2,11 @@
     pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!doctype html>
 <html class="no-js">
   <head>
     <meta charset="UTF-8">
     <title>Panel administración</title>
-
 
     <!--IE Compatibility modes-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -63,11 +61,11 @@
     <div class="bg-dark dk" id="wrap">
       <div id="top">
 
-        <%@ include file="components/menuAdmin.jsp" %>
+        <%@ include file="../components/menuAdmin.jsp" %>
 
 		<div class="main-bar">
             <h3>
-              <i class="fa fa-dashboard"></i>&nbsp; Actualizar datos monitor</h3>
+              <i class="fa fa-dashboard"></i>&nbsp; Nuevo tipo de actividad</h3>
           </div><!-- /.main-bar -->
         </header><!-- /.head -->
       </div><!-- /#top -->
@@ -87,7 +85,7 @@
                     <div class="icons">
                       <i class="fa fa-edit"></i>
                     </div>
-                    <h5>Campos a editar</h5>
+                    <h5></h5>
 
                     <!-- .toolbar -->
                     <div class="toolbar">
@@ -97,30 +95,64 @@
                   <div id="div-1" class="body">
                   
                   
-                    <form:form enctype="multipart/form-data" modelAttribute="monitor" class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/admin1234/editaMonitorSubmit.html">
+                    <form:form enctype="multipart/form-data" modelAttribute="tipoActividad" class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/admin1234/addTipoActividad.html">
+
+
+						            
+
+                      
+	                    <div class="form-group">
+	                        <form:label for="tipo" class="control-label col-lg-3" path="tipo">Tipo de actividad</form:label>
+	                        <div class="col-lg-7">
+		                        <form:input tabindex="1" type="text" id="tipo" placeholder="Tipo de actividad" class="form-control" path="tipo" required="required"/>
+	                        </div>
+	                    </div>
+	                    
+	                   
+
+	                    
 
 					  <div class="form-group">
-					  <form:input style="display:none" path="usuario"/>
-	                        
-	                  </div>
-		              
-					<div class="form-group">
-	                    	<form:label path="nombre" for="nombre" class="control-label col-lg-3">Nombre</form:label>
-		                    <div class="col-lg-7">
-		                    	<form:input path="nombre" tabindex="1" type="text" id="nombre" placeholder="nombre" class="form-control"/>
-		                    </div>
-	                </div><!-- /.form-group -->
+		                  <label for="descripcion" class="control-label col-lg-3">Descripción</label>
+		                  <div id="descripcion" class="col-lg-7">
+		                  		
+		                	  <form:textarea path="descripcion" tabindex="2" id="wysihtml5" class="form-control" rows="10"/>
+		                      
+		                      
+		                    
+		                  </div>
+		                  <div class="col-lg-2"></div>
+		              </div>
+
+					
 					
 					<div class="form-group">
-	                    	<form:label path="email" for="email" class="control-label col-lg-3">Email</form:label>
+	                    	<form:label path="requisitos" for="requisitos" class="control-label col-lg-3">Requisitos previos</form:label>
 		                    <div class="col-lg-7">
-		                    	<form:input path="email" tabindex="2" type="email" id="email" placeholder="email@email..." class="form-control"/>
+		                    	<form:input path="requisitos" tabindex="3" type="text" id="requisitos" placeholder="Requisitos previos" class="form-control"/>
 		                    </div>
 	                    </div><!-- /.form-group -->
-
-                      <hr>
+					
+					
+					  
+					  
+						<label class="control-label col-lg-3 col-sm-3">Imagen del tipo de actividad</label>
+                        <div class="col-lg-2 col-sm-2">
+                        	
+                          <input type="file" name="file">
+                        </div>
+					
+                        <!--  
+						      </div>
+						</div>
+						<div class="col-lg-5"></div>
+						</div>
+                      </div>
+						-->
+						
+                                            <hr>
                       <div class="form-actions no-margin-bottom">
-                          <form:button type="submit" value="Guardar" class="btn btn-primary">Guardar</form:button>
+                        <input type="submit" value="Guardar" class="btn btn-primary">
                       </div>
                     </form:form>
                   </div>
@@ -156,7 +188,7 @@
           </div>
           <div class="modal-body">
             
-            <%@ include file="components/ayuda.jsp" %>
+            <%@ include file="../components/ayuda.jsp" %>
             
           </div>
           <div class="modal-footer">
@@ -190,7 +222,7 @@
     <!-- Metis demo scripts -->
     <script src="${pageContext.request.contextPath}/resources/admin/js/app.js"></script>
 
-    <script>
+   <script>
     $(document).ready(function(){
     	
         Metis.formWysiwyg();
@@ -199,5 +231,6 @@
     });
     
     </script>
+    
 
   </body>

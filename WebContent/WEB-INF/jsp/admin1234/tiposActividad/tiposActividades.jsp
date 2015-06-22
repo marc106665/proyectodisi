@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=latin1"
-    pageEncoding="UTF-8" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!doctype html>
 <html class="no-js">
   <head>
@@ -28,8 +28,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/fullcalendar.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/style-switcher.css"> 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/dataTables.bootstrap.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/bootstrap3-wysihtml5.min.css">
-
     <link rel="stylesheet/less" type="text/css" href="${pageContext.request.contextPath}/resources/admin/less/theme.less">
 
 
@@ -61,101 +59,81 @@
     <div class="bg-dark dk" id="wrap">
       <div id="top">
 
-        <%@ include file="components/menuAdmin.jsp" %>
+      <%@ include file="../components/menuAdmin.jsp" %>
 
 		<div class="main-bar">
             <h3>
-              <i class="fa fa-dashboard"></i>&nbsp; Nuevo tipo de actividad</h3>
+              <i class="fa fa-dashboard"></i>&nbsp; Tipo de actividades</h3>
           </div><!-- /.main-bar -->
         </header><!-- /.head -->
       </div><!-- /#top -->
-
-
       <div id="content">
-        
-
-      	<div class="outer">
+        <div class="outer">
           <div class="inner bg-light lter">
-
-            <!--BEGIN INPUT TEXT FIELDS-->
+  
             <div class="row">
               <div class="col-lg-12">
-                <div class="box dark">
+                <div class="box">
                   <header>
-                    <div class="icons">
-                      <i class="fa fa-edit"></i>
-                    </div>
-                    <h5></h5>
-
-                    <!-- .toolbar -->
-                    <div class="toolbar">
-                      
-                    </div><!-- /.toolbar -->
+                    <h5>Tipo de actividades</h5>
                   </header>
-                  <div id="div-1" class="body">
-                  
-                  
-                    <form:form enctype="multipart/form-data" modelAttribute="Monitor" class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/admin1234/nuevoMonitor.html">
-
-
-						            
-
-                      
-	                    <div class="form-group">
-	                        <form:label for="nombre" class="control-label col-lg-3" path="nombre">Nombre</form:label>
-	                        <div class="col-lg-7">
-		                        <form:input tabindex="1" type="text" id="nombre" placeholder="Usuario..." class="form-control" path="nombre" required="required"/>
-	                        </div>
-	                    </div>
-	                    
-	                   <div class="form-group">
-	                        <form:label for="usuario" class="control-label col-lg-3" path="usuario">Usuario</form:label>
-	                        <div class="col-lg-7">
-		                        <form:input tabindex="2" type="text" id="usuario" placeholder="Usuario..." class="form-control" path="usuario" required="required"/>
-	                        </div>
-	                    </div>
-
-	                    
-
-					
-					
-					<div class="form-group">
-	                    	<form:label path="email" for="email" class="control-label col-lg-3">Correo</form:label>
-		                    <div class="col-lg-7">
-		                    	<form:input path="email" tabindex="3" type="email" id="email" placeholder="Requisitos previos" class="form-control"/>
-		                    </div>
-	                    </div><!-- /.form-group -->
-					
-					
-					    <div class="form-group">
-		                    <label for="supervisar" class="control-label col-lg-3">Actividades a supervisar</label>
-		                    <div class="col-lg-9">
-		                    <c:forEach items="${listaActividades}" var="actividad">
-		                    	<div class="checkbox">
-	                            	<label>
-	                              			<input name="${actividad.tipo}" tabindex="5" class="uniform" type="checkbox" value="${actividad.tipo}"> ${actividad.tipo}
-	                            	</label>
-	                          	</div>
-	                        </c:forEach>
-	                          	
-		                    </div>
-	                    </div>
-					  
-					
-					
-                                            <hr>
-                      <div class="form-actions no-margin-bottom">
-                        <input type="submit" value="Guardar" class="btn btn-primary">
-                      </div>
-                    </form:form>
-                  </div>
+                  <div class="body" id="trigo" style="height: 250px;"></div>
                 </div>
               </div>
             </div>
-            </div>
-            </div>
+            <hr>
 
 
+
+            <!--Begin Datatables-->
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="box">
+                  <header>
+                    <div class="icons">
+                      <i class="fa fa-table"></i>
+                    </div>
+                    <h5>Tipo de actividades</h5>
+                    <!-- .toolbar -->
+                    <div class="toolbar">
+                      <nav style="padding: 8px;">
+                        <a href="nuevoTipoActividad.html" class="btn btn-success btn-xs">
+                          <i class="fa fa-plus"></i>
+                        </a> 
+                      </nav>
+                    </div><!-- /.toolbar -->
+                  </header>
+                  <div id="collapse4" class="body">
+                    <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
+                      <thead>
+                        <tr>
+                            <th>Tipo actividad</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    
+                    <c:forEach items="${listaTipoActividades}" var="listaTipoActividades">
+                        <tr id="${listaTipoActividades.tipo}">
+                            <td>${listaTipoActividades.tipo}</td>
+                            
+                            
+                            <td>
+                            <a href="editaTipoActividad/${listaTipoActividades.tipo}.html" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
+                            <a onclick="confirmarBorrado('borrarTipoActividad/${listaTipoActividades.tipo}.html' , '${listaTipoActividades.tipo}')" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
+                            </td>
+                        </tr>
+					</c:forEach>                   
+                        
+                       </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div><!-- /.row -->
+            
+          </div><!-- /.inner -->
+        </div><!-- /.outer -->
       </div><!-- /#content -->
 
       <!-- Menu lateral derecho (descomentar boton en el menu)
@@ -171,7 +149,7 @@
       <p>2015 &copy; Project GAGA team</p>
     </footer><!-- /#footer -->
 
-    <!-- #helpModal -->
+<!-- #helpModal -->
     <div id="helpModal" class="modal fade">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -181,7 +159,7 @@
           </div>
           <div class="modal-body">
             
-            <%@ include file="components/ayuda.jsp" %>
+            <%@ include file="../components/ayuda.jsp" %>
             
           </div>
           <div class="modal-footer">
@@ -190,13 +168,22 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal --><!-- /#helpModal -->
-    
-    
+
     <!--jQuery -->
     <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/admin/js/moment.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/admin/js/jquery-ui.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/admin/js/fullcalendar.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.tablesorter.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.sparkline.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.flot.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.flot.selection.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.flot.resize.min.js"></script>
 
+    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.dataTables.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/admin/js/dataTables.bootstrap.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.tablesorter.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.ui.touch-punch.min.js"></script>
 
     <!--Bootstrap -->
     <script src="${pageContext.request.contextPath}/resources/admin/js/bootstrap.min.js"></script>
@@ -206,24 +193,51 @@
 
     <!-- Screenfull -->
     <script src="${pageContext.request.contextPath}/resources/admin/js/screenfull.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/screenfull.js/2.0.0/screenfull.min.js"></script>
-
 
     <!-- Metis core scripts -->
     <script src="${pageContext.request.contextPath}/resources/admin/js/core.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/admin/js/bootstrap3-wysihtml5.all.min.js"></script>
+
     <!-- Metis demo scripts -->
     <script src="${pageContext.request.contextPath}/resources/admin/js/app.js"></script>
+    <script>
 
-   <script>
-    $(document).ready(function(){
-    	
-        Metis.formWysiwyg();
 
-    	
-    });
-    
+
+        $(document).ready(function(){
+
+    	  var contexto = "${pageContext.request.contextPath}";
+		
+		
+          Metis.dashboard();
+          //Metis.MetisChart();
+          Metis.MetisTable();
+          Metis.metisSortable();
+          
+          console.log("arrancado");
+          
+          
+        });
+	
+        function confirmarBorrado(urlBorrado, id) {
+            var txt;
+            var r = confirm("¿Borrar?");
+            if (r == true) {
+                //txt = "url:"+urlBorrado+", id:"+id;
+                
+                	//console.log("ejecutando...");
+                    $.ajax({
+                    	url: urlBorrado, 
+                    	success: function(result){
+                      //  	console.log("Borrado con exito");
+                        	$("#"+id).hide(500);
+                    }});
+                
+            } else {
+            	//ev.p
+                //txt = "You pressed Cancel!";
+            }
+            //console.log(txt);
+        }
     </script>
-    
 
   </body>

@@ -64,7 +64,7 @@ public class ReservaController {
         this.monitorDao=monitorDao;
     }
 	
-	@RequestMapping("/listadoReservas") 
+	@RequestMapping("/listadoReservas.html") 
     public String listadoReservas(HttpSession session, Model model) {
 		if (session.getAttribute("user") == null) 
 		{ 
@@ -79,6 +79,29 @@ public class ReservaController {
 				auxmapActividades.put(actividad.getIdActividad(),actividad.getNombre());
 			}
 		}
+		model.addAttribute("fechaactual", new Date());
+		model.addAttribute("listadoDeReservas", reservaDao.getReservas());
+		model.addAttribute("mapActividades", auxmapActividades);
+        return "admin1234/reservas/listadoReservas";
+    }
+	
+	
+	@RequestMapping("/listadoReservas/{id}.html") 
+    public String listadoReservasID(HttpSession session, Model model, @PathVariable String id) {
+		if (session.getAttribute("user") == null) 
+		{ 
+		   model.addAttribute("user", new UserDetails()); 
+		   return "redirect:/admin1234/login.html";
+		}
+		HashMap<Integer, String> auxmapActividades = new HashMap<Integer, String>();
+		List<Actividad> listaActividades = actividadDao.getActividades();
+		if (listaActividades != null){
+			for(Actividad actividad : listaActividades) {
+			
+				auxmapActividades.put(actividad.getIdActividad(),actividad.getNombre());
+			}
+		}
+		model.addAttribute("ultimoid", id);
 		model.addAttribute("fechaactual", new Date());
 		model.addAttribute("listadoDeReservas", reservaDao.getReservas());
 		model.addAttribute("mapActividades", auxmapActividades);
@@ -105,7 +128,7 @@ public class ReservaController {
         verificacion = mail.sendEmail();
         if (!verificacion)  
         	System.out.println(" error send mail  ");
-    	return "redirect:../listadoReservas.html"; 
+    	return "redirect:../listadoReservas/"+idreserva+".html"; 
     }
 	
 	@RequestMapping(value="/actualizaReserva/{accion}/{idreserva}", method = RequestMethod.GET) 
@@ -205,7 +228,7 @@ public class ReservaController {
     	 
     	
          //
-         return "redirect:../../listadoReservas.html"; 
+         return "redirect:../../listadoReservas/"+reserva.getIdReserva()+".html"; 
    }
     
     @RequestMapping(value = "/ajaxMonitor", method = RequestMethod.POST)

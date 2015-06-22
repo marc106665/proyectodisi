@@ -119,7 +119,7 @@ public class UserController {
        if(aux != null)
     	   model.addAttribute("listaActividades", aux);
        
-       return "admin1234/actividades";
+       return "admin1234/actividades/actividades";
        
    }
 
@@ -154,7 +154,7 @@ public class UserController {
 	}
        
        
-       return "admin1234/monitores";
+       return "admin1234/monitores/monitores";
        
    }
 
@@ -175,7 +175,7 @@ public class UserController {
        if(aux != null)
     	   model.addAttribute("listaTipoActividades", aux);
        
-       return "admin1234/tiposActividades";
+       return "admin1234/tiposActividad/tiposActividades";
        
    }
    

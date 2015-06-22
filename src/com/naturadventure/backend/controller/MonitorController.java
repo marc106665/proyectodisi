@@ -68,11 +68,11 @@ public class MonitorController {
 			   List<TipoActividad> actividades = tipoActividadDao.getTiposActividad();
 			   model.addAttribute("listaActividades", actividades);
 			   model.addAttribute("Monitor", monitor);
-			return "admin1234/nuevoMonitor";
+			return "admin1234/monitores/nuevoMonitor";
 		}
 		
 		@RequestMapping(value = "/nuevoMonitor.html", method=RequestMethod.POST) 
-		   public String processAddSubmit(Model model, @ModelAttribute("Monitor") Monitor monitor, HttpSession session, HttpServletRequest request){
+		public String processAddSubmit(Model model, @ModelAttribute("Monitor") Monitor monitor, HttpSession session, HttpServletRequest request){
 			System.out.println("ent5ro");
 			if (session.getAttribute("user") == null) 
 		       { 
@@ -124,7 +124,7 @@ public class MonitorController {
 		   
 		   //System.out.println(monitor.toString());
 		   model.addAttribute("monitor", monitor);
-		   return "admin1234/editaMonitor";
+		   return "admin1234/monitores/editaMonitor";
 	   }	
 	
 	//Procesa el guardar de editar monitor

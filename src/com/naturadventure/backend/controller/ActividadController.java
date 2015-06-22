@@ -71,7 +71,7 @@ public class ActividadController {
 	   	   
 	   model.addAttribute("actividad", actividad);
 	   
-       return "admin1234/nuevaActividad";
+       return "admin1234/actividades/nuevaActividad";
        
    }
    
@@ -298,10 +298,10 @@ public class ActividadController {
 	 	   model.addAttribute("nuevo", actividad.getNuevo() > 0 ? ""+actividad.getNuevo() : "" );
 	 	   model.addAttribute("rebajado", actividad.getOferta().length() > 0 ? ""+actividad.getOferta() : null );
 	 	   
-	 	   return "admin1234/editaActividad";
+	 	   return "admin1234/actividades/editaActividad";
 	   }
 	   
-       return "redirect:/admin1234/actividades.html";
+       return "redirect:/admin1234/actividades/actividades.html";
    }
     
 

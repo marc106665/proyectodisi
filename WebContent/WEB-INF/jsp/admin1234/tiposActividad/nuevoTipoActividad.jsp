@@ -61,7 +61,7 @@
     <div class="bg-dark dk" id="wrap">
       <div id="top">
 
-        <%@ include file="components/menuAdmin.jsp" %>
+        <%@ include file="../components/menuAdmin.jsp" %>
 
 		<div class="main-bar">
             <h3>
@@ -95,54 +95,61 @@
                   <div id="div-1" class="body">
                   
                   
-                    <form:form enctype="multipart/form-data" modelAttribute="Monitor" class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/admin1234/nuevoMonitor.html">
+                    <form:form enctype="multipart/form-data" modelAttribute="tipoActividad" class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/admin1234/addTipoActividad.html">
 
 
 						            
 
                       
 	                    <div class="form-group">
-	                        <form:label for="nombre" class="control-label col-lg-3" path="nombre">Nombre</form:label>
+	                        <form:label for="tipo" class="control-label col-lg-3" path="tipo">Tipo de actividad</form:label>
 	                        <div class="col-lg-7">
-		                        <form:input tabindex="1" type="text" id="nombre" placeholder="Usuario..." class="form-control" path="nombre" required="required"/>
+		                        <form:input tabindex="1" type="text" id="tipo" placeholder="Tipo de actividad" class="form-control" path="tipo" required="required"/>
 	                        </div>
 	                    </div>
 	                    
-	                   <div class="form-group">
-	                        <form:label for="usuario" class="control-label col-lg-3" path="usuario">Usuario</form:label>
-	                        <div class="col-lg-7">
-		                        <form:input tabindex="2" type="text" id="usuario" placeholder="Usuario..." class="form-control" path="usuario" required="required"/>
-	                        </div>
-	                    </div>
+	                   
 
 	                    
+
+					  <div class="form-group">
+		                  <label for="descripcion" class="control-label col-lg-3">Descripción</label>
+		                  <div id="descripcion" class="col-lg-7">
+		                  		
+		                	  <form:textarea path="descripcion" tabindex="2" id="wysihtml5" class="form-control" rows="10"/>
+		                      
+		                      
+		                    
+		                  </div>
+		                  <div class="col-lg-2"></div>
+		              </div>
 
 					
 					
 					<div class="form-group">
-	                    	<form:label path="email" for="email" class="control-label col-lg-3">Correo</form:label>
+	                    	<form:label path="requisitos" for="requisitos" class="control-label col-lg-3">Requisitos previos</form:label>
 		                    <div class="col-lg-7">
-		                    	<form:input path="email" tabindex="3" type="email" id="email" placeholder="Requisitos previos" class="form-control"/>
+		                    	<form:input path="requisitos" tabindex="3" type="text" id="requisitos" placeholder="Requisitos previos" class="form-control"/>
 		                    </div>
 	                    </div><!-- /.form-group -->
 					
 					
-					    <div class="form-group">
-		                    <label for="supervisar" class="control-label col-lg-3">Actividades a supervisar</label>
-		                    <div class="col-lg-9">
-		                    <c:forEach items="${listaActividades}" var="actividad">
-		                    	<div class="checkbox">
-	                            	<label>
-	                              			<input name="${actividad.tipo}" tabindex="5" class="uniform" type="checkbox" value="${actividad.tipo}"> ${actividad.tipo}
-	                            	</label>
-	                          	</div>
-	                        </c:forEach>
-	                          	
-		                    </div>
-	                    </div>
 					  
+					  
+						<label class="control-label col-lg-3 col-sm-3">Imagen del tipo de actividad</label>
+                        <div class="col-lg-2 col-sm-2">
+                        	
+                          <input type="file" name="file">
+                        </div>
 					
-					
+                        <!--  
+						      </div>
+						</div>
+						<div class="col-lg-5"></div>
+						</div>
+                      </div>
+						-->
+						
                                             <hr>
                       <div class="form-actions no-margin-bottom">
                         <input type="submit" value="Guardar" class="btn btn-primary">
@@ -181,7 +188,7 @@
           </div>
           <div class="modal-body">
             
-            <%@ include file="components/ayuda.jsp" %>
+            <%@ include file="../components/ayuda.jsp" %>
             
           </div>
           <div class="modal-footer">

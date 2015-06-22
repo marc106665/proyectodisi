@@ -62,7 +62,7 @@
     <div class="bg-dark dk" id="wrap">
       <div id="top">
 
-        <%@ include file="components/menuAdmin.jsp" %>
+        <%@ include file="../components/menuAdmin.jsp" %>
 
 		<div class="main-bar">
             <h3>
@@ -330,7 +330,7 @@
           </div>
           <div class="modal-body">
             
-            <%@ include file="components/ayuda.jsp" %>
+            <%@ include file="../components/ayuda.jsp" %>
             
           </div>
           <div class="modal-footer">

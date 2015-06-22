@@ -59,11 +59,11 @@
     <div class="bg-dark dk" id="wrap">
       <div id="top">
 
-      <%@ include file="components/menuAdmin.jsp" %>
+      <%@ include file="../components/menuAdmin.jsp" %>
 
 		<div class="main-bar">
             <h3>
-              <i class="fa fa-dashboard"></i>&nbsp; Monitores</h3>
+              <i class="fa fa-dashboard"></i>&nbsp; Tipo de actividades</h3>
           </div><!-- /.main-bar -->
         </header><!-- /.head -->
       </div><!-- /#top -->
@@ -75,7 +75,7 @@
               <div class="col-lg-12">
                 <div class="box">
                   <header>
-                    <h5>Monitores</h5>
+                    <h5>Tipo de actividades</h5>
                   </header>
                   <div class="body" id="trigo" style="height: 250px;"></div>
                 </div>
@@ -93,53 +93,40 @@
                     <div class="icons">
                       <i class="fa fa-table"></i>
                     </div>
-                    <h5>Lista de monitores</h5>
+                    <h5>Tipo de actividades</h5>
                     <!-- .toolbar -->
                     <div class="toolbar">
                       <nav style="padding: 8px;">
-                        <a href="nuevoMonitor.html" class="btn btn-success btn-xs">
+                        <a href="nuevoTipoActividad.html" class="btn btn-success btn-xs">
                           <i class="fa fa-plus"></i>
                         </a> 
                       </nav>
                     </div><!-- /.toolbar -->
                   </header>
                   <div id="collapse4" class="body">
-<table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
-                                      <thead>
-                                          <tr>
-                                              
-                                              <th>Nombre</th>
-                                              <th>Email</th>
-                                              <th>Actividades que supervisa</th>
-				<td><!-- Botones --></td>
-                                 </tr>
-                             </thead>
-                             <tbody>
-                                 <c:forEach items="${monitores}" var="monitor">
-                                 	<tr id="${monitor.usuario}">
-                                 		<td>${monitor.nombre}</td>
-                                 		<td>${monitor.email}</td>
-                                 		<td>
-                                 		<c:set var="lista" value="${supervisar[monitor.usuario]} "></c:set>
-                                 		<c:forEach items="${lista}" var="ltipo">
-                                 			<c:forEach items="${ltipo}" var="tipo">
-                                 			${tipo} /
-                                 			</c:forEach>
-                                 		</c:forEach>
-                                 		</td>
-                                 		<td>
-                	                 		<a href="editaMonitor/${monitor.usuario}.html" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
-				                            <%-- <a class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>--%>
-                                     		<!-- onclick="confirmarBorrado('href=/editaMonitor/${monitor.usuario}.html', '${listaActividades.idActividad}')" -->
-                                     		<a onclick="confirmarBorrado('borrarMonitor/${monitor.usuario}.html' , '${monitor.usuario}')" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>                                     	</td>
-                                     		
-                                     	</td>
-                                 	</tr>
-                                 </c:forEach>
-                                 
-                             </tbody>
-                         </table>
-
+                    <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
+                      <thead>
+                        <tr>
+                            <th>Tipo actividad</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    
+                    <c:forEach items="${listaTipoActividades}" var="listaTipoActividades">
+                        <tr id="${listaTipoActividades.tipo}">
+                            <td>${listaTipoActividades.tipo}</td>
+                            
+                            
+                            <td>
+                            <a href="editaTipoActividad/${listaTipoActividades.tipo}.html" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
+                            <a onclick="confirmarBorrado('borrarTipoActividad/${listaTipoActividades.tipo}.html' , '${listaTipoActividades.tipo}')" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
+                            </td>
+                        </tr>
+					</c:forEach>                   
+                        
+                       </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
@@ -162,7 +149,7 @@
       <p>2015 &copy; Project GAGA team</p>
     </footer><!-- /#footer -->
 
-    <!-- #helpModal -->
+<!-- #helpModal -->
     <div id="helpModal" class="modal fade">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -172,7 +159,7 @@
           </div>
           <div class="modal-body">
             
-            <%@ include file="components/ayuda.jsp" %>
+            <%@ include file="../components/ayuda.jsp" %>
             
           </div>
           <div class="modal-footer">
@@ -227,20 +214,23 @@
           Metis.metisSortable();
           
           console.log("arrancado");
+          
+          
         });
-		
+	
         function confirmarBorrado(urlBorrado, id) {
             var txt;
             var r = confirm("¿Borrar?");
             if (r == true) {
                 //txt = "url:"+urlBorrado+", id:"+id;
                 
-            	//console.log("ejecutando...");
-                $.ajax({
-                	url: urlBorrado, 
-                	success: function(result){
-                    	$("#"+id).hide(500);
-                }});
+                	//console.log("ejecutando...");
+                    $.ajax({
+                    	url: urlBorrado, 
+                    	success: function(result){
+                      //  	console.log("Borrado con exito");
+                        	$("#"+id).hide(500);
+                    }});
                 
             } else {
             	//ev.p
@@ -249,5 +239,5 @@
             //console.log(txt);
         }
     </script>
-	
+
   </body>

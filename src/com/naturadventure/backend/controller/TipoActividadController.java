@@ -32,6 +32,7 @@ import com.naturadventure.domain.UserDetails;
 public class TipoActividadController {
    private UserDAO userDao;
    private TipoActividadDAO tipoActividadDao;
+   
 	
    @Autowired
    public void setTipoActividadDAO(TipoActividadDAO tipoActividadDAO) { 
@@ -116,7 +117,7 @@ public class TipoActividadController {
 		  // }
 	   }
 	   
-	   return "redirect:../admin1234/tiposActividades.html"; 
+	   return "redirect:../admin1234/tiposActividades/"+tipoActividad.getTipo()+".html"; 
    }
  
    @RequestMapping(value="/borrarTipoActividad/{tipo}.html")
@@ -250,12 +251,30 @@ public class TipoActividadController {
 		tipoActividadDao.updateTipoActividad(tipoActividad);
        
        
-		return "redirect:/admin1234/tiposActividades.html"; 
+		return "redirect:/admin1234/tiposActividades/"+tipoActividad.getTipo()+".html"; 
 	   	
    }
    
    
-   
+   @RequestMapping("/tiposActividades/{id}.html") 
+   public String tipoActividades(HttpSession session, Model model,@PathVariable String id,HttpServletRequest request) {
+       if (session.getAttribute("user") == null) 
+       { 
+          model.addAttribute("user", new UserDetails()); 
+          return "admin1234/login";
+       } 
+       
+       List<TipoActividad> aux = null;
+       //System.out.println(actividadDao.getActividades());
+       aux = tipoActividadDao.getTiposActividad();
+       
+       if(aux != null)
+    	   model.addAttribute("listaTipoActividades", aux);
+       
+       model.addAttribute("ultimoid", id);
+       return "admin1234/tiposActividad/tiposActividades";
+       
+   }
    
    
    

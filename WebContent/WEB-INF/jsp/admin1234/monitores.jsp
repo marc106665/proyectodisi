@@ -116,7 +116,7 @@
                              </thead>
                              <tbody>
                                  <c:forEach items="${monitores}" var="monitor">
-                                 	<tr>
+                                 	<tr id="${monitor.usuario}">
                                  		<td>${monitor.nombre}</td>
                                  		<td>${monitor.email}</td>
                                  		<td>
@@ -235,13 +235,12 @@
             if (r == true) {
                 //txt = "url:"+urlBorrado+", id:"+id;
                 
-                	//console.log("ejecutando...");
-                    $.ajax({
-                    	url: urlBorrado, 
-                    	success: function(result){
-                      //  	console.log("Borrado con exito");
-                        	$("#"+id).hide(500);
-                    }});
+            	//console.log("ejecutando...");
+                $.ajax({
+                	url: urlBorrado, 
+                	success: function(result){
+                    	$("#"+id).hide(500);
+                }});
                 
             } else {
             	//ev.p

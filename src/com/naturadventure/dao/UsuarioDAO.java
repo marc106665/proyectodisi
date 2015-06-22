@@ -66,7 +66,7 @@ public class UsuarioDAO implements UserDAO{
 	
 	public void updateUsuario(UserDetails usuario) {
 		this.jdbcTemplate.update(
-				"update Usuario set contrasenya = ?, rol = ? where usuario = ?",  usuario.getContrasenya(), usuario.getRol() );
+				"update Usuario set contrasenya = ? where usuario = ?",  usuario.getContrasenya(), usuario.getUsuario() );
 	}
 	
 	public void deleteUsuario(String usuario) {
@@ -93,15 +93,21 @@ public class UsuarioDAO implements UserDAO{
 			  return null; // Usuari no trobat
 		  // Contrasenya
 		 BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor(); 
-		 //if (passwordEncryptor.checkPassword(password, user.getContrasenya())) {
-		 // Es deuria esborrar de manera segura el camp password abans de tornar-lo
-		//	 return user; 
-	     //   } 
 		 
-		 if(password.equals(user.getContrasenya())){
-			 return user; 
-	        } 
+
+		 
+		 if(user.getUsuario().equals("admin")){
+			 if(password.equals(user.getContrasenya())){
+				 return user; 
+		        }
+			 else return null;
+		 }
+		  
 		 else {
+			 
+			if (passwordEncryptor.checkPassword(password, user.getContrasenya())) {
+				 return user; 
+		    } 
 			 return null; // bad login!
 		 }
 	}
@@ -110,20 +116,9 @@ public class UsuarioDAO implements UserDAO{
 
 	@Override
 	public Collection<UserDetails> listAllUsers() {
-		// return knownUsers.values();
 		return getUsuarios();
 	}
 	
 	
-	/*
-	public List<String> getNivelesUnicos(){
-		List<NivelActividad> listaNiveles = this.jdbcTemplate.query("select DISTINCT ON (nivel) idactividad , nivel, precioporpersona from NivelActividad", new NivelesMapper());
-		List<String> lvl = new LinkedList<String>();
-		for(NivelActividad n : listaNiveles ){
-			lvl.add(n.getNivel());
-		}
-		return lvl;
-		}
 	
-	*/
 }

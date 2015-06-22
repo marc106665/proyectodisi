@@ -22,9 +22,9 @@
               </div>
               
               <div class="btn-group">
-                <!-- <a data-toggle="modal" data-original-title="Help" data-placement="bottom" class="btn btn-default btn-sm" href="#helpModal">
-                  <i class="fa fa-question"></i>
-                </a>  -->
+                <a data-toggle="modal" data-original-title="Mi cuenta" data-placement="bottom" class="btn btn-default btn-sm" href="miCuenta/${user.usuario}.html">
+                  <i class="fa fa-cog"></i>
+                </a> 
                 <a href="logout.html" data-toggle="tooltip" data-original-title="Logout" data-placement="bottom" class="btn btn-metis-1 btn-sm">
                   <i class="fa fa-power-off"></i>
                 </a> 

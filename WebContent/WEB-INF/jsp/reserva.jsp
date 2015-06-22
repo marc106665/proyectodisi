@@ -170,7 +170,7 @@
 
 								        </label>
 								        <div class="controls">
-								        	<input type="date" class="date-picker form-control"  placeholder="dd/mm/aaaa" id="fechadePega" required/>
+								        	<input type="date" class="date-picker form-control"  placeholder="dd/mm/aaaa" id="fechadePega" min="<fmt:formatDate pattern="yyyy-MM-dd" value="${limitefeca}" />" required/>
 								        	
 								        	<form:input path="fechaActividad" type="hidden" id="fechaActividad"/>
 								          
@@ -379,6 +379,8 @@
 				$('#fechaActividad').val(fechaFormato);	        	
 								        	
         	});
+        
+        	
         });
 
     	</script>

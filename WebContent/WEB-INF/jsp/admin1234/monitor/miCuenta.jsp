@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=latin1"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
+
 
 <!doctype html>
 <html class="no-js">
@@ -59,81 +65,87 @@
     <div class="bg-dark dk" id="wrap">
       <div id="top">
 
-      <%@ include file="../components/menuAdmin.jsp" %>
+      <%@ include file="../components/menuMonitor.jsp" %>
 
 		<div class="main-bar">
             <h3>
-              <i class="fa fa-dashboard"></i>&nbsp; Tipo de actividades</h3>
+              <i class="fa fa-dashboard"></i>&nbsp; Mi cuenta</h3>
           </div><!-- /.main-bar -->
-        </header><!-- /.head -->
       </div><!-- /#top -->
+
+
       <div id="content">
-        <div class="outer">
+        
+
+      	<div class="outer">
           <div class="inner bg-light lter">
-  
+
+            <!--BEGIN INPUT TEXT FIELDS-->
             <div class="row">
               <div class="col-lg-12">
-                <div class="box">
-                  <header>
-                    <h5>Tipo de actividades</h5>
-                  </header>
-                  <div class="body" id="trigo" style="height: 250px;"></div>
-                </div>
-              </div>
-            </div>
-            <hr>
-
-
-
-            <!--Begin Datatables-->
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="box">
+                <div class="box dark">
                   <header>
                     <div class="icons">
-                      <i class="fa fa-table"></i>
+                      <i class="fa fa-edit"></i>
                     </div>
-                    <h5>Tipo de actividades</h5>
+                    <h5>${usuario}</h5>
+
                     <!-- .toolbar -->
                     <div class="toolbar">
-                      <nav style="padding: 8px;">
-                        <a href="${pageContext.request.contextPath}/admin1234/nuevoTipoActividad.html" class="btn btn-success btn-xs">
-                          <i class="fa fa-plus"></i>
-                        </a> 
-                      </nav>
+                      
                     </div><!-- /.toolbar -->
                   </header>
-                  <div id="collapse4" class="body">
-                    <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
-                      <thead>
-                        <tr>
-                            <th>Tipo actividad</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    
-                    <c:forEach items="${listaTipoActividades}" var="listaTipoActividades">
-                        <tr class="<c:if test="${ not empty ultimoid && ultimoid==listaTipoActividades.tipo }">success</c:if>" id="${listaTipoActividades.tipo}">
-                            <td>${listaTipoActividades.tipo}</td>
-                            
-                            
-                            <td>
-                            <a href="${pageContext.request.contextPath}/admin1234/editaTipoActividad/${listaTipoActividades.tipo}.html" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
-                            <a onclick="confirmarBorrado('${pageContext.request.contextPath}/admin1234/borrarTipoActividad/${listaTipoActividades.tipo}.html' , '${listaTipoActividades.tipo}')" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
-                            </td>
-                        </tr>
-					</c:forEach>                   
+                  <div id="div-1" class="body">
+                  
+                  
+                    <form:form enctype="multipart/form-data" modelAttribute="cuenta" id="miform" class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/admin1234/miCuenta.html">
+
+
+					         
+					  <div class="form-group">
+					  <form:input style="display:none" path="rol"/>
+	                        
+	                  </div>
+	                    
+	                    
+	                   <div class="form-group">
+					  <form:input style="display:none" path="usuario"/>
+	                        
+	                  </div>
+	                    
+
+	                
+		              
+		              
+					
+					<div class="form-group">
+	                    	<form:label path="contrasenya" for="contrasenya" class="control-label col-lg-3">Introduzca la nueva contraseña</form:label>
+		                    <div class="col-lg-7">
+		                    	<form:input path="contrasenya" tabindex="1" type="password" id="contrasenya" placeholder="Nueva contraseña" class="form-control"/>
+		                    </div>
+	                    </div><!-- /.form-group -->
+
+					  
+					 
+	                        
+
                         
-                       </tbody>
-                    </table>
+
+                      <hr>
+                      <div class="form-actions no-margin-bottom">
+                          <a id="guardar" class="btn btn-info" >&nbsp;Guardar</a>                                     	
+                      
+                          <%-- <form:button type="submit" value="Guardar" class="btn btn-primary">Guardar</form:button> --%>
+                      </div>
+                    </form:form>
                   </div>
                 </div>
               </div>
-            </div><!-- /.row -->
-            
-          </div><!-- /.inner -->
-        </div><!-- /.outer -->
+            </div>
+            </div>
+            </div>
+
+
       </div><!-- /#content -->
 
       <!-- Menu lateral derecho (descomentar boton en el menu)
@@ -149,26 +161,9 @@
       <p>2015 &copy; Project GAGA team</p>
     </footer><!-- /#footer -->
 
-<!-- #helpModal -->
-    <div id="helpModal" class="modal fade">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">FAQ - Ayuda</h4>
-          </div>
-          <div class="modal-body">
-            
-            <%@ include file="../components/ayuda.jsp" %>
-            
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal --><!-- /#helpModal -->
-
+    
+    
+    
     <!--jQuery -->
     <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/admin/js/moment.min.js"></script>
@@ -208,36 +203,25 @@
     	  var contexto = "${pageContext.request.contextPath}";
 		
 		
-          Metis.dashboard();
-          //Metis.MetisChart();
-          Metis.MetisTable();
-          Metis.metisSortable();
-          
+       
           console.log("arrancado");
           
           
+         $("#guardar").click(function() {
+        	 
+        	var conf = confirm("¿Está seguro del cambio?");
+        	if (conf == true) { $("#miform").submit();}
+         });
+          
+          
+          
         });
-	
-        function confirmarBorrado(urlBorrado, id) {
-            var txt;
-            var r = confirm("¿Borrar?");
-            if (r == true) {
-                //txt = "url:"+urlBorrado+", id:"+id;
-                
-                	//console.log("ejecutando...");
-                    $.ajax({
-                    	url: urlBorrado, 
-                    	success: function(result){
-                      //  	console.log("Borrado con exito");
-                        	$("#"+id).hide(500);
-                    }});
-                
-            } else {
-            	//ev.p
-                //txt = "You pressed Cancel!";
-            }
-            //console.log(txt);
-        }
+
+        
+        
+        
+        
+        
     </script>
 
   </body>

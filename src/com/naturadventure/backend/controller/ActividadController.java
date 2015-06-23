@@ -199,7 +199,7 @@ public class ActividadController {
 		}
 		
        
-		return "redirect:/admin1234/actividades.html"; 
+		return "redirect:/admin1234/actividades/"+id+".html"; 
    }
  
    
@@ -464,7 +464,7 @@ public class ActividadController {
 			actividadDao.addNivelActividad(elem);
 		}
        
-		return "redirect:/admin1234/actividades.html"; 
+		return "redirect:/admin1234/actividades/"+id+".html"; 
 	   	
    }
    
@@ -482,6 +482,27 @@ public class ActividadController {
 	    }
 	    return null;
 	}
+   
+   @RequestMapping("/actividades/{id}.html") 
+   public String actividades(HttpSession session, @PathVariable String id,Model model) {
+       if (session.getAttribute("user") == null) 
+       { 
+          model.addAttribute("user", new UserDetails()); 
+          return "admin1234/login";
+       } 
+
+       List<Actividad> aux = null;
+       //System.out.println(actividadDao.getActividades());
+       aux = actividadDao.getActividades();
+       
+       if(aux != null)
+    	   model.addAttribute("listaActividades", aux);
+       
+       
+       model.addAttribute("ultimoid", id);
+       return "admin1234/actividades/actividades";
+       
+   }
    
    
 }

@@ -97,7 +97,7 @@
                     <!-- .toolbar -->
                     <div class="toolbar">
                       <nav style="padding: 8px;">
-                        <a href="nuevaActividad.html" class="btn btn-success btn-xs">
+                        <a href="${pageContext.request.contextPath}/admin1234/nuevaActividad.html" class="btn btn-success btn-xs">
                           <i class="fa fa-plus"></i>
                         </a> 
                       </nav>
@@ -117,7 +117,7 @@
                     <tbody>
                     
                     <c:forEach items="${listaActividades}" var="listaActividades">
-                        <tr id="${listaActividades.idActividad}">
+                        <tr id="${listaActividades.idActividad}" class="<c:if test="${ not empty ultimoid && ultimoid==listaActividades.idActividad }">success</c:if>">
                             <td>${listaActividades.nombre}</td>
                             <td>${listaActividades.minParticipantes}/${listaActividades.maxParticipantes}</td>
                             
@@ -134,8 +134,8 @@
 						       <td><li class="fa fa-check"></li></td>
 						    </c:if>
                             <td>
-                            <a href="editaActividad/${listaActividades.idActividad}.html" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
-                            <a onclick="confirmarBorrado('borrarActividad/${listaActividades.idActividad}.html', '${listaActividades.idActividad}')" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
+                            <a href="${pageContext.request.contextPath}/admin1234/editaActividad/${listaActividades.idActividad}.html" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
+                            <a onclick="confirmarBorrado('${pageContext.request.contextPath}/admin1234/borrarActividad/${listaActividades.idActividad}.html', '${listaActividades.idActividad}')" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
                             </td>
                         </tr>
                     </c:forEach>

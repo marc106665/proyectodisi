@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.concurrent.TimeUnit;
 
 import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletRequest;
@@ -140,6 +141,9 @@ public class IndexController {
 		    Actividad actividad = actividadDao.getActividad(id);
 		 	NivelActividad objNivel =  actividadDao.getPrecioNivel(id,nivel);
 		 	List<HorasInicio> listaHoras = actividadDao.getHorasActividad(id);
+		 	Date someDate = new Date(); // Or whatever
+		    Date twoDayAfter = new Date(someDate.getTime() + TimeUnit.DAYS.toMillis( 1 ));
+		    model.addAttribute("limitefeca",twoDayAfter);
 			model.addAttribute("actividad", actividad );
 		 	model.addAttribute("nivel", objNivel );
 		    model.addAttribute("listahoras", listaHoras );
@@ -151,7 +155,8 @@ public class IndexController {
 
 	 @RequestMapping(value="/pedido", method=RequestMethod.POST)
 	 	public String pedido(Model model, @ModelAttribute("reserva") Reserva reserva, BindingResult bindingResult) {
-		 if (bindingResult.hasErrors()) 
+		 Date actual = new Date();
+		 if (bindingResult.hasErrors()|| actual.after(reserva.getFechaActividad())) 
 			 return "redirect:actividad/reserva/"+reserva.getIdActividad()+"/"+reserva.getNivel()+".html";
 		 //System.out.println(" errores  " +bindingResult.toString() );
 		 		

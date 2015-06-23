@@ -97,8 +97,7 @@ public class MonitorController {
 			BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor(); 
 			UserDetails usuario= new UserDetails();
 			usuario.setUsuario(monitor.getUsuario());
-			usuario.setContrasenya(monitor.getUsuario());
-			//usuario.setContrasenya(passwordEncryptor.encryptPassword(monitor.getUsuario()));
+			usuario.setContrasenya(passwordEncryptor.encryptPassword(monitor.getUsuario()));
 			usuario.setRol("MONITOR");
 			usuarioDao.addUsuario(usuario);
 			

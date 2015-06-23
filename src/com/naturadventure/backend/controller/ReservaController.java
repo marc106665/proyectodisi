@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.Errors;
 
 import com.naturadventure.dao.ActividadDAO;
 import com.naturadventure.dao.MonitorDAO;
@@ -62,7 +64,7 @@ public class ReservaController {
         this.monitorDao=monitorDao;
     }
 	
-	@RequestMapping("/listadoReservas") 
+	@RequestMapping("/listadoReservas.html") 
     public String listadoReservas(HttpSession session, Model model) {
 		if (session.getAttribute("user") == null) 
 		{ 
@@ -77,6 +79,29 @@ public class ReservaController {
 				auxmapActividades.put(actividad.getIdActividad(),actividad.getNombre());
 			}
 		}
+		model.addAttribute("fechaactual", new Date());
+		model.addAttribute("listadoDeReservas", reservaDao.getReservas());
+		model.addAttribute("mapActividades", auxmapActividades);
+        return "admin1234/reservas/listadoReservas";
+    }
+	
+	
+	@RequestMapping("/listadoReservas/{id}.html") 
+    public String listadoReservasID(HttpSession session, Model model, @PathVariable String id) {
+		if (session.getAttribute("user") == null) 
+		{ 
+		   model.addAttribute("user", new UserDetails()); 
+		   return "redirect:/admin1234/login.html";
+		}
+		HashMap<Integer, String> auxmapActividades = new HashMap<Integer, String>();
+		List<Actividad> listaActividades = actividadDao.getActividades();
+		if (listaActividades != null){
+			for(Actividad actividad : listaActividades) {
+			
+				auxmapActividades.put(actividad.getIdActividad(),actividad.getNombre());
+			}
+		}
+		model.addAttribute("ultimoid", id);
 		model.addAttribute("fechaactual", new Date());
 		model.addAttribute("listadoDeReservas", reservaDao.getReservas());
 		model.addAttribute("mapActividades", auxmapActividades);
@@ -103,7 +128,7 @@ public class ReservaController {
         verificacion = mail.sendEmail();
         if (!verificacion)  
         	System.out.println(" error send mail  ");
-    	return "redirect:../listadoReservas.html"; 
+    	return "redirect:../listadoReservas/"+idreserva+".html"; 
     }
 	
 	@RequestMapping(value="/actualizaReserva/{accion}/{idreserva}", method = RequestMethod.GET) 
@@ -139,7 +164,14 @@ public class ReservaController {
 			String monitorNombre = monitor.getNombre();
 			model.addAttribute("nombreMonitorAsignado", monitorNombre);
 		}
-	 	model.addAttribute("precioPersona", objNivel.getPrecioPorPersona());
+		Boolean error = false;
+		if (req.getParameter("errorFecha")!= null){ error = Boolean.valueOf(req.getParameter("errorFecha")); }
+		
+		Date someDate = new Date(); // Or whatever
+	    Date twoDayAfter = new Date(someDate.getTime() + TimeUnit.DAYS.toMillis( 1 ));
+	    model.addAttribute("limetefecha", twoDayAfter);
+	    model.addAttribute("errorFecha", error);
+		model.addAttribute("precioPersona", objNivel.getPrecioPorPersona());
         model.addAttribute("precioSinIva", precioSinIva);
         model.addAttribute("precioIva", varPrecioIva);
         model.addAttribute("Iva", 0.21);
@@ -158,7 +190,7 @@ public class ReservaController {
     } 
 
     @RequestMapping(value="/actualizaReserva/{accion}/{idreserva}", method = RequestMethod.POST) 
-    public String actualizaReservaSubmit(@PathVariable int idreserva, @PathVariable String accion,@ModelAttribute("reserva") Reserva reserva, BindingResult bindingResult) {
+    public String actualizaReservaSubmit(@PathVariable int idreserva, Model model ,@PathVariable String accion,@ModelAttribute("reserva") Reserva reserva, BindingResult bindingResult) {
     	
     	if ( accion!=null && !accion.equals("ver")){
     	
@@ -173,15 +205,22 @@ public class ReservaController {
     	        mail.setSubject("Ha sido aceptada su resverva en Naturaventure para el día "+dateFormat.format(reserva.getFechaActividad()));
     	        String body ="Estimado cliente "+ reserva.getNombreCliente() +"<br/> Le comunicamos que su reserva para el dia "+dateFormat.format(reserva.getFechaActividad())+ " de la actividad "+actividad.getNombre()+ " ha sido aceptada."; 
     	        mail.setBodyText(body);
-    	        boolean verificacion= true; 
+    	        boolean verificacion = true; 
     	        verificacion = mail.sendEmail();
     	        if (!verificacion)  
     	        	System.out.println(" error send mail  ");
     			
     		}
-    		else if(reserva.getMonitor()==null && reserva.getFechaActividad().after(new Date())){ reserva.setEstado("PENDIENTE"); reserva.setMonitor(null);} 
+    		else if(reserva.getMonitor()==null && reserva.getFechaActividad().after(new Date())){ 
+    			reserva.setEstado("PENDIENTE"); 
+    			reserva.setMonitor(null);
+    		} 
 
-    	
+    		 Date actual = new Date();
+    		 if (bindingResult.hasErrors()|| actual.after(reserva.getFechaActividad())){ 
+    			  model.addAttribute("errorFecha", true);
+    			  return "redirect:/admin1234/reservas/actualizaReserva/"+accion+"/"+reserva.getIdReserva()+".html";
+    		 }
     		reservaDao.updateReserva(reserva);
     	}
     	//if (bindingResult.hasErrors()) 
@@ -189,7 +228,7 @@ public class ReservaController {
     	 
     	
          //
-         return "redirect:../../listadoReservas.html"; 
+         return "redirect:../../listadoReservas/"+reserva.getIdReserva()+".html"; 
    }
     
     @RequestMapping(value = "/ajaxMonitor", method = RequestMethod.POST)

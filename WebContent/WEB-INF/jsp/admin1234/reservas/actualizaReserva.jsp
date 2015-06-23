@@ -271,7 +271,7 @@
 		                    	
 		                    </div>
 	                    </div>
-						<div class="form-group">
+						<div class="form-group<c:if test="${ not empty errorFecha && errorFecha }"> has-error has-feedback</c:if>">  
 	                        <form:label for="fechaActividad" class="control-label col-lg-3" path="fechaActividad">Fecha de la Actividad</form:label>  
 	                        <div class="col-lg-7">
 	                        	  <c:set var="fActividad" value="${reserva.fechaActividad}" />
@@ -291,10 +291,11 @@
 	                           	<c:when test="${browser == 'Chrome'}"><fmt:formatDate pattern="yyyy-MM-dd" value="${fActividad}" var="date"/> </c:when>
 						  		<c:otherwise><fmt:formatDate pattern="dd/MM/yyyy" value="${fActividad}" var="date" /></c:otherwise>
 						  		</c:choose>	
-						  		<input tabindex="11" type="date" id="fechadePega" class="form-control" placeholder="dd/mm/aaaa" name="fechadePega"  value="${date}" />
+						  		
+						  		<input tabindex="11" type="date" id="fechadePega" class="form-control" placeholder="dd/mm/aaaa" name="fechadePega"  min="<fmt:formatDate pattern="yyyy-MM-dd" value="${limetefecha}" />" value="${date}" />
 						  </c:otherwise>
 						  </c:choose>  
-					             
+					            <p class="help-block <c:if test="${ not empty errorFecha && errorFecha }"> has-error has-feedback</c:if>">La fecha de la actividad no puede ser anterior a mañana</p> 
 		                 		<input name="fechaActividad" type="hidden" id="fechaActividad" value="<fmt:formatDate pattern="dd/MM/yyyy" value="${fActividad}" />"/>
 	                        </div>
 	                    </div>
@@ -381,7 +382,7 @@
                       <div class="form-actions no-margin-bottom">
                                    	<c:choose>
 	                           <c:when test="${accion == 'ver'}">
-                        	       <form:button type="submit" value="Aceptar" id="guardar" class="btn btn-primary" >Aceptar</form:button>
+                        	       <a tabindex="15" class="btn btn-primary" href="${pageContext.request.contextPath}/admin1234/reservas/listadoReservas.html">&nbsp;&nbsp;Aceptar&nbsp;&nbsp;</a>
 						  </c:when>
 						  <c:otherwise>
 						  		        <form:button type="submit" value="Modificar" class="btn btn-primary">Modificar</form:button>

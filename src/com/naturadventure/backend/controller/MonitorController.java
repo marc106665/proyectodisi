@@ -1,7 +1,9 @@
 package com.naturadventure.backend.controller;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,7 +64,7 @@ public class MonitorController {
 			if (session.getAttribute("user") == null) 
 		       { 
 				   model.addAttribute("user", new UserDetails()); 
-				   return "redirect:../../admin1234/login.html";
+				   return "redirect:../admin1234/login.html";
 		       }
 			   Monitor monitor = new Monitor();
 			   List<TipoActividad> actividades = tipoActividadDao.getTiposActividad();
@@ -101,7 +103,7 @@ public class MonitorController {
 			usuario.setRol("MONITOR");
 			usuarioDao.addUsuario(usuario);
 			
-			return "redirect:monitores.html";
+			return "redirect:monitores/"+monitor.getUsuario()+".html";
 		}
 	
 	 
@@ -139,7 +141,7 @@ public class MonitorController {
 			monitorDao.updateMonitor(monitor);
 		
 		
-			return "redirect:/admin1234/monitores.html"; 
+			return "redirect:/admin1234/monitores/"+monitor.getUsuario()+".html"; 
 	}
 	
 	//Eliminacion
@@ -156,5 +158,39 @@ public class MonitorController {
 		    
 		    
 		    return "redirect:/admin1234/monitores.html";
+	   }
+	
+	 @RequestMapping("/monitores/{id}.html") 
+	   public String monitores(HttpSession session, Model model, @PathVariable String id, HttpServletRequest request) {
+	       if (session.getAttribute("user") == null) 
+	       { 
+	          model.addAttribute("user", new UserDetails()); 
+	          return "redirect:../admin1234/login";
+	       } 
+
+	       List<Monitor> listaMonitores = new LinkedList<Monitor>(monitorDao.getMonitores());
+	       HashMap<String, List<String>> mo = new HashMap<String, List<String>>();
+	       
+	       //System.out.println(actividadDao.getActividades());
+
+	       
+	       Iterator<Monitor> it = listaMonitores.iterator();
+	       while (it.hasNext()) {
+			Monitor monitor = (Monitor) it.next();
+			//Lista de tipos:
+			mo.put(monitor.getUsuario(), supervisarDao.getTiposActividadesSupervisadasPorMonitor(monitor.getUsuario()));
+			
+		}
+	       
+	       if(listaMonitores != null)
+	    	   model.addAttribute("monitores", listaMonitores);
+	       
+	       if (mo !=null) {
+	    	   model.addAttribute("supervisar", mo);
+		}
+	       
+	       model.addAttribute("ultimoid", id);
+	       return "admin1234/monitores/monitores";
+	       
 	   }
 }

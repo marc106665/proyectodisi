@@ -45,7 +45,7 @@ public class TipoActividadController {
 	   if (session.getAttribute("user") == null) 
        { 
 		   model.addAttribute("user", new UserDetails()); 
-           return "admin1234/login";
+           return "redirect:../admin1234/login.html";
        } 
 
        
@@ -65,7 +65,7 @@ public class TipoActividadController {
 	   if (session.getAttribute("user") == null) 
 	   { 
 	      model.addAttribute("user", new UserDetails()); 
-	      return "redirect:admin1234/login.html";
+	      return "redirect:../../admin1234/login.html";
 	   }
 	   //if (bindingResult.hasErrors()) 
 		 //  return "redirect:admin1234/inicio.html";
@@ -125,7 +125,7 @@ public class TipoActividadController {
 	   if (session.getAttribute("user") == null) 
 	   { 
 	      model.addAttribute("user", new UserDetails()); 
-	      return "redirect:admin1234/login.html";
+	      return "redirect:../../admin1234/login.html";
 	   }
 	    TipoActividad tipoActividad = tipoActividadDao.getTipoActividad(tipo);
 	 	
@@ -145,7 +145,7 @@ public class TipoActividadController {
 	   if (session.getAttribute("user") == null) 
 	   { 
 	      model.addAttribute("user", new UserDetails()); 
-	      return "redirect:admin1234/login.html";
+	      return "redirect:../../admin1234/login.html";
 	   }
 	   
 	   TipoActividad tipoActividad = tipoActividadDao.getTipoActividad(tipo);
@@ -184,7 +184,7 @@ public class TipoActividadController {
 	   	if (session.getAttribute("user") == null) 
 	   	{ 
 	   		model.addAttribute("user", new UserDetails()); 
-	   		return "redirect:admin1234/login.html";
+	   		return "redirect:../admin1234/login.html";
 	   	}
 	   	
 	   	/*
@@ -261,7 +261,7 @@ public class TipoActividadController {
        if (session.getAttribute("user") == null) 
        { 
           model.addAttribute("user", new UserDetails()); 
-          return "admin1234/login";
+          return "redirect:../../admin1234/login.html";
        } 
        
        List<TipoActividad> aux = null;

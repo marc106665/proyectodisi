@@ -62,7 +62,7 @@ public class MonitorController {
 			if (session.getAttribute("user") == null) 
 		       { 
 				   model.addAttribute("user", new UserDetails()); 
-		           return "admin1234/login";
+				   return "redirect:../../admin1234/login.html";
 		       }
 			   Monitor monitor = new Monitor();
 			   List<TipoActividad> actividades = tipoActividadDao.getTiposActividad();
@@ -112,7 +112,7 @@ public class MonitorController {
 		if (session.getAttribute("user") == null) 
 		   { 
 		      model.addAttribute("user", new UserDetails()); 
-		      return "redirect:admin1234/login.html";
+		      return "redirect:../../admin1234/login.html";
 		   }
 			
 		if(usuario == null){

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ibm.icu.text.SimpleDateFormat;
 import com.naturadventure.dao.ActividadDAO;
 import com.naturadventure.dao.MonitorDAO;
 import com.naturadventure.dao.ReservaDAO;
@@ -84,7 +85,6 @@ public class UserController {
           return "admin1234/login";
        } 
        List<Reserva> listaReservasPendientes = reservaDao.getReservasPendientes();
-       List<Actividad> listaActividades;
        
 //       Iterator<Reserva> it = listaReservasPendientes.iterator();
 //       while (it.hasNext()) {
@@ -96,10 +96,45 @@ public class UserController {
        //System.out.println(listaReservasPendientes);
        if(listaReservasPendientes != null){
     	   model.addAttribute("reservas", listaReservasPendientes);
-    	   
-    	   
        }
        
+       //System.out.println(reservaDao.getReservas().toString());
+       
+       
+       List<Reserva> listaR = reservaDao.getReservasAPartirDeHoy();
+
+       
+       Integer[] vector = new Integer[365];
+       for (int i = 0; i < vector.length; i++) {
+    	   vector[i]=0;
+       }
+       
+       Iterator<Reserva> it = listaR.iterator();
+       while (it.hasNext()) {
+    	   Reserva reserva = (Reserva) it.next();
+    	   java.util.Date fecha = reserva.getFechaActividad();
+    	   SimpleDateFormat ss = new SimpleDateFormat("DD");
+    	   String dia = ss.format(fecha);
+    	   vector[Integer.valueOf(dia)-1]++;
+       }
+       
+       String cadena = "[";
+       for (int i = 0; i < vector.length; i++) {
+    	   if(i != 0)
+    		   cadena += ",";
+    	   cadena+="["+(i+1)+", "+vector[i]+"]";
+       }
+       cadena += "]";
+       //System.out.println(cadena);
+       
+       List<Monitor> listaNumeroMonitores = monitorDao.getMonitores();
+       
+       String cadenaMonitores = "[[0, "+listaNumeroMonitores.size()+"], [365, "+listaNumeroMonitores.size()+"]]";
+       
+       //System.out.println(cadena);
+       
+       model.addAttribute("listaReservas", cadena);
+       model.addAttribute("listaMonitores", cadenaMonitores);
        
        return "admin1234/inicio";
    }

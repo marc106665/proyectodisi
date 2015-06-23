@@ -230,7 +230,7 @@ public Reserva(){
 
 	@Override
 	public String toString() {
-		return "Reserva [idReserva=" + idReserva + ", nombreCliente="
+		return "[idReserva=" + idReserva + ", nombreCliente="
 				+ nombreCliente + ", telefonoCliente=" + telefonoCliente
 				+ ", emailCliente=" + emailCliente + ", horaInicio="
 				+ horaInicio + ", estado=" + estado + ", numParticipantes="

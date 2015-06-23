@@ -78,6 +78,10 @@ public class ReservaDAO {
 		return this.jdbcTemplate.queryForObject("select idReserva, nombreCliente, telefonoCliente, emailCliente, horaInicio, estado, numParticipantes, fechaReserva,  fechaActividad, nivel, idActividad, monitor from reserva where idReserva = ? ",  new Object[] {idReserva}, new ReservaMapper());
 	}
 	
+	public List<Reserva> getReservasAPartirDeHoy() {
+		return this.jdbcTemplate.query("select idReserva, nombreCliente, telefonoCliente, emailCliente, horaInicio, estado, numParticipantes, fechaReserva,  fechaActividad, nivel, idActividad, monitor from reserva where fechaactividad >= CURRENT_DATE ORDER BY fechaactividad", new ReservaMapper());
+	}
+	
 	//Si estado es igual a pendiente
 	public List<Reserva> getReservasPendientes() {
 		return this.jdbcTemplate.query("select idReserva, nombreCliente, telefonoCliente, emailCliente, horaInicio, estado, numParticipantes, fechaReserva,  fechaActividad, nivel, idActividad, monitor from reserva where estado = 'PENDIENTE' ", new ReservaMapper());

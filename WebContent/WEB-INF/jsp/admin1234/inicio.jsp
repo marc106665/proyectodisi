@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/fullcalendar.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/css/style-switcher.css">
     <link rel="stylesheet/less" type="text/css" href="${pageContext.request.contextPath}/resources/admin/less/theme.less">
-
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -78,7 +78,7 @@
                   <header>
                     <h5>Reservas</h5>
                   </header>
-                  <div class="body" id="trigo" style="height: 250px;"></div>
+                  <div class="body" id="bar" style="height: 250px;"></div>
                 </div>
               </div>
               <div class="col-lg-12">
@@ -164,6 +164,10 @@
     <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.flot.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.flot.selection.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.flot.resize.min.js"></script>
+    
+    <!--jQuery -->
+    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.flot.categories.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/admin/js/jquery.flot.pie.min.js"></script>
 
     <!--Bootstrap -->
     <script src="${pageContext.request.contextPath}/resources/admin/js/bootstrap.min.js"></script>
@@ -184,13 +188,49 @@
       (function($) {
         $(document).ready(function(){
 
-          Metis.dashboard();
-          //Metis.MetisChart();
-          
-          [ 
-            { label: "Bar", data: [ [11, 13], [19, 11], [30, -7] ] }
-          ]
-          console.log("arrancado");
+            //Metis.dashboard();
+            
+        	/* var data = [ ["Enero", 1], ["Febrero", 10], ["Marzo", 8], ["Abril", 4], ["Mayo", 13], ["Junio", 17], ["Julio", 9],
+	                     ["Agosto", 9], ["Septiembre", 9], ["Octubre", 9], ["Noviembre", 9], ["Diciembre", 9]]; */
+        	
+        	
+	        var data = ${listaReservas};    
+	        
+	        var data2 = ${listaMonitores};
+	        console.log(data[1]);
+	                     
+        	//var data2 = [];
+    		//for (var i = 0; i < 14; i += 0.1) {
+    		//	data2.push([i, Math.sqrt(i * 10)]);
+    		//}
+    		//var data = [ [1,2], [2,2], [3,2], [4,2], [5,2], [6,2], [7,2]];
+    		
+        	
+			$.plot("#bar", [ 
+                 {
+                	 label: "Reservas realizadas",                	 
+                	 data: data,
+                	 bars: { 	
+                		 show: true, 
+                		 fill: true,
+                		 lineWidth: 1	                 
+           	             //fillColor: '#AAAAAA'
+                	 },      
+                 } ,
+                 {
+                	 label: "Monitores contratados",
+					 data: data2,
+					 lines: { 
+						 show: true },
+					 points: { show: false }
+				 }
+			]);
+
+			//Metis.MetisChart();
+			// Add the Flot version string to the footer
+
+		
+          	console.log("arrancado");
         });
       })(jQuery);
     </script>

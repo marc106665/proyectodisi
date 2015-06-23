@@ -116,7 +116,7 @@
                              </thead>
                              <tbody>
                                  <c:forEach items="${monitores}" var="monitor">
-                                 	<tr id="${monitor.usuario}">
+                                 	<tr id="${monitor.usuario}" class="<c:if test="${ not empty ultimoid && ultimoid==monitor.usuario }">success</c:if>" id="${monitor.usuario}">
                                  		<td>${monitor.nombre}</td>
                                  		<td>${monitor.email}</td>
                                  		<td>
@@ -128,10 +128,10 @@
                                  		</c:forEach>
                                  		</td>
                                  		<td>
-                	                 		<a href="editaMonitor/${monitor.usuario}.html" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
+                	                 		<a href="${pageContext.request.contextPath}/admin1234/editaMonitor/${monitor.usuario}.html" class="btn btn-info" ><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
 				                            <%-- <a class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>--%>
                                      		<!-- onclick="confirmarBorrado('href=/editaMonitor/${monitor.usuario}.html', '${listaActividades.idActividad}')" -->
-                                     		<a onclick="confirmarBorrado('borrarMonitor/${monitor.usuario}.html' , '${monitor.usuario}')" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>                                     	</td>
+                                     		<a onclick="confirmarBorrado('${pageContext.request.contextPath}/admin1234/borrarMonitor/${monitor.usuario}.html' , '${monitor.usuario}')" class="btn btn-danger" ><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>                                     	</td>
                                      		
                                      	</td>
                                  	</tr>
